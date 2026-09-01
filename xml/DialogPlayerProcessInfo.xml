@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<depth>DepthOSD</depth>
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
+	<animation effect="fade" start="100" end="0" time="140">WindowClose</animation>
+	<controls>
+		<control type="button" id="9000">
+			<left>0</left>
+			<top>0</top>
+			<width>100%</width>
+			<height>100%</height>
+			<texturefocus />
+			<texturenofocus />
+			<label></label>
+			<onclick>Action(close)</onclick>
+		</control>
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<centertop>50%</centertop>
+			<width>1880</width>
+			<height>610</height>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1880</width>
+				<height>610</height>
+				<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+			</control>
+			<control type="label">
+				<left>28</left>
+				<top>9</top>
+				<width>1200</width>
+				<height>42</height>
+				<aligny>center</aligny>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31621]</label>
+			</control>
+			<control type="image">
+				<right>28</right>
+				<top>14</top>
+				<width>30</width>
+				<height>30</height>
+				<aspectratio>keep</aspectratio>
+				<texture colordiffuse="text_primary">osd/nara/process-info/chart.png</texture>
+			</control>
+			<control type="image">
+				<left>28</left>
+				<right>28</right>
+				<top>58</top>
+				<height>1</height>
+				<texture colordiffuse="border_default">colors/white.png</texture>
+			</control>
+
+			<control type="grouplist">
+				<left>28</left>
+				<top>72</top>
+				<width>600</width>
+				<height>470</height>
+				<orientation>vertical</orientation>
+				<itemgap>0</itemgap>
+				<control type="grouplist">
+					<width>600</width>
+					<height>240</height>
+					<orientation>vertical</orientation>
+					<itemgap>0</itemgap>
+				<include content="NaraProcessInfoSection">
+					<param name="width" value="600" />
+					<param name="icon" value="osd/nara/process-info/camcorder.png" />
+					<param name="label" value="$LOCALIZE[31622]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31626]" />
+					<param name="value" value="$INFO[System.ScreenResolution]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31627]" />
+					<param name="value" value="$INFO[Player.Process(videowidth)]x$INFO[Player.Process(videoheight)]$INFO[Player.Process(videoscantype)] $INFO[Player.Process(videofps),, FPS]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31628]" />
+					<param name="value" value="$INFO[Player.Process(pixformat)]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31629]" />
+					<param name="value" value="$INFO[Player.Process(videobitdepth),, bit]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(videobitdepth))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31630]" />
+					<param name="value" value="$INFO[Player.Process(videodar),,:1]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31631]" />
+					<param name="value" value="$INFO[Player.Process(videodecoder)]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31632]" />
+					<param name="value" value="$VAR[NaraProcessDecodeMethodVar]" />
+				</include>
+				</control>
+				<control type="group">
+					<width>600</width>
+					<height>20</height>
+				</control>
+				<include content="NaraProcessInfoSection">
+					<param name="width" value="600" />
+					<param name="icon" value="osd/nara/process-info/arrow-progress.png" />
+					<param name="label" value="$LOCALIZE[31623]" />
+				</include>
+				<include content="NaraProcessStatusRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31666]" />
+					<param name="info" value="Player.Process(hdrconversion)" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31667]" />
+					<param name="value" value="$INFO[Player.Process(hdroutputmode)]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31636]" />
+					<param name="value" value="$INFO[Player.Process(videolivebitrate)]$INFO[VideoPlayer.VideoBitrate, / , kb/s]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31637]" />
+					<param name="value" value="$INFO[Player.Process(videoprimaries)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(videoprimaries))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31638]" />
+					<param name="value" value="$INFO[Player.Process(hdrsource)]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31639]" />
+					<param name="value" value="$INFO[Player.Time] / $INFO[Player.Duration] ($INFO[Player.Progress,,%])" />
+				</include>
+			</control>
+
+			<control type="grouplist">
+				<left>648</left>
+				<top>72</top>
+				<width>600</width>
+				<height>470</height>
+				<orientation>vertical</orientation>
+				<itemgap>0</itemgap>
+				<control type="grouplist">
+					<width>600</width>
+					<height>240</height>
+					<orientation>vertical</orientation>
+					<itemgap>0</itemgap>
+				<include content="NaraProcessInfoSection">
+					<param name="width" value="600" />
+					<param name="icon" value="osd/nara/process-info/volume.png" />
+					<param name="label" value="$LOCALIZE[31624]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31604]" />
+					<param name="value" value="$VAR[AudioCodecVar]$VAR[AudioChannelsVar, ]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31640]" />
+					<param name="value" value="$INFO[Player.Process(audiobitspersample),, bit]$INFO[Player.Process(audiosamplerate), / , Hz]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31641]" />
+					<param name="value" value="$VAR[NaraProcessAudioInputVar]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31642]" />
+					<param name="value" value="$VAR[NaraProcessAudioOutputVar]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31636]" />
+					<param name="value" value="$INFO[Player.Process(audiolivebitrate)]$INFO[VideoPlayer.AudioBitrate, / , kb/s]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31643]" />
+					<param name="value" value="$INFO[VideoPlayer.AudioLanguage]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31644]" />
+					<param name="value" value="$VAR[NaraProcessSubtitleLanguageVar]" />
+				</include>
+				</control>
+				<control type="group">
+					<width>600</width>
+					<height>20</height>
+				</control>
+				<include content="NaraProcessInfoSection">
+					<param name="width" value="600" />
+					<param name="icon" value="osd/nara/process-info/memory.png" />
+					<param name="label" value="$LOCALIZE[31611]" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31647]" />
+					<param name="value" value="$INFO[System.CpuUsage]" />
+				</include>
+				<include content="NaraProcessMeterRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31649]" />
+					<param name="value" value="$INFO[System.Memory(used.percent)]" />
+					<param name="info" value="System.Memory(used)" />
+				</include>
+				<include content="NaraProcessMeterRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31664]" />
+					<param name="value" value="$INFO[Player.CacheLevel,,%]" />
+					<param name="info" value="Player.CacheLevel" />
+				</include>
+				<include content="NaraProcessDualMeterRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31650]" />
+					<param name="value" value="$INFO[Player.Process(videoqueuelevel),,%] / $INFO[Player.Process(videoqueuedatalevel),,%]" />
+					<param name="info1" value="Player.Process(videoqueuelevel)" />
+					<param name="info2" value="Player.Process(videoqueuedatalevel)" />
+				</include>
+				<include content="NaraProcessDualMeterRow">
+					<param name="width" value="600" />
+					<param name="label" value="$LOCALIZE[31651]" />
+					<param name="value" value="$INFO[Player.Process(audioqueuelevel),,%] / $INFO[Player.Process(audioqueuedatalevel),,%]" />
+					<param name="info1" value="Player.Process(audioqueuelevel)" />
+					<param name="info2" value="Player.Process(audioqueuedatalevel)" />
+				</include>
+			</control>
+
+			<control type="grouplist">
+				<left>1268</left>
+				<top>72</top>
+				<width>584</width>
+				<height>470</height>
+				<orientation>vertical</orientation>
+				<itemgap>0</itemgap>
+				<control type="grouplist">
+					<width>584</width>
+					<height>240</height>
+					<orientation>vertical</orientation>
+					<itemgap>0</itemgap>
+					<visible>!String.IsEmpty(Player.Process(doviprofile))</visible>
+				<include content="NaraProcessInfoSection">
+					<param name="width" value="584" />
+					<param name="icon" value="osd/nara/process-info/dv-logo.png" />
+					<param name="label" value="$LOCALIZE[31652]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviprofile))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31668]" />
+					<param name="value" value="$INFO[Player.Process(dovicmversion)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(dovicmversion))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31654]" />
+					<param name="value" value="$INFO[Player.Process(doviprofile)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviprofile))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31655]" />
+					<param name="value" value="$INFO[Player.Process(dovilevel)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviprofile))" />
+				</include>
+				<include content="NaraProcessStatusRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31656]" />
+					<param name="info" value="Player.Process(dovirpupresent)" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviprofile))" />
+				</include>
+				<include content="NaraProcessStatusRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31657]" />
+					<param name="info" value="Player.Process(doviblpresent)" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviprofile))" />
+				</include>
+				<include content="NaraProcessStatusRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31658]" />
+					<param name="info" value="Player.Process(dovielpresent)" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviprofile))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31669]" />
+					<param name="label_width" value="255" />
+					<param name="value" value="$INFO[Player.Process(dovieltype)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(dovieltype))" />
+				</include>
+				</control>
+				<control type="group">
+					<width>584</width>
+					<height>20</height>
+					<visible>!String.IsEmpty(Player.Process(doviprofile)) + [!String.IsEmpty(Player.Process(hdrmasteringdisplay)) | !String.IsEmpty(Player.Process(hdrcontentlight)) | !String.IsEmpty(Player.Process(dovirpumasteringdisplay)) | !String.IsEmpty(Player.Process(dovirpucontentlight)) | !String.IsEmpty(Player.Process(doviactivearea))]</visible>
+				</control>
+				<include content="NaraProcessInfoSection">
+					<param name="width" value="584" />
+					<param name="icon" value="osd/nara/process-info/layer-group.png" />
+					<param name="label" value="$LOCALIZE[31625]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(hdrmasteringdisplay)) | !String.IsEmpty(Player.Process(hdrcontentlight)) | !String.IsEmpty(Player.Process(dovirpumasteringdisplay)) | !String.IsEmpty(Player.Process(dovirpucontentlight)) | !String.IsEmpty(Player.Process(doviactivearea))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31670]" />
+					<param name="value" value="$INFO[Player.Process(hdrmasteringdisplay)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(hdrmasteringdisplay))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31671]" />
+					<param name="label_width" value="235" />
+					<param name="value" value="$INFO[Player.Process(hdrcontentlight)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(hdrcontentlight))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31672]" />
+					<param name="value" value="$INFO[Player.Process(dovirpumasteringdisplay)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(dovirpumasteringdisplay))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31673]" />
+					<param name="value" value="$INFO[Player.Process(dovirpucontentlight)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(dovirpucontentlight))" />
+				</include>
+				<include content="NaraProcessInfoRow">
+					<param name="width" value="584" />
+					<param name="label" value="$LOCALIZE[31674]" />
+					<param name="value" value="$INFO[Player.Process(doviactivearea)]" />
+					<param name="visible" value="!String.IsEmpty(Player.Process(doviactivearea))" />
+				</include>
+			</control>
+			<control type="image">
+				<left>28</left>
+				<right>28</right>
+				<bottom>52</bottom>
+				<height>1</height>
+				<texture colordiffuse="border_subtle">colors/white.png</texture>
+			</control>
+			<control type="label">
+				<left>28</left>
+				<right>28</right>
+				<bottom>10</bottom>
+				<height>30</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font_nara_process_info</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[Player.DecodedFilenameAndPath]</label>
+				<scroll>true</scroll>
+				<scrollspeed>30</scrollspeed>
+				<visible>!String.IsEmpty(Player.DecodedFilenameAndPath)</visible>
+			</control>
+		</control>
+	</controls>
+</window>

@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include name="View_50_List">
+		<control type="group">
+			<include>OpenClose_Right</include>
+			<visible>Control.IsVisible(50)</visible>
+			<include>Visible_Right</include>
+
+			<!-- DefaultBackground supplies the selected fanart. These frameless scrims
+			     preserve the image while giving the precision list a stable contrast field. -->
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<texture colordiffuse="33000000">colors/black.png</texture>
+			</control>
+			<control type="image">
+				<width>1320</width>
+				<height>1080</height>
+				<aspectratio>stretch</aspectratio>
+				<texture colordiffuse="E6000000">overlays/detail-left-scrim.png</texture>
+			</control>
+			<control type="image">
+				<top>400</top>
+				<width>1920</width>
+				<height>680</height>
+				<aspectratio>stretch</aspectratio>
+				<texture colordiffuse="66FFFFFF">overlays/overlayfade.png</texture>
+			</control>
+
+			<!-- The list owns its item geometry so public View 50 can evolve without
+			     altering ListContainer, which is also the View 503 playlist contract. -->
+			<control type="fixedlist" id="50">
+				<left>56</left>
+				<top>154</top>
+				<width>870</width>
+				<height>840</height>
+				<movement>5</movement>
+				<focusposition>1</focusposition>
+				<scrolltime tween="cubic" easing="out">360</scrolltime>
+				<selectionsettledelay>280</selectionsettledelay>
+				<orientation>vertical</orientation>
+				<preloaditems>2</preloaditems>
+				<pagecontrol>50600</pagecontrol>
+				<onleft condition="$EXP[nara_tv_hierarchy_sidebar_locked]">50</onleft>
+				<onleft condition="!$EXP[nara_tv_hierarchy_sidebar_locked]">9000</onleft>
+				<onright>50600</onright>
+				<onup>50</onup>
+				<ondown>50</ondown>
+				<viewtype label="$LOCALIZE[535]">list</viewtype>
+				<visible>!Container.Content(seasons)</visible>
+				<focusedlayout height="84">
+					<control type="image">
+						<left>0</left>
+						<right>0</right>
+						<top>4</top>
+						<bottom>4</bottom>
+						<texture cornerradius="12" colordiffuse="focus_surface">colors/white.png</texture>
+						<visible>Control.HasFocus(50)</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<right>0</right>
+						<top>4</top>
+						<bottom>4</bottom>
+						<texture cornerradius="12" colordiffuse="selection_surface">colors/white.png</texture>
+						<visible>!Control.HasFocus(50)</visible>
+					</control>
+					<control type="image">
+						<left>22</left>
+						<top>17</top>
+						<width>50</width>
+						<height>50</height>
+						<texture cornerradius="25" colordiffuse="focus_foreground_muted">colors/white.png</texture>
+					</control>
+					<control type="image">
+						<left>22</left>
+						<top>17</top>
+						<width>50</width>
+						<height>50</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" cornerradius="25">$VAR[IconWallThumbVar]</texture>
+					</control>
+					<control type="label">
+						<left>96</left>
+						<right>228</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<font>font25</font>
+						<label>$VAR[ListLabelVar]</label>
+						<textcolor>$VAR[NaraList50FocusedTextColorVar]</textcolor>
+						<selectedcolor>$VAR[NaraList50FocusedTextColorVar]</selectedcolor>
+					</control>
+					<control type="label">
+						<left>642</left>
+						<width>132</width>
+						<top>0</top>
+						<bottom>0</bottom>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$VAR[NaraList50PrimaryMetaVar]</label>
+						<textcolor>$VAR[NaraList50FocusedMetaColorVar]</textcolor>
+						<selectedcolor>$VAR[NaraList50FocusedMetaColorVar]</selectedcolor>
+					</control>
+					<control type="label">
+						<left>790</left>
+						<right>22</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$VAR[NaraList50SecondaryMetaVar]</label>
+						<textcolor>$VAR[NaraList50FocusedMetaColorVar]</textcolor>
+						<selectedcolor>$VAR[NaraList50FocusedMetaColorVar]</selectedcolor>
+					</control>
+				</focusedlayout>
+				<itemlayout height="84">
+					<control type="image">
+						<left>22</left>
+						<top>17</top>
+						<width>50</width>
+						<height>50</height>
+						<texture cornerradius="25" colordiffuse="selection_surface">colors/white.png</texture>
+					</control>
+					<control type="image">
+						<left>22</left>
+						<top>17</top>
+						<width>50</width>
+						<height>50</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" cornerradius="25" colordiffuse="opacity_medium">$VAR[IconWallThumbVar]</texture>
+					</control>
+					<control type="label">
+						<left>96</left>
+						<right>228</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<aligny>center</aligny>
+						<font>font25</font>
+						<label>$VAR[ListLabelVar]</label>
+					</control>
+					<control type="label">
+						<left>642</left>
+						<width>132</width>
+						<top>0</top>
+						<bottom>0</bottom>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$VAR[NaraList50PrimaryMetaVar]</label>
+						<textcolor>text_muted</textcolor>
+					</control>
+					<control type="label">
+						<left>790</left>
+						<right>22</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$VAR[NaraList50SecondaryMetaVar]</label>
+						<textcolor>text_muted</textcolor>
+					</control>
+				</itemlayout>
+			</control>
+
+			<control type="scrollbar" id="50600">
+				<left>942</left>
+				<top>158</top>
+				<width>10</width>
+				<height>832</height>
+				<onleft>50</onleft>
+				<onright>50</onright>
+				<orientation>vertical</orientation>
+				<texturesliderbackground />
+				<animation effect="zoom" end="55,100" time="250" tween="sine" center="942,0" easing="inout" condition="!Control.HasFocus(50600)">Conditional</animation>
+			</control>
+
+			<!-- The right half is deliberately passive: fanart, copy and position only. -->
+			<control type="group">
+				<left>1018</left>
+				<centertop>50%</centertop>
+				<width>802</width>
+				<height>570</height>
+				<!-- Reuse the exact movie/TV detail Hero composition and MediaFlag
+				     controls; this view only adapts the settled container data source. -->
+				<include content="VideoInfoHeroContent">
+					<param name="synopsis_height" value="134" />
+					<param name="tv_synopsis_height" value="134" />
+					<param name="clearlogo_width" value="700" />
+					<param name="clearlogo_height" value="140" />
+					<param name="item_dbtype" value="Container(50).ListItemSettled.DBType" />
+					<param name="clearlogo_texture" value="$VAR[NaraList50ClearLogoVar]" />
+					<param name="clearlogo_visible" value="!String.IsEmpty(Container(50).ListItemSettled.Art(clearlogo)) | !String.IsEmpty(Container(50).ListItemSettled.Art(tvshow.clearlogo))" />
+					<param name="clearlogo_missing" value="String.IsEmpty(Container(50).ListItemSettled.Art(clearlogo)) + String.IsEmpty(Container(50).ListItemSettled.Art(tvshow.clearlogo))" />
+					<param name="hero_title" value="$VAR[NaraList50TitleVar]" />
+					<param name="episode_label" value="$VAR[NaraList50EpisodeLabelVar]" />
+					<param name="episode_visible" value="String.IsEqual(Container(50).ListItemSettled.DBType,episode) | String.IsEqual(Container(50).ListItemSettled.DBType,season)" />
+					<param name="metadata_label" value="$VAR[NaraList50MetadataVar]" />
+					<param name="rating_item_prefix" value="Container(50).ListItemSettled" />
+					<param name="technical_visible" value="true" />
+					<param name="technical_item_prefix" value="Container(50).ListItemSettled" />
+					<param name="tagline_visible" value="!String.IsEqual(Container(50).ListItemSettled.DBType,tvshow) + !String.IsEmpty(Container(50).ListItemSettled.Tagline)" />
+					<param name="tagline_missing" value="String.IsEqual(Container(50).ListItemSettled.DBType,tvshow) | String.IsEmpty(Container(50).ListItemSettled.Tagline)" />
+					<param name="tagline_label" value="[I]$INFO[Container(50).ListItemSettled.Tagline][/I]" />
+					<param name="synopsis_label" value="$VAR[NaraList50SynopsisVar]" />
+				</include>
+				<control type="label">
+					<top>526</top>
+					<width>780</width>
+					<height>34</height>
+					<font>font12</font>
+					<textcolor>text_muted</textcolor>
+					<label>$INFO[Container(50).CurrentItem]  /  $INFO[Container(50).NumItems]</label>
+				</control>
+			</control>
+		</control>
+	</include>
+	<include name="RightListPanel">
+		<control type="group">
+			<depth>DepthContentPanel</depth>
+			<control type="group">
+				<right>-32</right>
+				<include content="ContentPanel">
+					<param name="left" value="0" />
+					<param name="top" value="-20" />
+					<param name="width" value="656" />
+					<param name="flipx" value="true" />
+				</include>
+				<control type="group">
+					<visible>!Container.Content(songs)</visible>
+					<control type="image">
+						<depth>DepthContentPopout</depth>
+						<left>48</left>
+						<top>90</top>
+						<width>540</width>
+						<height>850</height>
+						<bottom>124</bottom>
+						<fadetime>200</fadetime>
+						<aspectratio aligny="bottom">keep</aspectratio>
+						<texture fallback="DefaultVideo.png" background="true">$VAR[InfoWallThumbVar]</texture>
+					</control>
+					<control type="group">
+						<left>291</left>
+						<top>920</top>
+						<include content="RatingCircle">
+							<param name="animation" value="True" />
+						</include>
+					</control>
+				</control>
+				<control type="group">
+					<visible>Control.IsVisible(503) + Window.IsActive(musicplaylist)</visible>
+					<control type="image">
+						<left>58</left>
+						<top>80</top>
+						<width>540</width>
+						<height>470</height>
+						<aspectratio aligny="bottom">keep</aspectratio>
+						<fadetime>300</fadetime>
+						<texture fallback="DefaultAudio.png" background="true">$INFO[Player.Icon]</texture>
+					</control>
+					<control type="group">
+						<left>301</left>
+						<top>530</top>
+						<control type="group">
+							<animation effect="fade" time="0" condition="$PARAM[animation]">VisibleChange</animation>
+							<include content="UserRatingContent" condition="Skin.HasSetting(circle_userrating)">
+								<param name="infolabel" value="MusicPlayer.UserRating" />
+							</include>
+							<include content="UserRatingContent" condition="Skin.HasSetting(circle_rating)">
+								<param name="infolabel" value="MusicPlayer.Rating" />
+							</include>
+						</control>
+					</control>
+					<control type="textbox" id="15599">
+						<visible>Player.HasAudio + Window.IsActive(musicplaylist)</visible>
+						<left>58</left>
+						<top>570</top>
+						<width>540</width>
+						<bottom>70</bottom>
+						<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+						<label>[COLOR text_primary]$LOCALIZE[31000]: [/COLOR]$INFO[musicplayer.Playlistposition,]$INFO[musicplayer.Playlistlength,/][CR]$VAR[NowPlayingInfoVar]</label>
+					</control>
+					<control type="textbox" id="15599">
+						<visible>!Player.HasAudio + Window.IsActive(musicplaylist)</visible>
+						<left>58</left>
+						<top>610</top>
+						<width>540</width>
+						<bottom>70</bottom>
+						<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+						<label>[COLOR text_primary]$LOCALIZE[31000]: [/COLOR]$LOCALIZE[36623]</label>
+					</control>
+				</control>
+			</control>
+		</control>
+	</include>
+	<include name="ListContainer">
+		<param name="left">0</param>
+		<param name="right">0</param>
+		<definition>
+			<control type="fixedlist" id="$PARAM[list_id]">
+				<left>$PARAM[left]</left>
+				<right>$PARAM[right]</right>
+				<top>topbar_content_top</top>
+				<bottom>list_bottom_offset</bottom>
+				<movement>6</movement>
+				<focusposition>5</focusposition>
+				<scrolltime tween="cubic" easing="out">500</scrolltime>
+				<orientation>vertical</orientation>
+				<pagecontrol>$PARAM[list_id]600</pagecontrol>
+				<onleft>9000</onleft>
+				<onright>$PARAM[list_id]600</onright>
+				<onup>$PARAM[list_id]</onup>
+				<ondown>$PARAM[list_id]</ondown>
+				<viewtype label="$PARAM[viewtype_label]">list</viewtype>
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(actors) | Container.Content(directors) | Window.IsActive(videoplaylist) | Window.IsActive(musicplaylist) | $EXP[videoasset_true]</visible>
+				<focusedlayout height="list_item_height">
+					<control type="image">
+						<left>0</left>
+						<right>0</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<texture colordiffuse="focus_surface">lists/focus.png</texture>
+						<visible>Control.HasFocus($PARAM[list_id])</visible>
+					</control>
+					<control type="label">
+						<left>70</left>
+						<right>70</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<font>font27</font>
+						<label>$VAR[ListLabelVar]</label>
+						<textcolor>$VAR[FocusLayoutTextColor50Var]</textcolor>
+						<selectedcolor>$VAR[FocusLayoutTextColor50Var]</selectedcolor>
+					</control>
+					<control type="label">
+						<top>0</top>
+						<bottom>0</bottom>
+						<left>100</left>
+						<right>20</right>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$VAR[ListLabel2Var]</label>
+						<textcolor>$VAR[FocusLayoutTextColor50Var]</textcolor>
+						<selectedcolor>$VAR[FocusLayoutTextColor50Var]</selectedcolor>
+						<animation effect="fade" start="70" end="100" time="300" reversible="false">Focus</animation>
+					</control>
+					<control type="image">
+						<left>21</left>
+						<centertop>50%</centertop>
+						<width>32</width>
+						<height>32</height>
+						<texture>$VAR[ListWatchedIconVar]</texture>
+						<colordiffuse>$VAR[FocusLayoutTextColor50Var]</colordiffuse>
+						<animation effect="fade" start="30" end="100" time="300" reversible="false">Focus</animation>
+					</control>
+					<control type="image">
+						<left>21</left>
+						<centertop>50%</centertop>
+						<width>32</width>
+						<height>32</height>
+						<texture colordiffuse="text_primary">$VAR[ListWatchedIconVar]</texture>
+						<animation effect="fade" start="0" end="100" time="300" reversible="false">Focus</animation>
+						<animation effect="fade" time="150">VisibleChange</animation>
+						<visible>!Control.HasFocus($PARAM[list_id])</visible>
+					</control>
+				</focusedlayout>
+				<itemlayout height="list_item_height">
+					<control type="label">
+						<left>70</left>
+						<right>70</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<aligny>center</aligny>
+						<font>font27</font>
+						<label>$VAR[ListLabelVar]</label>
+					</control>
+					<control type="label">
+						<left>20</left>
+						<right>20</right>
+						<top>0</top>
+						<bottom>0</bottom>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$VAR[ListLabel2Var]</label>
+						<textcolor>grey</textcolor>
+					</control>
+					<control type="image">
+						<left>21</left>
+						<centertop>50%</centertop>
+						<width>32</width>
+						<height>32</height>
+						<texture colordiffuse="grey">$VAR[ListWatchedIconVar]</texture>
+					</control>
+				</itemlayout>
+			</control>
+		</definition>
+	</include>
+	<include name="ListThumbInfoPanel">
+		<param name="fallback_image"></param>
+		<param name="flip_bg">false</param>
+		<definition>
+			<control type="group">
+				<depth>DepthContentPanel</depth>
+				<include content="ContentPanel">
+					<param name="width" value="656" />
+					<param name="flipx" value="$PARAM[flip_bg]" />
+				</include>
+				<control type="image">
+					<left>30</left>
+					<top>80</top>
+					<width>540</width>
+					<height>470</height>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<fadetime>300</fadetime>
+					<texture fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+					<visible>!String.IsEqual(ListItem.DbType,episode) + !String.IsEqual(ListItem.DBType,song)</visible>
+				</control>
+				<control type="image">
+					<left>30</left>
+					<top>80</top>
+					<width>540</width>
+					<height>330</height>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<fadetime>300</fadetime>
+					<texture background="true">$VAR[ShiftThumbVar]</texture>
+					<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+				</control>
+				<control type="image">
+					<left>30</left>
+					<top>80</top>
+					<width>540</width>
+					<height>470</height>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<fadetime>300</fadetime>
+					<texture fallback="DefaultAudio.png" background="true">$VAR[IconWallThumbVar]</texture>
+					<visible>String.IsEqual(ListItem.DBType,song)</visible>
+				</control>
+				<control type="group">
+					<left>273</left>
+					<top>530</top>
+					<include condition="Skin.HasSetting(circle_rating) | Skin.HasSetting(circle_userrating)">RatingCircle</include>
+					<animation effect="slide" end="0,-140" time="0" condition="String.IsEqual(ListItem.DbType,episode)">conditional</animation>
+				</control>
+				<control type="group">
+					<visible>!Container.Content() | !String.isempty(ListItem.Plot)</visible>
+					<left>30</left>
+					<control type="textbox" id="15500">
+						<top>570</top>
+						<width>540</width>
+						<bottom>70</bottom>
+						<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+						<label>$VAR[ListBoxInfoVar]</label>
+						<visible>!String.IsEqual(ListItem.DbType,episode) + !String.IsEqual(ListItem.DBType,song)</visible>
+					</control>
+					<control type="textbox" id="15501">
+						<top>435</top>
+						<width>540</width>
+						<bottom>70</bottom>
+						<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+						<label>$INFO[ListItem.Plot]</label>
+						<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+					</control>
+					<control type="textbox" id="15502">
+						<top>570</top>
+						<width>540</width>
+						<bottom>70</bottom>
+						<autoscroll time="3000" delay="3000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+						<label>$VAR[ListBoxInfoVar]</label>
+						<visible>String.IsEqual(ListItem.DBType,song)</visible>
+					</control>
+				</control>
+				<control type="group">
+					<left>20</left>
+					<top>610</top>
+					<visible>ListItem.IsCollection + String.IsEmpty(ListItem.Plot)</visible>
+					<include content="InfoList">
+						<param name="bottom" value="100" />
+						<param name="width" value="540" />
+						<param name="sortby" value="year" />
+						<param name="sortorder" value="ascending" />
+						<param name="font" value="font13" />
+					</include>
+				</control>
+				<control type="group">
+					<visible>!ListItem.IsCollection + String.IsEmpty(Control.GetLabel(15500)) + Control.IsVisible(15500)</visible>
+					<control type="textbox">
+						<left>30</left>
+						<top>430</top>
+						<width>540</width>
+						<height>443</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font27</font>
+						<textcolor>text_muted</textcolor>
+						<label>$LOCALIZE[19055]</label>
+						<visible>!ListItem.IsParentFolder</visible>
+						<visible>!Integer.IsGreater(Container(42000).NumItems,0) + !Integer.IsGreater(Container(43000).NumItems,0)</visible>
+						<visible>!Container.Content() | !String.isempty(ListItem.Plot)</visible>
+					</control>
+					<control type="group">
+						<left>20</left>
+						<top>610</top>
+						<visible>!String.IsEmpty(ListItem.DBID)</visible>
+						<include content="InfoList">
+							<param name="list_id" value="42000" />
+							<param name="bottom" value="100" />
+							<param name="width" value="540" />
+							<param name="sortby" value="year" />
+							<param name="sortorder" value="ascending" />
+							<param name="item_label" value="$INFO[ListItem.Year,[COLOR text_secondary],[/COLOR]  -  ]$INFO[ListItem.Label]" />
+							<param name="visible" value="String.IsEqual(ListItem.DBType,artist)" />
+						</include>
+						<include content="InfoList">
+							<param name="list_id" value="43000" />
+							<param name="bottom" value="100" />
+							<param name="width" value="540" />
+							<param name="sortby" value="track" />
+							<param name="sortorder" value="ascending" />
+							<param name="item_label" value="$INFO[ListItem.Duration,[COLOR text_secondary],[/COLOR]  -  ]$INFO[ListItem.Label]" />
+							<param name="visible" value="String.IsEqual(ListItem.DBType,album)" />
+						</include>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

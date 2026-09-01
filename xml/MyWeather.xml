@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<backgroundcolor>background</backgroundcolor>
+	<controls>
+		<include>DefaultBackground</include>
+		<!-- Compatibility fallback for external weather-window calls. -->
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<centertop>50%</centertop>
+			<width>900</width>
+			<height>380</height>
+			<include content="DialogBackgroundCommons">
+				<param name="width" value="900" />
+				<param name="height" value="380" />
+				<param name="header_label" value="$LOCALIZE[8]" />
+				<param name="header_id" value="1" />
+			</include>
+			<control type="textbox">
+				<left>40</left>
+				<top>90</top>
+				<width>820</width>
+				<height>120</height>
+				<font>font27</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>$LOCALIZE[31019]</label>
+			</control>
+			<control type="grouplist">
+				<left>0</left>
+				<top>245</top>
+				<width>900</width>
+				<height>100</height>
+				<orientation>horizontal</orientation>
+				<align>center</align>
+				<include content="DefaultDialogButton">
+					<param name="id" value="9000" />
+					<param name="label" value="$LOCALIZE[15067]" />
+					<param name="onclick" value="Action(Back)" />
+				</include>
+			</control>
+		</control>
+	</controls>
+</window>

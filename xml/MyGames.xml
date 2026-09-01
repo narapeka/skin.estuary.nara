@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">39999</defaultcontrol>
+	<backgroundcolor>background</backgroundcolor>
+	<controls>
+		<!-- Compatibility fallback for external games-window calls. -->
+		<include content="UnavailableFeatureDialog">
+			<param name="header_label" value="$LOCALIZE[15016]" />
+			<param name="message_label" value="$LOCALIZE[31178]" />
+		</include>
+	</controls>
+</window>

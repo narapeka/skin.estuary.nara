@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Capability marker: this skin opts in to the extended core interactions
+  provided by this fork. Other skins retain Kodi's default behaviour unless
+  they explicitly provide the same marker. Core-side additions, including
+  video-info entry routing and playback suspension, fullscreen double-Back
+  stopping, playback-target previews, directory playback hints, movie and TV
+  watched-state actions, in-progress identity deduplication, nested video-info
+  navigation, favourite bridging, home file shortcuts, and single-pane file
+  manager interactions, must remain guarded by IsSkinExtendedEnabled().
+-->
+<window />

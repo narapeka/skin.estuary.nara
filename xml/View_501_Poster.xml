@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include name="View_501_Poster_Background">
+		<control type="group">
+			<visible>Control.IsVisible(501) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | $EXP[videoasset_true]]</visible>
+			<animation effect="fade" start="0" end="100" time="260">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="180">WindowClose</animation>
+			<animation effect="fade" time="220">VisibleChange</animation>
+			<!-- The selected item owns a detail-page backdrop while this view is
+			     active. TopBar and BottomBar remain above this group in MyVideoNav. -->
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<texture>colors/black.png</texture>
+			</control>
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio align="right">scale</aspectratio>
+				<fadetime>250</fadetime>
+				<texture background="true">$INFO[Container(501).ListItemSettled.Art(fanart)]</texture>
+				<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(Container(501).ListItemSettled.Art(fanart))</visible>
+			</control>
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<texture colordiffuse="14000000">colors/black.png</texture>
+				<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(Container(501).ListItemSettled.Art(fanart))</visible>
+			</control>
+			<control type="image">
+				<width>1200</width>
+				<height>1080</height>
+				<aspectratio>stretch</aspectratio>
+				<texture>overlays/detail-left-scrim.png</texture>
+				<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(Container(501).ListItemSettled.Art(fanart))</visible>
+			</control>
+			<control type="image">
+				<top>420</top>
+				<width>1920</width>
+				<height>660</height>
+				<aspectratio>stretch</aspectratio>
+				<texture colordiffuse="opacity_medium">overlays/overlayfade.png</texture>
+			</control>
+			<!-- Match the detail page's poster fallback when fanart is unavailable. -->
+			<control type="group">
+				<left>1250</left>
+				<top>100</top>
+				<visible>Skin.HasSetting(no_fanart) | String.IsEmpty(Container(501).ListItemSettled.Art(fanart))</visible>
+				<control type="image">
+					<left>-24</left>
+					<top>-24</top>
+					<width>500</width>
+					<height>720</height>
+					<texture colordiffuse="shadow_hard" border="21">overlays/shadow.png</texture>
+				</control>
+				<control type="image">
+					<width>452</width>
+					<height>672</height>
+					<aspectratio>scale</aspectratio>
+					<texture fallback="DefaultVideo.png" background="true">$VAR[NaraPosterHeroPosterVar]</texture>
+				</control>
+			</control>
+		</control>
+	</include>
+	<include name="View_501_Poster">
+		<control type="group">
+			<visible>Control.IsVisible(501) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | $EXP[videoasset_true]]</visible>
+			<animation effect="fade" start="0" end="100" time="260">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="180">WindowClose</animation>
+			<animation effect="fade" time="220">VisibleChange</animation>
+			<!-- The TV-show header moves upward for its representative technical row while
+			     retaining the existing synopsis and shelf positions. -->
+			<control type="group">
+				<left>80</left>
+				<top>129</top>
+				<width>1180</width>
+				<height>640</height>
+				<animation effect="slide" start="-70,0" end="0,0" time="360" tween="cubic" easing="out">WindowOpen</animation>
+				<animation effect="slide" start="0,5" end="0,5" condition="Container.Content(movies) | Container.Content(sets) | $EXP[videoasset_true]">Conditional</animation>
+				<include content="VideoInfoHeroContent">
+					<param name="synopsis_height" value="100" />
+					<param name="tv_synopsis_height" value="134" />
+					<param name="tv_synopsis_no_tagline_offset" value="-38" />
+					<param name="tv_content_no_tagline_offset" value="9" />
+					<param name="clearlogo_width" value="720" />
+					<param name="clearlogo_height" value="160" />
+					<param name="item_dbtype" value="Container(501).ListItemSettled.DBType" />
+					<param name="clearlogo_texture" value="$VAR[NaraPosterHeroClearLogoVar]" />
+					<param name="clearlogo_visible" value="!String.IsEmpty(Container(501).ListItemSettled.Art(clearlogo)) | !String.IsEmpty(Container(501).ListItemSettled.Art(tvshow.clearlogo))" />
+					<param name="clearlogo_missing" value="String.IsEmpty(Container(501).ListItemSettled.Art(clearlogo)) + String.IsEmpty(Container(501).ListItemSettled.Art(tvshow.clearlogo))" />
+					<param name="hero_title" value="$VAR[NaraPosterHeroTitleVar]" />
+					<param name="episode_label" value="$VAR[NaraPosterHeroEpisodeLabelVar]" />
+					<param name="episode_visible" value="String.IsEqual(Container(501).ListItemSettled.DBType,episode) | String.IsEqual(Container(501).ListItemSettled.DBType,season)" />
+					<param name="metadata_label" value="$VAR[NaraPosterHeroMetadataVar]" />
+					<param name="rating_item_prefix" value="Container(501).ListItemSettled" />
+					<param name="technical_visible" value="true" />
+					<param name="technical_item_prefix" value="Container(501).ListItemSettled" />
+					<param name="tagline_visible" value="!String.IsEqual(Container(501).ListItemSettled.DBType,tvshow) + !String.IsEmpty(Container(501).ListItemSettled.Tagline)" />
+					<param name="tagline_missing" value="String.IsEqual(Container(501).ListItemSettled.DBType,tvshow) | String.IsEmpty(Container(501).ListItemSettled.Tagline)" />
+					<param name="tagline_label" value="[I]$INFO[Container(501).ListItemSettled.Tagline][/I]" />
+					<param name="synopsis_label" value="$VAR[NaraPosterHeroSynopsisVar]" />
+				</include>
+			</control>
+			<!-- One direct library row: no media-type tabs and no secondary content
+			     provider. The window supplies movies or TV shows to control 501. -->
+			<control type="fixedlist" id="501">
+				<left>70</left>
+				<top>640</top>
+				<width>1780</width>
+				<height>431</height>
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | $EXP[videoasset_true]</visible>
+				<orientation>horizontal</orientation>
+				<movement>6</movement>
+				<pagecontrol>5199</pagecontrol>
+				<scrolltime tween="quadratic" easing="out">350</scrolltime>
+				<selectionsettledelay>300</selectionsettledelay>
+				<preloaditems>2</preloaditems>
+				<onleft>9000</onleft>
+				<onright>501</onright>
+				<onup>9000</onup>
+				<ondown condition="$EXP[poster_row_alphabet_active]">50160</ondown>
+				<ondown condition="!$EXP[poster_row_alphabet_active]">5199</ondown>
+				<viewtype label="31100">icon</viewtype>
+				<itemlayout width="240" height="410">
+					<include content="NaraSearchPosterLayout">
+						<param name="show_year" value="true" />
+					</include>
+				</itemlayout>
+				<focusedlayout width="240" height="410">
+					<include content="NaraSearchPosterLayout">
+						<param name="focused" value="Control.HasFocus(501)" />
+						<param name="show_year" value="true" />
+					</include>
+				</focusedlayout>
+			</control>
+			<control type="group">
+				<centerleft>50%</centerleft>
+				<bottom>0</bottom>
+				<width>1080</width>
+				<height>30</height>
+				<include content="NaraHorizontalAlphabetIndex">
+					<param name="container_id" value="501" />
+					<param name="control_id" value="50160" />
+					<param name="return_control_id" value="501" />
+					<param name="visible" value="$EXP[poster_row_alphabet_active]" />
+				</include>
+			</control>
+		</control>
+	</include>
+</includes>

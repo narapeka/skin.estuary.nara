@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
+	<defaultcontrol always="true">602</defaultcontrol>
+	<depth>DepthOSD</depth>
+	<controls>
+		<control type="button">
+			<description>background close area</description>
+			<left>0</left>
+			<top>0</top>
+			<width>100%</width>
+			<bottom>142</bottom>
+			<texturefocus />
+			<texturenofocus />
+			<onclick>Action(close)</onclick>
+		</control>
+		<control type="group">
+			<include>Animation_BottomSlide</include>
+			<bottom>0</bottom>
+			<height>142</height>
+			<visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(1110) | Window.IsVisible(osdaudiosettings) | Window.IsVisible(osdvideosettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(playerprocessinfo) | Window.IsVisible(osdcmssettings) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(pvrchannelguide)]</visible>
+			<animation effect="fade" time="200">VisibleChange</animation>
+			<control type="image">
+				<left>0</left>
+				<right>0</right>
+				<top>0</top>
+				<bottom>0</bottom>
+				<texture colordiffuse="80141418">colors/white.png</texture>
+			</control>
+			<control type="label">
+				<left>32</left>
+				<top>33</top>
+				<width>82</width>
+				<height>24</height>
+				<font>font10</font>
+				<aligny>center</aligny>
+				<label>$VAR[NaraOSDTimeLabelVar]</label>
+				<visible>!VideoPlayer.Content(LiveTV)</visible>
+			</control>
+			<control type="label">
+				<right>32</right>
+				<top>33</top>
+				<width>82</width>
+				<height>24</height>
+				<font>font10</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<label>$INFO[Player.Duration]</label>
+				<visible>!VideoPlayer.Content(LiveTV)</visible>
+			</control>
+			<control type="group" id="200">
+				<include>Animation_BottomSlide</include>
+				<control type="grouplist" id="201">
+					<left>160</left>
+					<right>160</right>
+					<top>68</top>
+					<height>56</height>
+					<align>center</align>
+					<itemgap>10</itemgap>
+					<scrolltime tween="sine">200</scrolltime>
+					<orientation>horizontal</orientation>
+					<onup>87</onup>
+					<ondown>noop</ondown>
+					<onleft>70048</onleft>
+					<onright>70046</onright>
+					<control type="radiobutton" id="70046">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/audio.png"/>
+						</include>
+						<onclick>DialogSelectAudio</onclick>
+						<enable>Integer.IsGreater(VideoPlayer.AudioStreamCount,1)</enable>
+					</control>
+					<control type="radiobutton" id="70043">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/subtitles.png"/>
+						</include>
+						<onclick>DialogSelectSubtitle</onclick>
+						<enable>VideoPlayer.HasSubtitles</enable>
+					</control>
+					<control type="radiobutton" id="70042">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/playlist.png"/>
+						</include>
+						<label>$LOCALIZE[559]</label>
+						<onclick>ActivateWindow(1112)</onclick>
+						<visible>Integer.IsGreater(Playlist.Length(video),1)</visible>
+					</control>
+					<control type="radiobutton" id="600">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/previous.png"/>
+						</include>
+						<onclick>PlayerControl(Previous)</onclick>
+						<visible>Player.HasSceneMarkers | Player.ChapterCount | Integer.IsGreater(Playlist.Length(video),1) | [Player.SeekEnabled + VideoPlayer.Content(livetv)]</visible>
+					</control>
+					<control type="radiobutton" id="607">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/next.png"/>
+						</include>
+						<onclick>PlayerControl(Next)</onclick>
+						<visible>Player.HasSceneMarkers | Player.ChapterCount | Integer.IsGreater(Playlist.Length(video),1) | PVR.IsTimeShift</visible>
+					</control>
+					<control type="radiobutton" id="602">
+						<include>NaraVideoOSDPlayButton</include>
+						<selected>Player.Paused</selected>
+						<onclick>PlayerControl(Play)</onclick>
+						<visible>Player.PauseEnabled</visible>
+					</control>
+					<control type="radiobutton" id="603">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/stop.png"/>
+						</include>
+						<onclick>PlayerControl(Stop)</onclick>
+					</control>
+					<control type="radiobutton" id="70044">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/bookmark.png"/>
+						</include>
+						<onclick>ActivateWindow(videobookmarks)</onclick>
+						<visible>!VideoPlayer.Content(livetv)</visible>
+					</control>
+					<control type="radiobutton" id="70049">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/process-info.png"/>
+						</include>
+						<onclick>ActivateWindow(playerprocessinfo)</onclick>
+					</control>
+					<control type="radiobutton" id="70048">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/settings.png"/>
+						</include>
+						<onclick>SetProperty(settingsdialog_content,videosettings,home)</onclick>
+						<onclick>SetProperty(settingsdialog_header,$LOCALIZE[5],home)</onclick>
+						<onclick>ActivateWindow(1101)</onclick>
+					</control>
+					<control type="radiobutton" id="804">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/disc-menu.png"/>
+						</include>
+						<onclick>PlayerControl(ShowVideoMenu)</onclick>
+						<visible>VideoPlayer.HasMenu</visible>
+					</control>
+					<control type="radiobutton" id="70040">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/channels.png"/>
+						</include>
+						<onclick>Dialog.Close(VideoOSD)</onclick>
+						<onclick>ActivateWindow(PVROSDChannels)</onclick>
+						<visible>VideoPlayer.Content(livetv)</visible>
+					</control>
+					<control type="radiobutton" id="70041">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/guide.png"/>
+						</include>
+						<onclick>Dialog.Close(VideoOSD)</onclick>
+						<onclick>ActivateWindow(pvrchannelguide)</onclick>
+						<visible>VideoPlayer.Content(livetv) + VideoPlayer.HasEPG</visible>
+					</control>
+					<control type="radiobutton" id="608">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/record.png"/>
+						</include>
+						<selected>!PVR.IsRecordingPlayingChannel</selected>
+						<onclick>PVR.ToggleRecordPlayingChannel</onclick>
+						<visible>PVR.CanRecordPlayingChannel</visible>
+						<visible>VideoPlayer.Content(livetv)</visible>
+					</control>
+					<control type="radiobutton" id="70045">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/teletext.png"/>
+						</include>
+						<onclick>Dialog.Close(VideoOSD)</onclick>
+						<onclick>ActivateWindow(Teletext)</onclick>
+						<visible>VideoPlayer.HasTeletext</visible>
+					</control>
+					<control type="radiobutton" id="70047">
+						<include content="NaraVideoOSDButton">
+							<param name="texture" value="osd/nara/stereoscopic.png"/>
+						</include>
+						<visible>VideoPlayer.IsStereoscopic</visible>
+						<onclick>SetProperty(settingsdialog_content,3d,home)</onclick>
+						<onclick>SetProperty(settingsdialog_header,$LOCALIZE[36501],home)</onclick>
+						<onclick>ActivateWindow(1101)</onclick>
+					</control>
+				</control>
+			</control>
+			<control type="group" id="6000">
+				<left>122</left>
+				<right>122</right>
+				<top>37</top>
+				<animation type="WindowOpen" condition="!Window.IsVisible(fullscreeninfo)" reversible="false">
+					<effect type="fade" start="0" end="100" time="300"/>
+					<effect type="slide" start="0,200" end="0,0" time="300" tween="cubic" easing="out" />
+				</animation>
+				<animation type="WindowClose" condition="!Window.IsVisible(fullscreeninfo)" reversible="false">
+					<effect type="fade" start="100" end="0" time="300"/>
+					<effect type="slide" start="0,0" end="0,200" time="300" tween="cubic" easing="out" />
+				</animation>
+				<animation type="WindowOpen" condition="Window.IsVisible(fullscreeninfo)" reversible="false">
+					<effect type="fade" start="0" end="100" time="300"/>
+				</animation>
+				<animation type="WindowClose" condition="Window.IsVisible(fullscreeninfo)" reversible="false">
+					<effect type="fade" start="100" end="0" time="300"/>
+				</animation>
+				<visible>Player.SeekEnabled</visible>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>7</top>
+					<height>2</height>
+					<texture colordiffuse="40FFFFFF">colors/white.png</texture>
+				</control>
+				<control type="progress">
+					<left>0</left>
+					<right>0</right>
+					<top>5</top>
+					<height>6</height>
+					<info>Player.Progress</info>
+					<texturebg colordiffuse="00FFFFFF">colors/white.png</texturebg>
+					<lefttexture />
+					<midtexture colordiffuse="90FFFFFF">colors/white.png</midtexture>
+					<righttexture />
+					<visible>!Control.HasFocus(87) + !VideoPlayer.Content(LiveTV) + !Player.Seeking</visible>
+				</control>
+				<control type="progress">
+					<left>0</left>
+					<right>0</right>
+					<top>5</top>
+					<height>6</height>
+					<info>Player.Progress</info>
+					<texturebg colordiffuse="00FFFFFF">colors/white.png</texturebg>
+					<lefttexture />
+					<midtexture colordiffuse="FFFFFFFF">colors/white.png</midtexture>
+					<righttexture />
+					<visible>Control.HasFocus(87) + !VideoPlayer.Content(LiveTV) + !Player.Seeking</visible>
+				</control>
+				<control type="progress">
+					<left>0</left>
+					<right>0</right>
+					<top>5</top>
+					<height>6</height>
+					<info>Player.SeekBar</info>
+					<texturebg colordiffuse="00FFFFFF">colors/white.png</texturebg>
+					<lefttexture />
+					<midtexture colordiffuse="FFFFFFFF">colors/white.png</midtexture>
+					<righttexture />
+					<visible>Player.Seeking + !VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="progress">
+					<left>0</left>
+					<right>0</right>
+					<top>5</top>
+					<height>6</height>
+					<info>PVR.TimeshiftProgressPlayPos</info>
+					<texturebg colordiffuse="00FFFFFF">colors/white.png</texturebg>
+					<lefttexture />
+					<midtexture colordiffuse="90FFFFFF">colors/white.png</midtexture>
+					<righttexture />
+					<visible>!Control.HasFocus(87) + VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="progress">
+					<left>0</left>
+					<right>0</right>
+					<top>5</top>
+					<height>6</height>
+					<info>PVR.TimeshiftProgressPlayPos</info>
+					<texturebg colordiffuse="00FFFFFF">colors/white.png</texturebg>
+					<lefttexture />
+					<midtexture colordiffuse="FFFFFFFF">colors/white.png</midtexture>
+					<righttexture />
+					<visible>Control.HasFocus(87) + VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="progress">
+					<left>-32</left>
+					<right>-32</right>
+					<top>-24</top>
+					<height>64</height>
+					<info>Player.Progress</info>
+					<texturebg colordiffuse="00FFFFFF">osd/nara/progress-nib-track.png</texturebg>
+					<lefttexture />
+					<midtexture />
+					<righttexture colordiffuse="FF8C8C8C">osd/nara/progress-nib.png</righttexture>
+					<visible>!Control.HasFocus(87) + !VideoPlayer.Content(LiveTV) + !Player.Seeking</visible>
+				</control>
+				<control type="progress">
+					<left>-32</left>
+					<right>-32</right>
+					<top>-24</top>
+					<height>64</height>
+					<info>Player.Progress</info>
+					<texturebg colordiffuse="00FFFFFF">osd/nara/progress-nib-track.png</texturebg>
+					<lefttexture />
+					<midtexture />
+					<righttexture colordiffuse="FFFFFFFF">osd/nara/progress-nib.png</righttexture>
+					<visible>Control.HasFocus(87) + !VideoPlayer.Content(LiveTV) + !Player.Seeking</visible>
+				</control>
+				<control type="progress">
+					<left>-32</left>
+					<right>-32</right>
+					<top>-24</top>
+					<height>64</height>
+					<info>Player.SeekBar</info>
+					<texturebg colordiffuse="00FFFFFF">osd/nara/progress-nib-track.png</texturebg>
+					<lefttexture />
+					<midtexture />
+					<righttexture colordiffuse="FFFFFFFF">osd/nara/progress-nib.png</righttexture>
+					<visible>Player.Seeking + !VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="progress">
+					<left>-32</left>
+					<right>-32</right>
+					<top>-24</top>
+					<height>64</height>
+					<info>PVR.TimeshiftProgressPlayPos</info>
+					<texturebg colordiffuse="00FFFFFF">osd/nara/progress-nib-track.png</texturebg>
+					<lefttexture />
+					<midtexture />
+					<righttexture colordiffuse="FF8C8C8C">osd/nara/progress-nib.png</righttexture>
+					<visible>!Control.HasFocus(87) + VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="progress">
+					<left>-32</left>
+					<right>-32</right>
+					<top>-24</top>
+					<height>64</height>
+					<info>PVR.TimeshiftProgressPlayPos</info>
+					<texturebg colordiffuse="00FFFFFF">osd/nara/progress-nib-track.png</texturebg>
+					<lefttexture />
+					<midtexture />
+					<righttexture colordiffuse="FFFFFFFF">osd/nara/progress-nib.png</righttexture>
+					<visible>Control.HasFocus(87) + VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="button" id="87">
+					<include>HiddenObject</include>
+					<onup>200</onup>
+					<ondown>200</ondown>
+					<onleft>StepBack</onleft>
+					<onright condition="!Player.Paused">StepForward</onright>
+					<onright condition="Player.Paused">PlayerControl(FrameAdvance(1))</onright>
+				</control>
+				<control type="slider">
+					<top>-5</top>
+					<left>0</left>
+					<width>100%</width>
+					<height>26</height>
+					<texturesliderbar colordiffuse="00FFFFFF">osd/progress/nub_leftright.png</texturesliderbar>
+					<textureslidernib />
+					<textureslidernibfocus />
+					<info>Player.Progress</info>
+					<onup>200</onup>
+					<ondown>200</ondown>
+					<action>seek</action>
+					<visible>!VideoPlayer.Content(LiveTV)</visible>
+				</control>
+				<control type="slider">
+					<top>-5</top>
+					<left>0</left>
+					<width>100%</width>
+					<height>26</height>
+					<texturesliderbar colordiffuse="00FFFFFF">osd/progress/nub_leftright.png</texturesliderbar>
+					<textureslidernib />
+					<textureslidernibfocus />
+					<info>PVR.TimeshiftProgressPlayPos</info>
+					<onup>200</onup>
+					<ondown>200</ondown>
+					<action>pvr.seek</action>
+					<visible>VideoPlayer.Content(LiveTV)</visible>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>

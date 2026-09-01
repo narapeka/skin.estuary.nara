@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- This row is deliberately opt-in. Evaluating these labels is the only skin action
+	     that starts online rating work; hidden entries collapse in the horizontal list. -->
+	<include name="NaraOnlineRatingItem">
+		<param name="width">78</param>
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>34</height>
+				<visible>!String.IsEmpty($PARAM[item_prefix].NaraRating($PARAM[source]))</visible>
+				<control type="image">
+					<top>3</top>
+					<width>28</width>
+					<height>28</height>
+					<aspectratio align="left" aligny="center">keep</aspectratio>
+					<texture>$INFO[$PARAM[item_prefix].NaraRatingIcon($PARAM[source])]</texture>
+				</control>
+				<control type="label">
+					<left>34</left>
+					<width>44</width>
+					<height>34</height>
+					<font>font13</font>
+					<aligny>center</aligny>
+					<label>$INFO[$PARAM[item_prefix].NaraRating($PARAM[source])]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraOnlineRatingsRow">
+		<param name="item_prefix">ListItem</param>
+		<param name="top">0</param>
+		<param name="width">810</param>
+		<definition>
+			<control type="grouplist">
+				<top>$PARAM[top]</top>
+				<width>$PARAM[width]</width>
+				<height>34</height>
+				<orientation>horizontal</orientation>
+				<itemgap>10</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="douban" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="imdb" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="tmdb" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="trakt" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="mdblist" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="metacritic" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="rottentomatoes" />
+				</include>
+				<include content="NaraOnlineRatingItem">
+					<param name="item_prefix" value="$PARAM[item_prefix]" />
+					<param name="source" value="rottentomatoesaudience" />
+				</include>
+			</control>
+		</definition>
+	</include>
+	<!-- The information dialog and library hero views share this exact content
+	     geometry. Callers own the outer position and choose whether the synopsis
+	     is focusable; action controls deliberately remain outside this include. -->
+	<include name="VideoInfoHeroContent">
+		<param name="synopsis_focusable">false</param>
+		<param name="synopsis_navigation">0</param>
+		<param name="synopsis_height">132</param>
+		<param name="tv_synopsis_height">132</param>
+		<param name="tv_synopsis_tagline_offset">2</param>
+		<param name="tv_synopsis_no_tagline_offset">-38</param>
+		<param name="tv_content_tagline_offset">-30</param>
+		<param name="tv_content_no_tagline_offset">-22</param>
+		<param name="clearlogo_top">25</param>
+		<param name="clearlogo_width">624</param>
+		<param name="clearlogo_height">134</param>
+		<param name="item_dbtype">ListItem.DBType</param>
+		<param name="clearlogo_texture">$VAR[VideoInfoClearLogoVar]</param>
+		<param name="clearlogo_visible">!String.IsEmpty(ListItem.Art(clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo))</param>
+		<param name="clearlogo_missing">String.IsEmpty(ListItem.Art(clearlogo)) + String.IsEmpty(ListItem.Art(tvshow.clearlogo))</param>
+		<param name="hero_title">$VAR[VideoInfoHeroTitleVar]</param>
+		<param name="episode_label">$VAR[VideoInfoEpisodeLabelVar]</param>
+		<param name="episode_visible">String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)</param>
+		<param name="metadata_label">$VAR[VideoInfoHeroMetadataVar]</param>
+		<param name="rating_item_prefix">ListItem</param>
+		<param name="technical_visible">true</param>
+		<param name="technical_item_prefix">ListItem</param>
+		<param name="tagline_visible">!String.IsEmpty(ListItem.Tagline)</param>
+		<param name="tagline_missing">String.IsEmpty(ListItem.Tagline)</param>
+		<param name="tagline_label">[I]$INFO[ListItem.Tagline][/I]</param>
+		<param name="synopsis_label">$VAR[VideoInfoSynopsisVar]</param>
+		<definition>
+			<control type="group">
+				<animation effect="slide" start="0,$PARAM[tv_content_tagline_offset]" end="0,$PARAM[tv_content_tagline_offset]" condition="String.IsEqual($PARAM[item_dbtype],tvshow) + [$PARAM[tagline_visible]]">Conditional</animation>
+				<animation effect="slide" start="0,$PARAM[tv_content_no_tagline_offset]" end="0,$PARAM[tv_content_no_tagline_offset]" condition="String.IsEqual($PARAM[item_dbtype],tvshow) + [$PARAM[tagline_missing]]">Conditional</animation>
+				<control type="image">
+					<top>$PARAM[clearlogo_top]</top>
+					<width>$PARAM[clearlogo_width]</width>
+					<height>$PARAM[clearlogo_height]</height>
+					<aspectratio align="left" aligny="center">keep</aspectratio>
+					<texture background="true">$PARAM[clearlogo_texture]</texture>
+					<visible>$PARAM[clearlogo_visible]</visible>
+				</control>
+				<control type="label">
+					<top>33</top>
+					<width>800</width>
+					<height>104</height>
+					<font>font60</font>
+					<aligny>center</aligny>
+					<scroll>true</scroll>
+					<label>$PARAM[hero_title]</label>
+					<visible>$PARAM[clearlogo_missing]</visible>
+				</control>
+				<control type="label">
+					<top>165</top>
+					<width>790</width>
+					<height>40</height>
+					<font>font30_title</font>
+					<textcolor>text_secondary</textcolor>
+					<scroll>true</scroll>
+					<label>$PARAM[episode_label]</label>
+					<visible>$PARAM[episode_visible]</visible>
+				</control>
+				<control type="label">
+					<top>205</top>
+					<width>810</width>
+					<height>38</height>
+					<font>font13</font>
+					<textcolor>text_secondary</textcolor>
+					<scroll>true</scroll>
+					<label>$PARAM[metadata_label]</label>
+				</control>
+				<include content="NaraOnlineRatingsRow">
+					<param name="top" value="247" />
+					<param name="item_prefix" value="$PARAM[rating_item_prefix]" />
+				</include>
+				<!-- Moonfin-style technical badges: only present when Kodi exposes
+				     real stream metadata for the selected item/version. -->
+				<include content="VideoTechnicalFlagsRow">
+					<param name="top" value="290" />
+					<param name="visible" value="$PARAM[technical_visible]" />
+					<param name="item_prefix" value="$PARAM[technical_item_prefix]" />
+				</include>
+				<control type="label">
+					<top>331</top>
+					<width>800</width>
+					<height>38</height>
+					<font>font25</font>
+					<textcolor>text_secondary</textcolor>
+					<scroll>true</scroll>
+					<label>$PARAM[tagline_label]</label>
+					<visible>$PARAM[tagline_visible]</visible>
+				</control>
+				<control type="group">
+					<top>369</top>
+					<!-- Keep caller-supplied boolean expressions grouped when composing them
+					     with the TV-only condition; callers may pass their own OR branches. -->
+					<animation effect="slide" start="0,$PARAM[tv_synopsis_tagline_offset]" end="0,$PARAM[tv_synopsis_tagline_offset]" condition="String.IsEqual($PARAM[item_dbtype],tvshow) + [$PARAM[tagline_visible]]">Conditional</animation>
+					<animation effect="slide" start="0,$PARAM[tv_synopsis_no_tagline_offset]" end="0,$PARAM[tv_synopsis_no_tagline_offset]" condition="String.IsEqual($PARAM[item_dbtype],tvshow) + [$PARAM[tagline_missing]]">Conditional</animation>
+					<control type="button" id="138">
+						<width>804</width>
+						<height>128</height>
+						<label></label>
+						<texturefocus colordiffuse="border_subtle">colors/white.png</texturefocus>
+						<texturenofocus />
+						<onup>$PARAM[synopsis_navigation]</onup>
+						<ondown>$PARAM[synopsis_navigation]</ondown>
+						<onleft>$PARAM[synopsis_navigation]</onleft>
+						<onright>$PARAM[synopsis_navigation]</onright>
+						<onclick>SetProperty(TextViewer_Header,$LOCALIZE[207],home)</onclick>
+						<onclick>SetProperty(TextViewer_Text,$ESCVAR[VideoInfoPlotVar],home)</onclick>
+						<onclick>ActivateWindow(1102)</onclick>
+						<visible>$PARAM[synopsis_focusable]</visible>
+					</control>
+					<control type="textbox">
+						<left>2</left>
+						<top>2</top>
+						<width>790</width>
+						<height>$PARAM[synopsis_height]</height>
+						<font>font13</font>
+						<textcolor>text_secondary</textcolor>
+						<label fallback="19055">$PARAM[synopsis_label]</label>
+						<visible>!String.IsEqual($PARAM[item_dbtype],tvshow)</visible>
+					</control>
+					<control type="textbox">
+						<left>2</left>
+						<top>2</top>
+						<width>790</width>
+						<height>$PARAM[tv_synopsis_height]</height>
+						<font>font13</font>
+						<textcolor>text_secondary</textcolor>
+						<label fallback="19055">$PARAM[synopsis_label]</label>
+						<visible>String.IsEqual($PARAM[item_dbtype],tvshow)</visible>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

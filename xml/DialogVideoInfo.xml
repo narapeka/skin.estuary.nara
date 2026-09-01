@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+	<defaultcontrol always="true">5000</defaultcontrol>
+	<onload>ClearProperty(VideoInfo.More,home)</onload>
+	<onload>SetFocus(5000)</onload>
+	<onload>SetProperty(infobackground,$ESCINFO[ListItem.Art(fanart)],home)</onload>
+	<onunload>ClearProperty(infobackground,home)</onunload>
+	<onunload>ClearProperty(VideoInfo.More,home)</onunload>
+	<controls>
+		<!-- Kodi's built-in video-information actions plus SkinExtended relays.
+		     Visible skin controls forward to these IDs instead of duplicating
+		     playback, library or favourite behaviour. -->
+		<control type="button" id="6">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="7">
+			<enable>String.IsEmpty(Container.PluginName) + !Container.Content(Sets)</enable>
+			<include>HiddenObject</include>
+		</control>
+		<control type="togglebutton" id="8">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="10">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="11">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="13">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="14">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="15">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="16">
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="17">
+			<include>HiddenObject</include>
+		</control>
+		<!-- Back target for the in-page More menu. Routing Back through a real
+		     control prevents it from bubbling up and closing the info dialog. -->
+		<control type="button" id="5198">
+			<include>HiddenObject</include>
+			<onfocus>ClearProperty(VideoInfo.More,home)</onfocus>
+			<onfocus>SetFocus(5003)</onfocus>
+		</control>
+		<!-- Full-bleed cinematic page. -->
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<centertop>50%</centertop>
+			<width>1920</width>
+			<height>1080</height>
+			<animation effect="fade" start="0" end="100" time="260">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="180">WindowClose</animation>
+			<animation effect="fade" start="100" end="0" time="200" tween="sine" condition="Window.IsVisible(script-embuary-video.xml) | Window.IsVisible(script-embuary-person.xml) | Window.IsVisible(script-embuary-image.xml)">Conditional</animation>
+			<!-- Backdrop and layered scrims. -->
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<texture>colors/black.png</texture>
+			</control>
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio align="right">scale</aspectratio>
+				<fadetime>250</fadetime>
+				<texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+				<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(ListItem.Art(fanart))</visible>
+			</control>
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<texture colordiffuse="14000000">colors/black.png</texture>
+				<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(ListItem.Art(fanart))</visible>
+			</control>
+			<!-- Detail-only left reading scrim. A dedicated horizontal texture
+			     keeps its dark edge deterministic and lighter than Fuse. -->
+			<control type="image">
+				<width>1200</width>
+				<height>1080</height>
+				<aspectratio>stretch</aspectratio>
+				<texture>overlays/detail-left-scrim.png</texture>
+				<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(ListItem.Art(fanart))</visible>
+			</control>
+			<control type="image">
+				<top>420</top>
+				<width>1920</width>
+				<height>660</height>
+				<aspectratio>stretch</aspectratio>
+				<texture colordiffuse="opacity_medium">overlays/overlayfade.png</texture>
+			</control>
+			<!-- Artwork fallback for media without fanart or when fanart is disabled. -->
+			<control type="group">
+				<left>1250</left>
+				<top>100</top>
+				<visible>Skin.HasSetting(no_fanart) | String.IsEmpty(ListItem.Art(fanart))</visible>
+				<control type="image">
+					<left>-24</left>
+					<top>-24</top>
+					<width>500</width>
+					<height>720</height>
+					<texture colordiffuse="shadow_hard" border="21">overlays/shadow.png</texture>
+				</control>
+				<control type="image">
+					<width>452</width>
+					<height>672</height>
+					<aspectratio>scale</aspectratio>
+					<texture fallback="DefaultVideo.png" background="true">$VAR[InfoDialogPosterVar]</texture>
+				</control>
+			</control>
+			<!-- Shared hero structure keeps the movie/TV metadata-row rhythm and a single
+			     set of focus IDs while the TV header moves upward above its anchored plot. -->
+			<control type="group">
+				<left>80</left>
+				<top>175</top>
+				<width>1180</width>
+				<height>640</height>
+				<animation effect="slide" start="-70,0" end="0,0" time="360" tween="cubic" easing="out">WindowOpen</animation>
+				<!-- The shared include anchors the synopsis while moving only the TV
+				     header rows upward. Movie geometry and this action row stay unchanged. -->
+				<include content="VideoInfoHeroContent">
+					<param name="synopsis_focusable" value="true" />
+					<param name="synopsis_navigation" value="5000" />
+				</include>
+				<include>VideoInfoActionBar</include>
+			</control>
+			<!-- TV seasons, episodes and playback-target preview remain in this
+			     viewport; the cast shelf becomes their final tab. -->
+			<include>VideoInfoTvContent</include>
+			<include>VideoInfoCastShelf</include>
+		</control>
+		<!-- Context-menu style More dialog. It exists only while explicitly opened;
+		     deferred focus makes the first click both open it and enter the list. -->
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<centertop>50%</centertop>
+			<width>1920</width>
+			<height>1080</height>
+			<visible>String.IsEqual(Window(Home).Property(VideoInfo.More),True)</visible>
+			<animation effect="fade" start="0" end="100" time="160">Visible</animation>
+			<animation effect="zoom" center="960,540" start="96" end="100" time="170" tween="cubic" easing="out">Visible</animation>
+			<animation effect="fade" start="100" end="0" time="120">Hidden</animation>
+			<control type="button" id="5110">
+				<width>1920</width>
+				<height>1080</height>
+				<label></label>
+				<texturefocus colordiffuse="overlay_medium">colors/black.png</texturefocus>
+				<texturenofocus colordiffuse="overlay_medium">colors/black.png</texturenofocus>
+				<onclick>ClearProperty(VideoInfo.More,home)</onclick>
+				<onclick>SetFocus(5003)</onclick>
+			</control>
+			<!-- Match DialogContextMenu's glass surface and keep its 12 px content inset
+			     clear of the rounded border: 349 = 325 px list + 24 px padding. -->
+			<control type="image">
+				<centerleft>50%</centerleft>
+				<centertop>50%</centertop>
+				<width>480</width>
+				<height>349</height>
+				<texture material="glass" blurradius="20" glasstint="66666666" glasssaturation="1.08" glasscontrast="1.02" glassgrain="0.005" glassborder="0.75" glassbordercolor="0CFFFFFF" glasshighlight="0.30" glassrefraction="2.5" glassrefractionwidth="14" glassdispersion="0.12" glassdepth="0.55" glassbackdropbrightness="0.92" cornerradius="30">colors/white.png</texture>
+			</control>
+			<control type="list" id="5199">
+				<centerleft>50%</centerleft>
+				<top>377.5</top>
+				<width>456</width>
+				<height>325</height>
+				<orientation>vertical</orientation>
+				<scrolltime>150</scrolltime>
+				<onleft>5199</onleft>
+				<onright>5199</onright>
+				<onback>5198</onback>
+				<itemlayout width="456" height="65">
+					<control type="label">
+						<width>456</width>
+						<height>65</height>
+						<font>font13</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout width="456" height="65">
+					<control type="image">
+						<width>456</width>
+						<height>65</height>
+						<texture cornerradius="30" colordiffuse="focus_glass_surface">lists/focus.png</texture>
+					</control>
+					<control type="label">
+						<width>456</width>
+						<height>65</height>
+						<font>font13</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textcolor>text_primary</textcolor>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+				<content>
+					<item>
+						<label>$LOCALIZE[31123]</label>
+						<onclick>ClearProperty(VideoInfo.More,home)</onclick>
+						<onclick>SetFocus(5003)</onclick>
+						<onclick>SendClick(13)</onclick>
+						<visible>!String.IsEmpty(ListItem.Director)</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[31033]</label>
+						<onclick>ClearProperty(VideoInfo.More,home)</onclick>
+						<onclick>SetFocus(5003)</onclick>
+						<onclick>SendClick(7)</onclick>
+						<visible>Control.IsEnabled(7)</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[31028]</label>
+						<onclick>ClearProperty(VideoInfo.More,home)</onclick>
+						<onclick>SetFocus(5003)</onclick>
+						<onclick>SetProperty(fanart,$ESCINFO[ListItem.Art(fanart)],home)</onclick>
+						<onclick>ActivateWindow(1104)</onclick>
+						<visible>!String.IsEmpty(ListItem.Art(fanart))</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[13511]</label>
+						<onclick>ClearProperty(VideoInfo.More,home)</onclick>
+						<onclick>SetFocus(5003)</onclick>
+						<onclick>SendClick(10)</onclick>
+						<visible>Control.IsEnabled(10)</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[184]</label>
+						<onclick>ClearProperty(VideoInfo.More,home)</onclick>
+						<onclick>SetFocus(5003)</onclick>
+						<onclick>SendClick(6)</onclick>
+						<visible>Control.IsEnabled(6)</visible>
+					</item>
+				</content>
+			</control>
+		</control>
+	</controls>
+</window>

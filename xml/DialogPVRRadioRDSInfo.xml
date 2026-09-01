@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">39999</defaultcontrol>
+	<controls>
+		<!-- Compatibility fallback for external radio RDS dialog calls. -->
+		<include content="UnavailableFeatureDialog">
+			<param name="header_label" value="$LOCALIZE[19021]" />
+			<param name="message_label" value="$LOCALIZE[31177]" />
+		</include>
+	</controls>
+</window>

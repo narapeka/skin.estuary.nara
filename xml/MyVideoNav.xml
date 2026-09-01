@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">50</defaultcontrol>
+	<onunload>ClearProperty(NaraMediaMenu.Browse)</onunload>
+	<backgroundcolor>background</backgroundcolor>
+	<views>50,51,52,501,500</views>
+	<menucontrol>9000</menucontrol>
+	<controls>
+		<!-- Keep Home-to-library navigation responsive without changing shared animation defaults. -->
+		<include content="DefaultBackground">
+			<param name="transition_time" value="220" />
+			<param name="window_close_time" value="200" />
+			<!-- Cover Deck and Poster Row own opaque detail-style backdrops; do not
+			     process the hidden shared fanart and its second crossfade below them. -->
+			<param name="media_background_visible" value="!Control.IsVisible(51) + !Control.IsVisible(501)" />
+		</include>
+		<include>View_51_Poster_Background</include>
+		<!-- Keep the selected 501 artwork alive while the information foreground
+		     fades out, so playback Busy never exposes the primary fallback. -->
+		<include>View_501_Poster_Background</include>
+		<control type="group">
+			<animation effect="fade" start="100" end="0" time="200" tween="sine" condition="$EXP[infodialog_active]">Conditional</animation>
+			<include>View_50_List</include>
+			<include>View_51_Poster</include>
+			<include>View_52_IconWall</include>
+			<include>View_501_Poster</include>
+			<include>View_500_Wall</include>
+			<include content="TopBar">
+				<param name="breadcrumbs_label" value="$VAR[BreadcrumbsVideoVar]" />
+				<param name="second_title" value="$VAR[TopBarVideoSecondTitleVar]" />
+				<param name="second_title_visible" value="[!String.IsEmpty(Control.GetLabel(10)) + !String.IsEqual(Control.GetLabel(10),$LOCALIZE[16100])] | Container.Filtered" />
+				<param name="show_status_in_title" value="false" />
+				<param name="window_open_time" value="220" />
+			</include>
+			<include content="BottomBar">
+				<param name="info_visible" value="true" />
+				<param name="menu_visible" value="!$EXP[nara_tv_hierarchy_sidebar_locked]" />
+				<param name="window_open_time" value="220" />
+				<param name="window_close_time" value="200" />
+			</include>
+			<include content="CommonScrollbars">
+				<param name="window_open_delay" value="40" />
+				<param name="window_open_time" value="180" />
+				<param name="visible_delay" value="40" />
+				<param name="visible_time" value="180" />
+			</include>
+			<include>MediaMenuMouseOverlay</include>
+			<control type="group">
+				<include>MediaMenuCommon</include>
+				<!-- menucontrol targets this runtime router. Season and episode listings return
+				     to their sole view; other content opens the custom or stock menu. -->
+				<control type="button" id="9000">
+					<include>HiddenObject</include>
+					<onfocus condition="!$EXP[nara_tv_hierarchy_sidebar_locked]">SendClick(9160)</onfocus>
+					<onfocus condition="!$EXP[nara_tv_hierarchy_sidebar_locked] + $EXP[nara_video_library_menu]">SetFocus(9111)</onfocus>
+					<onfocus condition="!$EXP[nara_tv_hierarchy_sidebar_locked] + !$EXP[nara_video_library_menu]">SetFocus(9001)</onfocus>
+					<onfocus condition="Container.Content(seasons)">SetFocus(51)</onfocus>
+					<onfocus condition="Container.Content(episodes)">SetFocus(50)</onfocus>
+					<onclick>noop</onclick>
+					<visible allowhiddenfocus="true">true</visible>
+				</control>
+				<control type="group" id="9101">
+					<include>NaraVideoLibraryMediaMenuList</include>
+					<visible>$EXP[nara_video_library_menu]</visible>
+				</control>
+				<control type="grouplist" id="9001">
+					<top>50</top>
+					<include>MediaMenuListCommon</include>
+					<visible>!$EXP[nara_video_library_menu] + !$EXP[nara_tv_hierarchy_sidebar_locked]</visible>
+					<control type="button" id="10">
+						<description>Watched Toggle</description>
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[20367]</label>
+						<label2>$INFO[Container.NumItems]</label2>
+						<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.content(seasons) | Container.Content(episodes) | Container.Content(MusicVideos)</visible>
+					</control>
+					<control type="label" id="203">
+						<include>MediaMenuLabelCommon</include>
+						<label>$LOCALIZE[31020]</label>
+					</control>
+					<control type="radiobutton" id="16">
+						<description>PartyMode</description>
+						<label>$LOCALIZE[589]</label>
+						<include>MediaMenuItemsCommon</include>
+						<visible>Container.Content(MusicVideos)</visible>
+					</control>
+					<control type="radiobutton" id="11">
+						<description>Unlock Shares</description>
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[20336]</label>
+						<onclick>mastermode</onclick>
+						<selected>system.ismaster</selected>
+						<visible>system.haslocks</visible>
+					</control>
+					<control type="togglebutton" id="619">
+						<description>Update library</description>
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[653]</label>
+						<onclick>UpdateLibrary(video)</onclick>
+						<visible>!Container.Content(addons) + String.IsEmpty(Container.PluginName)</visible>
+						<altlabel>$LOCALIZE[13353]</altlabel>
+						<usealttexture>library.isscanningvideo</usealttexture>
+					</control>
+					<control type="button" id="612">
+						<description>Go to playlist</description>
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[31056]</label>
+						<onclick>ActivateWindow(videoplaylist)</onclick>
+						<visible>Integer.IsGreater(Playlist.Length(video),0)</visible>
+					</control>
+					<control type="button" id="621">
+						<description>Get more</description>
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[21452]</label>
+						<onclick>ActivateWindow(addonbrowser,addons://more/video/,return)</onclick>
+						<visible>Container.Content(addons)</visible>
+					</control>
+					<control type="button" id="622">
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[31117]</label>
+						<onclick condition="System.AddonIsEnabled(plugin.library.node.editor)">ActivateWindow(programs,plugin://plugin.library.node.editor/?ltype=video,return)</onclick>
+						<onclick condition="System.HasAddon(plugin.library.node.editor) + !System.AddonIsEnabled(plugin.library.node.editor)">EnableAddon(plugin.library.node.editor)</onclick>
+						<onclick condition="!System.HasAddon(plugin.library.node.editor)">InstallAddon(plugin.library.node.editor)</onclick>
+						<visible>Container.Content() + String.IsEmpty(Container.PluginName)</visible>
+					</control>
+					<control type="button" id="623">
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[31009]</label>
+						<onclick>InstallAddon(resource.images.studios.white)</onclick>
+						<visible>Container.Content(studios) + !System.AddonIsEnabled(resource.images.studios.white)</visible>
+					</control>
+					<control type="button" id="624">
+						<include>MediaMenuItemsCommon</include>
+						<label>$LOCALIZE[10140]</label>
+						<onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
+						<visible>!String.IsEmpty(Container.PluginName)</visible>
+					</control>
+					<include>MediaMenuNowPlaying</include>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>

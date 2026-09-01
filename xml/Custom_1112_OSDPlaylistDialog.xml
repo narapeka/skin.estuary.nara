@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1112" type="dialog">
+	<defaultcontrol always="true">6</defaultcontrol>
+	<include>Animation_DialogPopupOpenClose</include>
+	<depth>DepthOSD+</depth>
+	<controls>
+		<control type="group">
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<height>670</height>
+			<width>1040</width>
+			<include content="NaraStreamDialogBackground">
+				<param name="width" value="1040" />
+				<param name="height" value="670" />
+				<param name="header_label" value="$LOCALIZE[559]" />
+				<param name="header_id" value="1" />
+			</include>
+			<control type="image">
+				<right>28</right>
+				<top>17</top>
+				<width>36</width>
+				<height>36</height>
+				<aspectratio>keep</aspectratio>
+				<texture colordiffuse="text_primary">osd/nara/playlist.png</texture>
+				<include>NaraStreamDialogVerticalOffset</include>
+			</control>
+			<control type="fixedlist" id="6">
+				<left>20</left>
+				<top>90</top>
+				<width>1000</width>
+				<height>560</height>
+				<onup>6</onup>
+				<ondown>6</ondown>
+				<onleft>noop</onleft>
+				<onright condition="Integer.IsGreater(Container(6).NumItems,10)">61</onright>
+				<onright condition="!Integer.IsGreater(Container(6).NumItems,10)">noop</onright>
+				<pagecontrol>61</pagecontrol>
+				<focusposition>4</focusposition>
+				<startmovement>4</startmovement>
+				<endmovement>5</endmovement>
+				<aligny>top</aligny>
+				<scrolltime>200</scrolltime>
+				<include>NaraStreamDialogVerticalOffset</include>
+				<itemlayout height="56" width="1000">
+					<control type="image">
+						<left>0</left>
+						<top>4</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">osd/nara/progress-nib.png</texture>
+						<visible>ListItem.IsPlaying</visible>
+					</control>
+					<control type="label">
+						<left>56</left>
+						<top>0</top>
+						<width>600</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$VAR[NaraPlaylistTitleVar]</label>
+					</control>
+					<control type="label">
+						<left>680</left>
+						<top>0</top>
+						<width>160</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$VAR[NaraPlaylistContextVar]</label>
+						<textcolor>text_secondary</textcolor>
+					</control>
+					<control type="label">
+						<right>16</right>
+						<top>0</top>
+						<width>120</width>
+						<height>56</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Duration]</label>
+						<textcolor>text_secondary</textcolor>
+					</control>
+				</itemlayout>
+				<focusedlayout height="56" width="1000">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<right>0</right>
+						<bottom>0</bottom>
+						<texture colordiffuse="focus_soft_surface">lists/focus.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>4</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">osd/nara/progress-nib.png</texture>
+						<visible>ListItem.IsPlaying</visible>
+					</control>
+					<control type="label">
+						<left>56</left>
+						<top>0</top>
+						<width>600</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$VAR[NaraPlaylistTitleVar]</label>
+						<textcolor>text_primary</textcolor>
+						<selectedcolor>text_primary</selectedcolor>
+					</control>
+					<control type="label">
+						<left>680</left>
+						<top>0</top>
+						<width>160</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$VAR[NaraPlaylistContextVar]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+					</control>
+					<control type="label">
+						<right>16</right>
+						<top>0</top>
+						<width>120</width>
+						<height>56</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Duration]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+					</control>
+				</focusedlayout>
+				<onclick condition="!ListItem.IsPlaying">Playlist.PlayPosition(video,$INFO[ListItem.Property(playlistposition)])</onclick>
+				<onclick>Dialog.Close(1112)</onclick>
+				<content browse="never" loaditemdetails="false" focusplaying="true">playlistvideo://?reload=$INFO[Playlist.Position(video)]</content>
+			</control>
+			<control type="scrollbar" id="61">
+				<right>10</right>
+				<top>90</top>
+				<width>6</width>
+				<height>560</height>
+				<onleft>6</onleft>
+				<onright>6</onright>
+				<orientation>vertical</orientation>
+				<visible>Integer.IsGreater(Container(6).NumItems,10)</visible>
+			</control>
+		</control>
+	</controls>
+</window>

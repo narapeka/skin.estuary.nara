@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>996</defaultcontrol>
+	<include>Animation_ContextMenuOpenClose</include>
+	<coordinates>
+		<left>0</left>
+		<top>0</top>
+	</coordinates>
+	<controls>
+		<control type="image">
+			<left>-1920</left>
+			<top>-1080</top>
+			<width>5760</width>
+			<height>3240</height>
+			<animation effect="fade" start="0" end="100" time="120">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="90">WindowClose</animation>
+			<texture colordiffuse="4D000000">colors/black.png</texture>
+		</control>
+		<control type="button">
+			<left>-1920</left>
+			<top>-1080</top>
+			<width>5760</width>
+			<height>3240</height>
+			<texturefocus />
+			<texturenofocus />
+			<onclick>Action(close)</onclick>
+		</control>
+		<control type="group">
+			<!-- The redesigned Home navigation still needs Estuary's vertical offset,
+			     but information dialogs layered over Home must use Kodi's bounded position. -->
+			<animation effect="slide" end="0,175" time="0" condition="Window.IsActive(home) + !$EXP[infodialog_active]">conditional</animation>
+			<control type="image" id="999">
+				<description>background image</description>
+				<left>0</left>
+				<top>0</top>
+				<width>450</width>
+				<height>780</height>
+				<texture material="glass" blurradius="20" glasstint="66666666" glasssaturation="1.08" glasscontrast="1.02" glassgrain="0.005" glassborder="0.75" glassbordercolor="0CFFFFFF" glasshighlight="0.30" glassrefraction="2.5" glassrefractionwidth="14" glassdispersion="0.12" glassdepth="0.55" glassbackdropbrightness="0.92" cornerradius="30">colors/white.png</texture>
+			</control>
+			<control type="grouplist" id="996">
+				<description>grouplist for context buttons</description>
+				<left>12</left>
+				<top>12</top>
+				<width>426</width>
+				<height max="756">auto</height>
+				<usecontrolcoords>true</usecontrolcoords>
+			</control>
+			<include content="UpDownArrows">
+				<param name="container_id" value="996" />
+				<param name="posx" value="201" />
+				<param name="up_posy" value="-40" />
+				<param name="down_posy" value="798" />
+			</include>
+		</control>
+		<control type="button" id="1000">
+			<description>button template</description>
+			<left>0</left>
+			<top></top>
+			<width>426</width>
+			<height>65</height>
+			<align>center</align>
+			<texturefocus cornerradius="30" colordiffuse="focus_glass_surface">lists/focus.png</texturefocus>
+			<texturenofocus />
+			<focusedcolor>text_primary</focusedcolor>
+		</control>
+	</controls>
+</window>

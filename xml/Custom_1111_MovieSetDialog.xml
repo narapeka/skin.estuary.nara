@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1111" type="dialog">
+	<defaultcontrol always="true">5100</defaultcontrol>
+	<onload>SetFocus(5100,0,absolute)</onload>
+	<onunload>SetProperty(infobackground,$ESCINFO[Window(Home).Property(MovieSetDialog.SourceFanart)],home)</onunload>
+	<onunload>ClearProperty(MovieSetDialog.SetId,home)</onunload>
+	<onunload>ClearProperty(MovieSetDialog.SetName,home)</onunload>
+	<onunload>ClearProperty(MovieSetDialog.SourceFanart,home)</onunload>
+	<animation effect="fade" start="0" end="100" time="240">WindowOpen</animation>
+	<animation effect="fade" start="100" end="0" time="180">WindowClose</animation>
+	<depth>DepthDialog</depth>
+	<controls>
+		<!-- Keep the underlying video-information dialog fully covered. -->
+		<control type="image">
+			<include>FullScreenDimensions</include>
+			<texture>colors/black.png</texture>
+		</control>
+
+		<!-- Retain the source movie fanart while the dynamic set list is loading,
+		     and whenever the selected movie has no fanart of its own. -->
+		<control type="image">
+			<include>FullScreenDimensions</include>
+			<aspectratio>scale</aspectratio>
+			<fadetime>400</fadetime>
+			<texture background="true" colordiffuse="artwork_movieset_background">$INFO[Window(Home).Property(MovieSetDialog.SourceFanart)]</texture>
+			<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(Window(Home).Property(MovieSetDialog.SourceFanart))</visible>
+		</control>
+
+		<!-- Follow the focused poster with the same fanart treatment used by the
+		     existing media wall. -->
+		<control type="image">
+			<include>FullScreenDimensions</include>
+			<aspectratio>scale</aspectratio>
+			<fadetime>400</fadetime>
+			<animation effect="fade" time="400">VisibleChange</animation>
+			<texture background="true" colordiffuse="artwork_movieset_background">$INFO[Container(5100).ListItem.Art(fanart)]</texture>
+			<visible>!Skin.HasSetting(no_fanart) + !String.IsEmpty(Container(5100).ListItem.Art(fanart))</visible>
+		</control>
+
+		<control type="label">
+			<left>260</left>
+			<top>210</top>
+			<width>1400</width>
+			<height>60</height>
+			<font>font45_title</font>
+			<textcolor>text_primary</textcolor>
+			<shadowcolor>shadow_hard</shadowcolor>
+			<align>center</align>
+			<aligny>center</aligny>
+			<label>$INFO[Window(Home).Property(MovieSetDialog.SetName)]</label>
+		</control>
+
+		<!-- The visible 216x324 wall poster is scaled to integer pixel sizes:
+		     240x360 at rest, then 252x378 on focus. This is effectively a
+		     111.111% baseline with a 105% focus step and avoids edge rounding. -->
+		<control type="group">
+			<left>102</left>
+			<top>304</top>
+			<animation effect="slide" end="715,0" time="0" condition="Integer.IsEqual(Container(5100).NumItems,1)">Conditional</animation>
+			<animation effect="slide" end="572,0" time="0" condition="Integer.IsEqual(Container(5100).NumItems,2)">Conditional</animation>
+			<animation effect="slide" end="429,0" time="0" condition="Integer.IsEqual(Container(5100).NumItems,3)">Conditional</animation>
+			<animation effect="slide" end="286,0" time="0" condition="Integer.IsEqual(Container(5100).NumItems,4)">Conditional</animation>
+			<animation effect="slide" end="143,0" time="0" condition="Integer.IsEqual(Container(5100).NumItems,5)">Conditional</animation>
+			<control type="panel" id="5100">
+				<width>1716</width>
+				<height>473</height>
+				<orientation>horizontal</orientation>
+				<onleft>noop</onleft>
+				<onright>noop</onright>
+				<onup>noop</onup>
+				<ondown>noop</ondown>
+				<preloaditems>2</preloaditems>
+				<scrolltime tween="cubic" easing="out">500</scrolltime>
+				<itemlayout height="473" width="286">
+					<control type="group">
+						<left>13</left>
+						<top>23</top>
+						<animation effect="zoom" start="111.111111" end="111.111111" time="0" center="130,176" condition="true">Conditional</animation>
+						<include content="InfoWallMovieLayout">
+							<param name="show_caption" value="false" />
+						</include>
+					</control>
+					<include content="PosterCardCaption">
+						<param name="left" value="9" />
+						<param name="top" value="399" />
+						<param name="width" value="268" />
+					</include>
+				</itemlayout>
+				<focusedlayout height="473" width="286">
+					<control type="group">
+						<depth>DepthContentPopout</depth>
+						<control type="group">
+							<left>13</left>
+							<top>23</top>
+							<!-- 10/9 -> 65/54 makes focus 13/12 (8.333%) larger and maps
+							     the real poster from 240x360 to integral 260x390. -->
+							<animation effect="zoom" start="111.111111" end="120.370370" time="200" tween="sine" easing="inout" center="130,176">Focus</animation>
+							<animation effect="zoom" start="120.370370" end="111.111111" time="200" tween="sine" easing="inout" center="130,176">UnFocus</animation>
+							<include content="InfoWallMovieLayout">
+								<param name="show_caption" value="false" />
+								<param name="progress_visible_condition" value="[!Control.HasFocus(5100) | !Integer.IsEqual(ListItem.CurrentItem,Container(5100).CurrentItem)]" />
+							</include>
+							<!-- Pre-compensate the focus frame for the 65/54 zoom. Its settled
+							     border remains 2 px wide, with 1 px outside the poster and 1 px
+							     overlapping it; the enlarged quad adds a 12 px outer glow. -->
+							<control type="image">
+								<left>11.200000</left>
+								<top>3.200000</top>
+								<width>237.600000</width>
+								<height>345.600000</height>
+								<aspectratio>stretch</aspectratio>
+								<texture cornerradius="11.630769" cornerborder="1.661538" cornerglow="9.969231" colordiffuse="focus_media">colors/white.png</texture>
+								<include>Animation_FocusTextureFade</include>
+							</control>
+						</control>
+						<control type="group">
+							<animation effect="zoom" start="100" end="106" time="200" tween="sine" easing="inout" center="143,246">Focus</animation>
+							<animation effect="zoom" start="106" end="100" time="200" tween="sine" easing="inout" center="143,246">UnFocus</animation>
+							<include content="PosterCardCaption">
+								<param name="left" value="9" />
+								<param name="top" value="399" />
+								<param name="width" value="268" />
+								<param name="focused" value="true" />
+							</include>
+						</control>
+					</control>
+				</focusedlayout>
+				<onclick>Info</onclick>
+				<!-- Keep set membership independent of play count: always list every local member. -->
+				<content sortby="year" sortorder="ascending" target="videos" browse="never">videodb://movies/sets/$INFO[Window(Home).Property(MovieSetDialog.SetId)]/?setid=$INFO[Window(Home).Property(MovieSetDialog.SetId)]</content>
+			</control>
+		</control>
+	</controls>
+</window>

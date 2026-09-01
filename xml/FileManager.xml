@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">20</defaultcontrol>
+	<controls>
+		<include>DefaultBackground</include>
+
+		<!-- Home passes its current shared movie fanart through Home.SharedRandomFanart.
+		     Locked and session-held paths suppress this direct-launch fallback query. -->
+		<control type="list" id="16090">
+			<left>-2</left>
+			<top>-2</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1" />
+			<focusedlayout width="1" height="1" />
+			<content sortby="random" sortorder="ascending" limit="1" target="videos" browse="never">videodb://movies/titles/</content>
+			<visible>String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath))</visible>
+		</control>
+		<control type="image">
+			<include>FullScreenDimensions</include>
+			<aspectratio align="right">scale</aspectratio>
+			<fadetime>250</fadetime>
+			<texture background="true" colordiffuse="B3FFFFFF">$VAR[NaraFileManagerRandomFanartVar]</texture>
+			<visible>!Skin.HasSetting(no_fanart) + ![String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath)) + String.IsEmpty(Container(16090).ListItem.Art(fanart))] + ![Player.HasVideo | Player.HasAudio | Player.HasGame]</visible>
+		</control>
+		<control type="image">
+			<include>FullScreenDimensions</include>
+			<texture colordiffuse="1A000000">colors/black.png</texture>
+		</control>
+		<control type="image">
+			<width>1920</width>
+			<height>220</height>
+			<aspectratio>stretch</aspectratio>
+			<texture flipy="true" colordiffuse="66FFFFFF">overlays/overlayfade.png</texture>
+		</control>
+
+		<!-- Header aligns to the content surface and intentionally has no back icon. -->
+		<control type="group">
+			<animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+			<control type="label">
+				<left>85</left>
+				<top>20</top>
+				<width>1100</width>
+				<height>60</height>
+				<font>font_topbar_title</font>
+				<aligny>center</aligny>
+				<textcolor>text_primary</textcolor>
+				<label>$LOCALIZE[7]</label>
+			</control>
+			<control type="label" id="101">
+				<left>85</left>
+				<top>80</top>
+				<width>1300</width>
+				<height>38</height>
+				<font>font24</font>
+				<aligny>center</aligny>
+				<textcolor>text_secondary</textcolor>
+				<label />
+				<haspath>true</haspath>
+			</control>
+			<control type="label">
+				<left>1760</left>
+				<top>0</top>
+				<width>120</width>
+				<height>100</height>
+				<font>font_home_clock</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<textcolor>text_primary</textcolor>
+				<label>$INFO[System.Time]</label>
+			</control>
+		</control>
+
+		<!-- Single-pane content surface -->
+		<control type="image">
+			<left>85</left>
+			<top>160</top>
+			<width>1750</width>
+			<height>870</height>
+			<texture material="glass" blurradius="20" glasstint="66666666" glasssaturation="1.08" glasscontrast="1.02" glassgrain="0.005" glassborder="0.75" glassbordercolor="0CFFFFFF" glasshighlight="0.30" glassrefraction="2.5" glassrefractionwidth="14" glassdispersion="0.12" glassdepth="0.55" cornerradius="30">colors/white.png</texture>
+		</control>
+		<control type="group">
+			<left>85</left>
+			<top>174</top>
+			<height>54</height>
+			<control type="label">
+				<left>1190</left>
+				<width>160</width>
+				<height>54</height>
+				<font>font12_large</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textcolor>text_muted</textcolor>
+				<label>$LOCALIZE[31676]</label>
+			</control>
+			<control type="label">
+				<left>1370</left>
+				<width>150</width>
+				<height>54</height>
+				<font>font12_large</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textcolor>text_muted</textcolor>
+				<label>$LOCALIZE[467]</label>
+			</control>
+			<control type="label">
+				<left>1535</left>
+				<width>150</width>
+				<height>54</height>
+				<font>font12_large</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<textcolor>text_muted</textcolor>
+				<label>$LOCALIZE[553]</label>
+			</control>
+		</control>
+
+		<!-- A normal list starts at row one even when it only contains one item. -->
+		<control type="group">
+			<left>85</left>
+			<top>228</top>
+			<width>1750</width>
+			<height>780</height>
+			<control type="list" id="20">
+				<left>0</left>
+				<top>0</top>
+				<width>1710</width>
+				<height>780</height>
+				<onleft>noop</onleft>
+				<onright>60</onright>
+				<onup>20</onup>
+				<ondown>20</ondown>
+				<pagecontrol>60</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<itemlayout width="1710" height="78">
+					<control type="image">
+						<left>25</left>
+						<centertop>50%</centertop>
+						<width>42</width>
+						<height>42</height>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
+						<texture colordiffuse="text_primary">$INFO[ListItem.Icon]</texture>
+						<visible>!ListItem.IsParentFolder + !ListItem.Property(FileManager.IsVideo)</visible>
+					</control>
+					<control type="image">
+						<left>30</left>
+						<centertop>50%</centertop>
+						<width>32</width>
+						<height>32</height>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
+						<texture colordiffuse="text_primary">$VAR[ListWatchedIconVar]</texture>
+						<visible>ListItem.Property(FileManager.IsVideo)</visible>
+					</control>
+					<control type="image">
+						<left>31</left>
+						<centertop>50%</centertop>
+						<width>30</width>
+						<height>30</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">buttons/spinctrl/arrow-light-up.png</texture>
+						<visible>ListItem.IsParentFolder</visible>
+					</control>
+					<control type="label">
+						<left>85</left>
+						<width>1080</width>
+						<height>78</height>
+						<font>font13</font>
+						<aligny>center</aligny>
+						<textcolor>text_primary</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>1190</left>
+						<width>160</width>
+						<height>78</height>
+						<font>font12_large</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textcolor>text_secondary</textcolor>
+						<label>$INFO[ListItem.Date]</label>
+					</control>
+					<control type="label">
+						<left>1370</left>
+						<width>150</width>
+						<height>78</height>
+						<font>font12_large</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textcolor>text_secondary</textcolor>
+						<label>$VAR[FileManagerTypeVar]</label>
+					</control>
+					<control type="label">
+						<left>1535</left>
+						<width>150</width>
+						<height>78</height>
+						<font>font12_large</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<textcolor>text_secondary</textcolor>
+						<label>$INFO[ListItem.Size]</label>
+					</control>
+					<control type="image">
+						<left>20</left>
+						<bottom>0</bottom>
+						<width>1665</width>
+						<height>1</height>
+						<texture colordiffuse="border_subtle">colors/white.png</texture>
+					</control>
+				</itemlayout>
+				<focusedlayout width="1710" height="78">
+					<control type="image">
+						<left>0</left>
+						<top>3</top>
+						<width>1700</width>
+						<height>72</height>
+						<texture colordiffuse="focus_soft_surface" border="27">lists/focus.png</texture>
+					</control>
+					<control type="image">
+						<left>25</left>
+						<centertop>50%</centertop>
+						<width>42</width>
+						<height>42</height>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
+						<texture colordiffuse="text_primary">$INFO[ListItem.Icon]</texture>
+						<visible>!ListItem.IsParentFolder + !ListItem.Property(FileManager.IsVideo)</visible>
+					</control>
+					<control type="image">
+						<left>30</left>
+						<centertop>50%</centertop>
+						<width>32</width>
+						<height>32</height>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
+						<texture colordiffuse="text_primary">$VAR[ListWatchedIconVar]</texture>
+						<visible>ListItem.Property(FileManager.IsVideo)</visible>
+					</control>
+					<control type="image">
+						<left>31</left>
+						<centertop>50%</centertop>
+						<width>30</width>
+						<height>30</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">buttons/spinctrl/arrow-light-up.png</texture>
+						<visible>ListItem.IsParentFolder</visible>
+					</control>
+					<control type="label">
+						<left>85</left>
+						<width>1080</width>
+						<height>78</height>
+						<font>font13</font>
+						<aligny>center</aligny>
+						<textcolor>text_primary</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<scroll>true</scroll>
+					</control>
+					<control type="label">
+						<left>1190</left>
+						<width>160</width>
+						<height>78</height>
+						<font>font12_large</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textcolor>text_secondary</textcolor>
+						<label>$INFO[ListItem.Date]</label>
+					</control>
+					<control type="label">
+						<left>1370</left>
+						<width>150</width>
+						<height>78</height>
+						<font>font12_large</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textcolor>text_secondary</textcolor>
+						<label>$VAR[FileManagerTypeVar]</label>
+					</control>
+					<control type="label">
+						<left>1535</left>
+						<width>150</width>
+						<height>78</height>
+						<font>font12_large</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<textcolor>text_secondary</textcolor>
+						<label>$INFO[ListItem.Size]</label>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="scrollbar" id="60">
+				<left>1725</left>
+				<top>0</top>
+				<width>6</width>
+				<height>780</height>
+				<orientation>vertical</orientation>
+				<texturesliderbackground />
+				<onleft>20</onleft>
+				<onright>20</onright>
+			</control>
+		</control>
+
+		<!-- Core compatibility controls. Extended skins only render pane 20. -->
+		<control type="label" id="102">
+			<visible>false</visible>
+		</control>
+		<control type="label" id="13">
+			<visible>false</visible>
+		</control>
+		<control type="list" id="21">
+			<left>-2</left>
+			<top>-2</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1" />
+			<focusedlayout width="1" height="1" />
+			<visible>false</visible>
+		</control>
+	</controls>
+</window>

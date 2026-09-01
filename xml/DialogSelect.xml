@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">3</defaultcontrol>
+	<onload condition="Window.IsActive(gamesaves) | Window.IsActive(gamestretchmode) | Window.IsActive(gamevideofilter) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)">SetFocus(39999)</onload>
+	<include>Animation_DialogPopupOpenClose</include>
+	<depth>DepthOSD</depth>
+	<controls>
+		<include condition="![Window.IsActive(dialogselectvideo) | Window.IsActive(dialogselectaudio) | Window.IsActive(dialogselectsubtitle) | Window.IsActive(gamesaves) | Window.IsActive(gamestretchmode) | Window.IsActive(gamevideofilter) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DefaultDialogSelectLayout</include>
+		<include condition="Window.IsActive(dialogselectvideo)">VideoDialogSelectVideoLayout</include>
+		<include condition="Window.IsActive(dialogselectaudio)">VideoDialogSelectAudioLayout</include>
+		<include condition="Window.IsActive(dialogselectsubtitle)">VideoDialogSelectSubtitleLayout</include>
+		<include content="UnavailableFeatureDialog" condition="Window.IsActive(gamesaves) | Window.IsActive(gamestretchmode) | Window.IsActive(gamevideofilter) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)">
+			<param name="header_label" value="$LOCALIZE[15016]" />
+			<param name="message_label" value="$LOCALIZE[31178]" />
+		</include>
+	</controls>
+</window>

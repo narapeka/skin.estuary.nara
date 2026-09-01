@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include name="NaraAlphabetIndexItem">
+		<param name="container_id" />
+		<param name="label" default="#" />
+		<param name="item_width" default="52" />
+		<param name="item_height" default="30" />
+		<definition>
+			<control type="label">
+				<width>$PARAM[item_width]</width>
+				<height>$PARAM[item_height]</height>
+				<label>$PARAM[label]</label>
+				<font>font10</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textcolor>80FFFFFF</textcolor>
+				<visible>!String.IsEqual(Container($PARAM[container_id]).ListItem.SortLetter,$PARAM[label])</visible>
+			</control>
+			<control type="label">
+				<width>$PARAM[item_width]</width>
+				<height>$PARAM[item_height]</height>
+				<label>[B]$PARAM[label][/B]</label>
+				<font>font12</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textcolor>FFFFFFFF</textcolor>
+				<visible>String.IsEqual(Container($PARAM[container_id]).ListItem.SortLetter,$PARAM[label])</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraAlphabetIndexLabels">
+		<param name="container_id" />
+		<param name="orientation" default="vertical" />
+		<param name="width" default="52" />
+		<param name="height" default="810" />
+		<param name="item_width" default="52" />
+		<param name="item_height" default="30" />
+		<definition>
+			<control type="grouplist">
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<orientation>$PARAM[orientation]</orientation>
+				<itemgap>0</itemgap>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="#" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="A" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="B" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="C" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="D" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="E" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="F" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="G" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="H" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="I" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="J" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="K" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="L" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="M" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="N" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="O" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="P" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="Q" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="R" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="S" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="T" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="U" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="V" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="W" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="X" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="Y" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+				<include content="NaraAlphabetIndexItem"><param name="container_id" value="$PARAM[container_id]" /><param name="label" value="Z" /><param name="item_width" value="$PARAM[item_width]" /><param name="item_height" value="$PARAM[item_height]" /></include>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraVerticalAlphabetIndex">
+		<param name="container_id" />
+		<param name="control_id" />
+		<param name="return_control_id" />
+		<param name="visible" default="true" />
+		<definition>
+			<control type="group">
+				<width>52</width>
+				<height>810</height>
+				<visible>$PARAM[visible]</visible>
+				<animation effect="fade" start="0" end="100" time="180">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="150">Hidden</animation>
+				<animation effect="fade" start="100" end="50" time="120" condition="!Control.HasFocus($PARAM[control_id])">Conditional</animation>
+				<control type="button" id="$PARAM[control_id]">
+					<width>52</width>
+					<height>810</height>
+					<label></label>
+					<font></font>
+					<texturefocus></texturefocus>
+					<texturenofocus></texturenofocus>
+					<onleft>$PARAM[return_control_id]</onleft>
+					<onright>$PARAM[return_control_id]</onright>
+					<onback>$PARAM[return_control_id]</onback>
+					<onup>SetFocus($PARAM[container_id])</onup>
+					<onup condition="Container.SortDirection(ascending)">Action(prevletter)</onup>
+					<onup condition="Container.SortDirection(descending)">Action(nextletter)</onup>
+					<onup>SetFocus($PARAM[control_id])</onup>
+					<ondown>SetFocus($PARAM[container_id])</ondown>
+					<ondown condition="Container.SortDirection(ascending)">Action(nextletter)</ondown>
+					<ondown condition="Container.SortDirection(descending)">Action(prevletter)</ondown>
+					<ondown>SetFocus($PARAM[control_id])</ondown>
+				</control>
+				<include content="NaraAlphabetIndexLabels">
+					<param name="container_id" value="$PARAM[container_id]" />
+					<param name="orientation" value="vertical" />
+					<param name="width" value="52" />
+					<param name="height" value="810" />
+				</include>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraHorizontalAlphabetIndex">
+		<param name="container_id" />
+		<param name="control_id" />
+		<param name="return_control_id" />
+		<param name="visible" default="true" />
+		<param name="width" default="1080" />
+		<param name="height" default="30" />
+		<param name="item_width" default="40" />
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<visible>$PARAM[visible]</visible>
+				<animation effect="fade" start="0" end="100" time="180">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="150">Hidden</animation>
+				<animation effect="fade" start="100" end="50" time="120" condition="!Control.HasFocus($PARAM[control_id])">Conditional</animation>
+				<control type="button" id="$PARAM[control_id]">
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<label></label>
+					<font></font>
+					<texturefocus></texturefocus>
+					<texturenofocus></texturenofocus>
+					<onup>$PARAM[return_control_id]</onup>
+					<ondown>$PARAM[return_control_id]</ondown>
+					<onback>$PARAM[return_control_id]</onback>
+					<onleft>SetFocus($PARAM[container_id])</onleft>
+					<onleft condition="Container.SortDirection(ascending)">Action(prevletter)</onleft>
+					<onleft condition="Container.SortDirection(descending)">Action(nextletter)</onleft>
+					<onleft>SetFocus($PARAM[control_id])</onleft>
+					<onright>SetFocus($PARAM[container_id])</onright>
+					<onright condition="Container.SortDirection(ascending)">Action(nextletter)</onright>
+					<onright condition="Container.SortDirection(descending)">Action(prevletter)</onright>
+					<onright>SetFocus($PARAM[control_id])</onright>
+				</control>
+				<include content="NaraAlphabetIndexLabels">
+					<param name="container_id" value="$PARAM[container_id]" />
+					<param name="orientation" value="horizontal" />
+					<param name="width" value="$PARAM[width]" />
+					<param name="height" value="$PARAM[height]" />
+					<param name="item_width" value="$PARAM[item_width]" />
+					<param name="item_height" value="$PARAM[height]" />
+				</include>
+			</control>
+		</definition>
+	</include>
+</includes>

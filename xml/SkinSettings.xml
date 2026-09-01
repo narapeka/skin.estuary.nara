@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>9000</defaultcontrol>
+	<backgroundcolor>background</backgroundcolor>
+	<controls>
+		<include>DefaultBackground</include>
+		<control type="group" id="10000">
+			<left>470</left>
+			<include>OpenClose_Right</include>
+			<control type="grouplist" id="700">
+				<top>103</top>
+				<left>0</left>
+				<right>0</right>
+				<bottom>140</bottom>
+				<onleft>9000</onleft>
+				<onright>60</onright>
+				<onup>700</onup>
+				<ondown>700</ondown>
+				<visible>Container(9000).HasFocus(1)</visible>
+				<control type="radiobutton" id="702">
+					<label>$LOCALIZE[20189]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(autoscroll)</onclick>
+					<selected>Skin.HasSetting(autoscroll)</selected>
+				</control>
+				<control type="radiobutton" id="705">
+					<label>$LOCALIZE[31160]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(hide_mediaflags)</onclick>
+					<selected>!Skin.HasSetting(hide_mediaflags)</selected>
+				</control>
+				<control type="button" id="706">
+					<label>$LOCALIZE[31024]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SelectBool(31024, 38018|circle_userrating, 563|circle_rating, 16018|circle_none)</onclick>
+					<label2>$VAR[RatingSettingLabel2Var]</label2>
+				</control>
+				<control type="button" id="708">
+					<label>$LOCALIZE[31047]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SelectBool(31047, 571|OriginalTitleFormat_Default, 31049|OriginalTitleFormat_Only, 31050|OriginalTitleFormat_1st, 31051|OriginalTitleFormat_2nd)</onclick>
+					<label2>$VAR[OriginalTitleSetting]</label2>
+				</control>
+			</control>
+			<control type="grouplist" id="600">
+				<top>103</top>
+				<left>0</left>
+				<right>0</right>
+				<bottom>140</bottom>
+				<onleft>9000</onleft>
+				<onright>60</onright>
+				<onup>600</onup>
+				<ondown>600</ondown>
+				<visible>Container(9000).HasFocus(3)</visible>
+				<control type="radiobutton" id="605">
+					<label>$LOCALIZE[31002]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(no_fanart)</onclick>
+					<selected>!Skin.HasSetting(no_fanart)</selected>
+				</control>
+				<control type="radiobutton" id="6067">
+					<label>$LOCALIZE[31168]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(show_musicvideoposter)</onclick>
+					<selected>Skin.HasSetting(show_musicvideoposter)</selected>
+				</control>
+			</control>
+			<control type="grouplist" id="610">
+				<top>103</top>
+				<left>0</left>
+				<right>0</right>
+				<bottom>140</bottom>
+				<onleft>9000</onleft>
+				<onright>60</onright>
+				<onup>610</onup>
+				<pagecontrol>60</pagecontrol>
+				<ondown>610</ondown>
+				<visible>Container(9000).HasFocus(2)</visible>
+				<control type="radiobutton" id="611">
+					<label>$LOCALIZE[342]</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(HomeMenuNoMovieButton)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoMovieButton)</onclick>
+				</control>
+				<control type="button" id="6111">
+					<label>- $LOCALIZE[31040]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>SetProperty(settingsdialog_header,$LOCALIZE[31040] - $LOCALIZE[342],home)</onclick>
+					<onclick>SetProperty(settingsdialog_content,moviewidgets,home)</onclick>
+					<onclick>ActivateWindow(1101)</onclick>
+					<enable>!Skin.HasSetting(HomeMenuNoMovieButton)</enable>
+				</control>
+				<control type="button" id="627">
+					<label>- $LOCALIZE[31176]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SelectBool(31176, 37015|movieset_onclick_browse, 13362|movieset_onclick_continuewatching, 12021|movieset_onclick_playfrombeginning, 10008|movieset_onclick_playnext, 13347|movieset_onclick_queue)</onclick>
+					<label2>$VAR[MovieSetOnClickActionLabel2Var]</label2>
+					<enable>!Skin.HasSetting(HomeMenuNoMovieButton)</enable>
+				</control>
+				<control type="radiobutton" id="612">
+					<label>$LOCALIZE[20343]</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(HomeMenuNoTVShowButton)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoTVShowButton)</onclick>
+				</control>
+				<control type="button" id="6121">
+					<label>- $LOCALIZE[31040]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>SetProperty(settingsdialog_header,$LOCALIZE[31040] - $LOCALIZE[20343],home)</onclick>
+					<onclick>SetProperty(settingsdialog_content,tvshowwidgets,home)</onclick>
+					<onclick>ActivateWindow(1101)</onclick>
+					<enable>!Skin.HasSetting(HomeMenuNoTVShowButton)</enable>
+				</control>
+				<control type="button" id="626">
+					<label>- $LOCALIZE[31175]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SelectBool(31175, 37015|tvshow_onclick_browse, 13362|tvshow_onclick_continuewatching, 12021|tvshow_onclick_playfrombeginning, 10008|tvshow_onclick_playnext, 13347|tvshow_onclick_queue)</onclick>
+					<label2>$VAR[TVShowOnClickActionLabel2Var]</label2>
+					<enable>!Skin.HasSetting(HomeMenuNoTVShowButton)</enable>
+				</control>
+				<control type="radiobutton" id="613">
+					<label>$LOCALIZE[2]</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(HomeMenuNoMusicButton)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoMusicButton)</onclick>
+				</control>
+				<control type="button" id="6132">
+					<label>- $LOCALIZE[31040]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>SetProperty(settingsdialog_header,$LOCALIZE[31040] - $LOCALIZE[2],home)</onclick>
+					<onclick>SetProperty(settingsdialog_content,musicwidgets,home)</onclick>
+					<onclick>ActivateWindow(1101)</onclick>
+					<enable>!Skin.HasSetting(HomeMenuNoMusicButton)</enable>
+				</control>
+				<control type="button" id="625">
+					<label>- $LOCALIZE[31174]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SelectBool(31174, 37015|album_onclick_browse, 208|album_onclick_play, 10008|album_onclick_playnext, 13347|album_onclick_queue)</onclick>
+					<label2>$VAR[AlbumOnClickActionLabel2Var]</label2>
+					<enable>!Skin.HasSetting(HomeMenuNoMusicButton)</enable>
+				</control>
+				<control type="radiobutton" id="618">
+					<label>$LOCALIZE[19020]</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(HomeMenuNoTVButton)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoTVButton)</onclick>
+				</control>
+				<control type="button" id="6181">
+					<label>- $LOCALIZE[31040]</label>
+					<include>DefaultSettingButton</include>
+					<onclick>SetProperty(settingsdialog_header,$LOCALIZE[31040] - $LOCALIZE[19020],home)</onclick>
+					<onclick>SetProperty(settingsdialog_content,tvwidgets,home)</onclick>
+					<onclick>ActivateWindow(1101)</onclick>
+					<enable>!Skin.HasSetting(HomeMenuNoTVButton)</enable>
+				</control>
+			</control>
+			<control type="grouplist" id="622">
+				<top>103</top>
+				<left>0</left>
+				<right>0</right>
+				<bottom>140</bottom>
+				<onleft>9000</onleft>
+				<onright>60</onright>
+				<onup>610</onup>
+				<pagecontrol>60</pagecontrol>
+				<ondown>610</ondown>
+				<visible>Container(9000).HasFocus(4)</visible>
+				<control type="radiobutton" id="623">
+					<label>$LOCALIZE[31172]</label>
+					<include>DefaultSettingButton</include>
+					<selected>Skin.HasSetting(OSDAutoClose)</selected>
+					<onclick>Skin.ToggleSetting(OSDAutoClose)</onclick>
+				</control>
+				<control type="button" id="624">
+					<label>- $LOCALIZE[31173]</label>
+					<label2>$VAR[SkinSettingOSDAutoCloseTime]</label2>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SetNumeric(OSDAutoCloseTime)</onclick>
+					<enable>Skin.HasSetting(OSDAutoClose)</enable>
+				</control>
+			</control>
+			<control type="image">
+				<description>Dialog Header image</description>
+				<left>0</left>
+				<top>100</top>
+				<right>0</right>
+				<height>3</height>
+				<texture colordiffuse="border_default" border="2">dialogs/separator-grey.png</texture>
+			</control>
+			<control type="image">
+				<description>Dialog Header image</description>
+				<left>0</left>
+				<bottom>134</bottom>
+				<right>0</right>
+				<height>3</height>
+				<texture colordiffuse="border_default" border="2">dialogs/separator-grey.png</texture>
+			</control>
+		</control>
+		<control type="group">
+			<depth>DepthContentPanel</depth>
+			<left>0</left>
+			<include>OpenClose_Left</include>
+			<include content="ContentPanel">
+				<param name="width" value="530" />
+			</include>
+			<control type="list" id="9000">
+				<description>button area</description>
+				<left>0</left>
+				<top>100</top>
+				<width>470</width>
+				<height>730</height>
+				<onleft>10000</onleft>
+				<onright>10000</onright>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<itemlayout height="85" width="470">
+					<control type="label">
+						<textoffsetx>30</textoffsetx>
+						<width>470</width>
+						<height>85</height>
+						<label>$INFO[ListItem.Label]</label>
+						<font>font37</font>
+						<aligny>center</aligny>
+					</control>
+				</itemlayout>
+				<focusedlayout height="85" width="470">
+					<control type="image">
+						<width>470</width>
+						<height>85</height>
+						<texture colordiffuse="focus_surface">lists/focus.png</texture>
+						<animation effect="fade" start="100" end="50" time="40" condition="!Control.HasFocus(9000)">Conditional</animation>
+					</control>
+					<control type="label">
+						<textoffsetx>30</textoffsetx>
+						<width>470</width>
+						<height>85</height>
+						<font>font37</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>$VAR[FocusLayoutTextColor9000Var]</textcolor>
+						<selectedcolor>$VAR[FocusLayoutTextColor9000Var]</selectedcolor>
+					</control>
+				</focusedlayout>
+				<content>
+					<item id="1">
+						<label>$LOCALIZE[128]</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="2">
+						<label>$LOCALIZE[31061]</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="3">
+						<label>$LOCALIZE[31159]</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="4">
+						<label>$LOCALIZE[31170]</label>
+						<onclick>noop</onclick>
+					</item>
+				</content>
+			</control>
+		</control>
+		<control type="group">
+			<right>0</right>
+			<top>103</top>
+			<bottom>137</bottom>
+			<width>60</width>
+			<control type="scrollbar" id="60">
+				<right>0</right>
+				<top>0</top>
+				<bottom>0</bottom>
+				<width>12</width>
+				<orientation>vertical</orientation>
+				<texturesliderbackground />
+				<animation effect="slide" end="6,0" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(60)">conditional</animation>
+				<onleft>610</onleft>
+				<onright>610</onright>
+				<animation effect="fade" start="0" end="100" time="200" delay="300">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="200">Hidden</animation>
+				<animation effect="fade" start="0" end="100" delay="300" time="320">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
+				<hitrect x="0" y="0" w="60" h="100%" />
+				<visible>Control.IsVisible(610)</visible>
+			</control>
+		</control>
+		<include content="TopBar">
+			<param name="breadcrumbs_label" value="$LOCALIZE[5] / $LOCALIZE[20077]" />
+		</include>
+		<include>BottomBar</include>
+		<control type="textbox" id="6">
+			<include>OpenClose_Right</include>
+			<description>description area</description>
+			<left>510</left>
+			<bottom>27</bottom>
+			<width>1350</width>
+			<height>100</height>
+			<font>font12</font>
+			<align>left</align>
+			<textcolor>text_secondary</textcolor>
+			<label>$VAR[SkinSettingsHelpTextVar]</label>
+			<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+		</control>
+	</controls>
+</window>

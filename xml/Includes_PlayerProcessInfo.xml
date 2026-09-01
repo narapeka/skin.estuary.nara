@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include name="NaraProcessInfoSection">
+		<param name="visible">true</param>
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>30</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="image">
+					<left>0</left>
+					<top>2</top>
+					<width>26</width>
+					<height>26</height>
+					<aspectratio>keep</aspectratio>
+					<texture colordiffuse="text_primary">$PARAM[icon]</texture>
+				</control>
+				<control type="label">
+					<left>35</left>
+					<right>0</right>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info_bold</font>
+					<label>$PARAM[label]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="NaraProcessInfoRow">
+		<param name="visible">true</param>
+		<param name="label_width">230</param>
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>30</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="label">
+					<left>0</left>
+					<width>$PARAM[label_width]</width>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$PARAM[label]:</label>
+				</control>
+				<control type="label">
+					<left>$PARAM[label_width]</left>
+					<right>0</right>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<label>$PARAM[value]</label>
+					<scroll>false</scroll>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="NaraProcessMeterRow">
+		<param name="visible">true</param>
+		<param name="label_width">230</param>
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>30</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="label">
+					<left>0</left>
+					<width>$PARAM[label_width]</width>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$PARAM[label]:</label>
+				</control>
+				<control type="label">
+					<left>$PARAM[label_width]</left>
+					<width>64</width>
+					<height>30</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<label>$PARAM[value]</label>
+				</control>
+				<control type="progress">
+					<left>306</left>
+					<right>0</right>
+					<top>11</top>
+					<height>8</height>
+					<info>$PARAM[info]</info>
+					<texturebg border="3" colordiffuse="progress_track">colors/white50.png</texturebg>
+					<midtexture border="3" colordiffuse="text_primary">colors/white.png</midtexture>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="NaraProcessDualMeterRow">
+		<param name="visible">true</param>
+		<param name="label_width">230</param>
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>30</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="label">
+					<left>0</left>
+					<width>$PARAM[label_width]</width>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$PARAM[label]:</label>
+				</control>
+				<control type="label">
+					<left>$PARAM[label_width]</left>
+					<width>116</width>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<label>$PARAM[value]</label>
+				</control>
+				<control type="progress">
+					<left>356</left>
+					<width>110</width>
+					<top>11</top>
+					<height>8</height>
+					<info>$PARAM[info1]</info>
+					<texturebg border="3" colordiffuse="progress_track">colors/white50.png</texturebg>
+					<midtexture border="3" colordiffuse="text_primary">colors/white.png</midtexture>
+				</control>
+				<control type="progress">
+					<left>478</left>
+					<right>0</right>
+					<top>11</top>
+					<height>8</height>
+					<info>$PARAM[info2]</info>
+					<texturebg border="3" colordiffuse="progress_track">colors/white50.png</texturebg>
+					<midtexture border="3" colordiffuse="text_primary">colors/white.png</midtexture>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="NaraProcessStatusRow">
+		<param name="visible">true</param>
+		<param name="label_width">230</param>
+		<definition>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>30</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="label">
+					<left>0</left>
+					<width>$PARAM[label_width]</width>
+					<height>30</height>
+					<aligny>center</aligny>
+					<font>font_nara_process_info</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$PARAM[label]:</label>
+				</control>
+				<control type="image">
+					<left>$PARAM[label_width]</left>
+					<top>3</top>
+					<width>24</width>
+					<height>24</height>
+					<texture colordiffuse="progress_watched">osd/nara/process-info/check-circle.png</texture>
+					<visible>String.IsEqual($PARAM[info],true)</visible>
+				</control>
+				<control type="image">
+					<left>$PARAM[label_width]</left>
+					<top>3</top>
+					<width>24</width>
+					<height>24</height>
+					<texture colordiffuse="status_error">osd/nara/process-info/circle-xmark.png</texture>
+					<visible>!String.IsEqual($PARAM[info],true)</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

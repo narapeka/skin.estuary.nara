@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>9000</defaultcontrol>
+	<!-- Apply the Estuary N home-menu defaults once. The marker prevents later
+	     home visits from overriding a user's explicit menu choices. -->
+	<onload condition="!Skin.HasSetting(NaraHomeMenuDefaultsMusicTVOff)">Skin.SetBool(HomeMenuNoMusicButton)</onload>
+	<onload condition="!Skin.HasSetting(NaraHomeMenuDefaultsMusicTVOff)">Skin.SetBool(HomeMenuNoTVButton)</onload>
+	<onload condition="!Skin.HasSetting(NaraHomeMenuDefaultsMusicTVOff)">Skin.SetBool(NaraHomeMenuDefaultsMusicTVOff)</onload>
+	<!-- Only choose the initial section once. Returning from a child window must
+	     leave Kodi's remembered home control intact. -->
+	<onload condition="!Window.Previous(filemanager) + String.IsEmpty(Window(home).Property(Home.Section)) + !Skin.HasSetting(HomeMenuNoMovieButton)">SetFocus(9012)</onload>
+	<onload condition="!Window.Previous(filemanager) + String.IsEmpty(Window(home).Property(Home.Section)) + Skin.HasSetting(HomeMenuNoMovieButton)">SetFocus(9011)</onload>
+	<onload condition="Window.Previous(filemanager)">SetProperty(Home.Section,files,home)</onload>
+	<onload condition="Window.Previous(filemanager) + String.IsEqual(Window(home).Property(Home.FileReturnControl),15010)">SetFocus(15010)</onload>
+	<onload condition="Window.Previous(filemanager) + String.IsEqual(Window(home).Property(Home.FileReturnControl),15020)">SetFocus(15020)</onload>
+	<onload condition="Window.Previous(filemanager) + !String.IsEqual(Window(home).Property(Home.FileReturnControl),15010) + !String.IsEqual(Window(home).Property(Home.FileReturnControl),15020)">SetFocus(9017)</onload>
+	<!-- Carry the exact shared fanart used by Search, Favorites and Files into the
+	     standalone file manager. This includes locked and just-unlocked paths. -->
+	<onunload condition="Window.Next(filemanager) + ![String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath)) + String.IsEmpty(Container(16090).ListItem.Art(fanart))]">SetProperty(Home.SharedRandomFanart,$ESCVAR[NaraSharedRandomFanartVar],home)</onunload>
+	<backgroundcolor>background</backgroundcolor>
+	<controls>
+		<control type="button" id="20001">
+			<include>HiddenObject</include>
+			<animation effect="fade" time="300" start="100" end="0">Focus</animation>
+			<onfocus>SetFocus(2000)</onfocus>
+			<onclick>noop</onclick>
+			<visible allowhiddenfocus="true">Control.HasFocus(20001)</visible>
+		</control>
+		<include>DefaultBackground</include>
+		<control type="multiimage">
+			<depth>DepthBackground</depth>
+			<include>FullScreenDimensions</include>
+			<aspectratio>scale</aspectratio>
+			<fadetime>350</fadetime>
+			<animation effect="zoom" center="auto" end="102,102" time="0" condition="Integer.IsGreater(System.StereoscopicMode,0)">conditional</animation>
+			<animation effect="fade" start="0" end="100" time="250">WindowOpen</animation>
+			<animation effect="fade" time="400">VisibleChange</animation>
+			<imagepath background="true">$VAR[HomeFanartVar]</imagepath>
+			<visible>![Player.HasVideo | Player.HasAudio | Player.HasGame]</visible>
+		</control>
+		<!-- Search, Favorites and Files intentionally share one random movie provider.
+		     A persistent lock or a just-unlocked session path suppresses the query. -->
+		<control type="list" id="16090">
+			<left>-2</left>
+			<top>-2</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1" />
+			<focusedlayout width="1" height="1" />
+			<content sortby="random" sortorder="ascending" limit="1" target="videos" browse="never">videodb://movies/titles/</content>
+			<visible>String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath)) + [String.IsEqual(Window(home).Property(Home.Section),files) | String.IsEqual(Window(home).Property(Home.Section),favorites) | [String.IsEqual(Window(home).Property(Home.Section),search) + String.IsEmpty(Control.GetLabel(16999).index(1))]]</visible>
+		</control>
+		<!-- Files and Favorites use the same dimmed shared backdrop. -->
+		<control type="image">
+			<depth>DepthBackground</depth>
+			<include>FullScreenDimensions</include>
+			<aspectratio align="right">scale</aspectratio>
+			<fadetime>250</fadetime>
+			<texture background="true" colordiffuse="B3FFFFFF">$VAR[NaraSharedRandomFanartVar]</texture>
+			<visible>[String.IsEqual(Window(home).Property(Home.Section),files) | String.IsEqual(Window(home).Property(Home.Section),favorites)] + !Skin.HasSetting(no_fanart) + ![String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath)) + String.IsEmpty(Container(16090).ListItem.Art(fanart))] + ![Player.HasVideo | Player.HasAudio | Player.HasGame]</visible>
+		</control>
+		<!-- Standard sections match the movie/TV information pages. Files and
+		     Favorites omit the directional reading scrims below. -->
+		<control type="group">
+			<include>FullScreenDimensions</include>
+			<visible>![Player.HasVideo | Player.HasAudio | Player.HasGame]</visible>
+			<control type="image">
+				<include>FullScreenDimensions</include>
+				<texture colordiffuse="1A000000">colors/black.png</texture>
+			</control>
+			<!-- Keep the navigation and clock legible over bright fanart. Reuse the
+			     lower scrim texture upside down so it fades from the top edge. -->
+			<control type="image">
+				<width>1920</width>
+				<height>220</height>
+				<aspectratio>stretch</aspectratio>
+				<texture flipy="true" colordiffuse="66FFFFFF">overlays/overlayfade.png</texture>
+			</control>
+			<!-- Give the focused file path a stable reading zone without drawing a
+			     separate bar. This mirrors the top navigation scrim at lower opacity. -->
+			<control type="image">
+				<top>860</top>
+				<width>1920</width>
+				<height>220</height>
+				<aspectratio>stretch</aspectratio>
+				<texture colordiffuse="4DFFFFFF">overlays/overlayfade.png</texture>
+				<visible>String.IsEqual(Window(home).Property(Home.Section),files)</visible>
+			</control>
+			<control type="image">
+				<width>1200</width>
+				<height>1080</height>
+				<aspectratio>stretch</aspectratio>
+				<texture>overlays/detail-left-scrim.png</texture>
+				<visible>![String.IsEqual(Window(home).Property(Home.Section),files) | String.IsEqual(Window(home).Property(Home.Section),favorites)]</visible>
+			</control>
+			<control type="image">
+				<top>420</top>
+				<width>1920</width>
+				<height>660</height>
+				<aspectratio>stretch</aspectratio>
+				<texture colordiffuse="opacity_medium">overlays/overlayfade.png</texture>
+				<visible>![String.IsEqual(Window(home).Property(Home.Section),files) | String.IsEqual(Window(home).Property(Home.Section),favorites)]</visible>
+			</control>
+		</control>
+		<control type="group">
+			<animation effect="fade" start="100" end="0" time="100">WindowClose</animation>
+			<animation effect="fade" start="100" end="0" time="200" tween="sine" condition="$EXP[infodialog_active]">Conditional</animation>
+			<control type="group" id="16000">
+				<visible>String.IsEqual(Window(home).Property(Home.Section),search)</visible>
+				<include>Visible_Fade</include>
+				<include>NaraSearchWindow</include>
+			</control>
+			<control type="group" id="2000">
+				<depth>DepthContentPanel</depth>
+				<left>0</left>
+				<top>100</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<animation type="Conditional" condition="Control.IsVisible(20001)" reversible="false">
+					<effect type="slide" end="0,-20" time="60" tween="sine" />
+					<effect type="slide" end="0,20" time="180" tween="sine" delay="80" />
+				</animation>
+				<include>OpenClose_Right</include>
+				<control type="group" id="5000">
+					<top>0</top>
+					<visible>String.IsEqual(Window(home).Property(Home.Section),movies)</visible>
+					<include>Visible_Fade</include>
+					<control type="grouplist" id="5001">
+						<include>HomeVideoGroupListCommon</include>
+						<pagecontrol>5010</pagecontrol>
+						<include content="HomeFocusedItemHero" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_inprogress_widget)">
+							<param name="id" value="5001001"/>
+							<param name="list_id" value="5100"/>
+							<param name="metadata" value="$INFO[Container(5100).ListItem.Year]$INFO[Container(5100).ListItem.Rating,  &#183;  ]$INFO[Container(5100).ListItem.Duration,  &#183;  ]$INFO[Container(5100).ListItem.Genre,  &#183;  ]"/>
+						</include>
+						<include content="HomeContinueWatchingRail" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_inprogress_widget)">
+							<param name="content_path" value="special://skin/playlists/home_inprogress_movies.xsp"/>
+							<param name="widget_limit" value="20"/>
+							<param name="widget_header" value="$LOCALIZE[31010]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5100"/>
+							<param name="media_row_visible" value="[System.AddonIsEnabled(plugin.service.emby-next-gen) + [Integer.IsGreater(Container(5700).NumItems,0) | Container(5700).IsUpdating]] | [!System.AddonIsEnabled(plugin.service.emby-next-gen) + !Skin.HasSetting(home_no_movies_categories_widget) + [Integer.IsGreater(Container(5900).NumItems,0) | Container(5900).IsUpdating]]"/>
+							<param name="onclick_condition" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="ActivateWindow(videos,special://skin/playlists/all_inprogress_movies.xsp,return)"/>
+						</include>
+						<include content="HomeMediaLibraryRail" condition="Library.HasContent(movies) + System.AddonIsEnabled(plugin.service.emby-next-gen)">
+							<param name="content_path" value="videodb://movies/tags/?excludetags=Movies%20%28Favorites%29%7CTVShows%20%28Favorites%29&amp;SkinExtended=true"/>
+							<param name="widget_header" value="$LOCALIZE[31616]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5700"/>
+							<param name="item_limit" value="30"/>
+							<param name="background_art_condition" value="ListItem.Property(emby.library.art)"/>
+						</include>
+						<include content="HomeMediaLibraryRail" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_categories_widget) + !System.AddonIsEnabled(plugin.service.emby-next-gen)">
+							<param name="additional_movie_items" value="true"/>
+							<param name="dynamic_content" value="false"/>
+							<param name="widget_header" value="$LOCALIZE[31148]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5900"/>
+						</include>
+						<include content="WidgetListPoster" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_recentlyadded_widget)">
+							<param name="content_path" value="special://skin/playlists/home_recent_unwatched_movies.xsp"/>
+							<param name="widget_limit" value="20"/>
+							<param name="widget_header" value="$LOCALIZE[20386]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5200"/>
+							<param name="onclick_condition" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="ActivateWindow(videos,special://skin/playlists/all_recent_unwatched_movies.xsp,return)"/>
+						</include>
+						<include content="WidgetListPoster" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_unwatched_widget)">
+							<param name="content_path" value="special://skin/playlists/home_unwatched_movies.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31007]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5300"/>
+							<param name="onclick_condition" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="ActivateWindow(videos,special://skin/playlists/all_unwatched_movies.xsp,return)"/>
+						</include>
+						<include content="WidgetListPoster" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_random_widget)">
+							<param name="content_path" value="special://skin/playlists/random_movies.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31006]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="browse_mode" value="never"/>
+							<param name="list_id" value="5400"/>
+						</include>
+						<include content="WidgetListPoster" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_sets_widget)">
+							<param name="content_path" value="videodb://movies/sets/"/>
+							<param name="widget_limit" value="20"/>
+							<param name="widget_header" value="$LOCALIZE[31075]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="sortby" value="random"/>
+							<param name="list_id" value="5600"/>
+							<param name="onclick_condition" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="SetProperty(MovieSetDialog.SetId,$INFO[ListItem.DBID],home)"/>
+							<param name="onclick_condition_2" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_2" value="SetProperty(MovieSetDialog.SetName,$ESCINFO[ListItem.Label],home)"/>
+							<param name="onclick_condition_3" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_3" value="SetProperty(MovieSetDialog.SourceFanart,$ESCINFO[ListItem.Art(fanart)],home)"/>
+							<param name="onclick_condition_4" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_4" value="ActivateWindow(1111)"/>
+						</include>
+						<include content="WidgetListCategories" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_genres_widget)">
+							<param name="content_path" value="videodb://movies/genres/"/>
+							<param name="widget_header" value="$LOCALIZE[135]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5500"/>
+							<param name="icon" value="$VAR[WidgetGenreIconVar]"/>
+							<param name="icon_height" value="70"/>
+						</include>
+						<include content="WidgetListCategories" condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_categories_widget) + System.AddonIsEnabled(plugin.service.emby-next-gen)">
+							<param name="additional_movie_items" value="true"/>
+							<param name="dynamic_content" value="false"/>
+							<param name="widget_header" value="$LOCALIZE[31148]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="5900"/>
+						</include>
+					</control>
+					<include content="ImageWidget" condition="!Library.HasContent(movies)">
+						<param name="text_label" value="$LOCALIZE[31104]" />
+						<param name="button_label" value="$LOCALIZE[31110]" />
+						<param name="button_onclick" value="ActivateWindow(videos,files,return)"/>
+						<param name="button_id" value="5500"/>
+					</include>
+				</control>
+				<control type="group" id="6000">
+					<top>0</top>
+					<visible>String.IsEqual(Window(home).Property(Home.Section),tvshows)</visible>
+					<include>Visible_Fade</include>
+					<control type="grouplist" id="6001">
+						<include>HomeVideoGroupListCommon</include>
+						<pagecontrol>6010</pagecontrol>
+						<include content="HomeFocusedItemHero" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_inprogress_widget)">
+							<param name="id" value="6001001"/>
+							<param name="list_id" value="6100"/>
+							<param name="metadata" value="$INFO[Container(6100).ListItem.Year]$INFO[Container(6100).ListItem.Rating,  &#183;  ]$INFO[Container(6100).ListItem.Genre,  &#183;  ]"/>
+						</include>
+						<include content="HomeContinueWatchingRail" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_inprogress_widget)">
+							<param name="content_path" value="videodb://inprogresstvshows"/>
+							<param name="widget_limit" value="20"/>
+							<param name="sortby" value="lastplayed"/>
+							<param name="sortorder" value="descending"/>
+							<param name="widget_header" value="$LOCALIZE[626]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6100"/>
+							<param name="media_row_visible" value="[System.AddonIsEnabled(plugin.service.emby-next-gen) + [Integer.IsGreater(Container(6600).NumItems,0) | Container(6600).IsUpdating]] | [!System.AddonIsEnabled(plugin.service.emby-next-gen) + !Skin.HasSetting(home_no_tvshows_categories_widget) + [Integer.IsGreater(Container(6900).NumItems,0) | Container(6900).IsUpdating]]"/>
+							<param name="sub_label" value="$INFO[ListItem.Property(WatchedEpisodes)]$INFO[ListItem.Property(TotalEpisodes),/]"/>
+							<param name="sub_label_visible" value="!String.IsEmpty(ListItem.Property(TotalEpisodes))"/>
+							<param name="progress_info" value="ListItem.Property(WatchedEpisodePercent)"/>
+							<param name="onclick_condition" value="true"/>
+							<param name="onclick_action" value="$VAR[TVShowOnClickActionVar]"/>
+						</include>
+						<include content="HomeMediaLibraryRail" condition="Library.HasContent(tvshows) + System.AddonIsEnabled(plugin.service.emby-next-gen)">
+							<param name="content_path" value="videodb://tvshows/tags/?excludetags=Movies%20%28Favorites%29%7CTVShows%20%28Favorites%29&amp;SkinExtended=true"/>
+							<param name="widget_header" value="$LOCALIZE[31616]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6600"/>
+							<param name="item_limit" value="30"/>
+							<param name="background_art_condition" value="ListItem.Property(emby.library.art)"/>
+						</include>
+						<include content="HomeMediaLibraryRail" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_categories_widget) + !System.AddonIsEnabled(plugin.service.emby-next-gen)">
+							<param name="additional_tvshow_items" value="true"/>
+							<param name="dynamic_content" value="false"/>
+							<param name="widget_header" value="$LOCALIZE[31148]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6900"/>
+						</include>
+						<include content="WidgetListPoster" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_recentlyaddedepisodes_widget)">
+							<param name="content_path" value="special://skin/playlists/home_recent_unwatched_tvshows.xsp"/>
+							<param name="widget_limit" value="20"/>
+							<param name="widget_header" value="$LOCALIZE[31618]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6200"/>
+							<param name="onclick_condition" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="$VAR[TVShowOnClickActionVar]"/>
+							<param name="onclick_condition_2" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_2" value="ActivateWindow(videos,special://skin/playlists/all_recent_unwatched_tvshows.xsp,return)"/>
+						</include>
+						<include content="WidgetListPoster" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_unwatched_widget)">
+							<param name="content_path" value="special://skin/playlists/home_unwatched_tvshows.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31122]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6300"/>
+							<param name="onclick_condition" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="$VAR[TVShowOnClickActionVar]"/>
+							<param name="onclick_condition_2" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_2" value="ActivateWindow(videos,special://skin/playlists/all_unwatched_tvshows.xsp,return)"/>
+						</include>
+						<include content="WidgetListCategories" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_genres_widget)">
+							<param name="content_path" value="videodb://tvshows/genres/"/>
+							<param name="widget_header" value="$LOCALIZE[135]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6400"/>
+							<param name="icon" value="$VAR[WidgetGenreIconVar]"/>
+							<param name="icon_height" value="70"/>
+						</include>
+						<include content="WidgetListCategories" condition="Library.HasContent(tvshows) + Skin.HasSetting(home_tvshows_studios_widget)">
+							<param name="content_path" value="videodb://tvshows/studios/"/>
+							<param name="widget_header" value="$LOCALIZE[20388]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6500"/>
+							<param name="icon" value="$VAR[WidgetStudioIconVar]"/>
+							<param name="icon_height" value="70"/>
+						</include>
+						<include content="WidgetListCategories" condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_categories_widget) + System.AddonIsEnabled(plugin.service.emby-next-gen)">
+							<param name="additional_tvshow_items" value="true"/>
+							<param name="dynamic_content" value="false"/>
+							<param name="widget_header" value="$LOCALIZE[31148]"/>
+							<param name="widget_target" value="videos"/>
+							<param name="list_id" value="6900"/>
+						</include>
+					</control>
+					<include content="ImageWidget" condition="!Library.HasContent(tvshows)">
+						<param name="text_label" value="$LOCALIZE[31104]" />
+						<param name="button_label" value="$LOCALIZE[31110]" />
+						<param name="button_onclick" value="ActivateWindow(videos,files,return)"/>
+						<param name="button_id" value="6400"/>
+					</include>
+				</control>
+				<control type="group" id="7000">
+					<visible>String.IsEqual(Window(home).Property(Home.Section),music)</visible>
+					<include>Visible_Fade</include>
+					<control type="grouplist" id="7001">
+						<include>WidgetGroupListCommon</include>
+						<pagecontrol>7010</pagecontrol>
+						<include content="WidgetListCategories" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_categories_widget)">
+							<param name="content_path" value="library://music/"/>
+							<param name="widget_header" value="$LOCALIZE[31148]"/>
+							<param name="widget_target" value="music"/>
+							<param name="list_id" value="7900"/>
+						</include>
+						<include content="WidgetListSquare" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_recentlyplayedalbums_widget)">
+							<param name="content_path" value="musicdb://recentlyplayedalbums"/>
+							<param name="widget_header" value="$LOCALIZE[517]"/>
+							<param name="widget_target" value="music"/>
+							<param name="list_id" value="7100"/>
+							<param name="fallback_icon" value="DefaultMusicAlbums.png"/>
+							<param name="onclick_condition" value="true"/>
+							<param name="onclick_action" value="$VAR[AlbumOnClickActionVar]"/>
+						</include>
+						<include content="WidgetListSquare" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_recentalbums_widget)">
+							<param name="content_path" value="musicdb://recentlyaddedalbums/"/>
+							<param name="widget_header" value="$LOCALIZE[359]"/>
+							<param name="widget_target" value="music"/>
+							<param name="list_id" value="7200"/>
+							<param name="fallback_icon" value="DefaultMusicAlbums.png"/>
+							<param name="onclick_condition" value="true"/>
+							<param name="onclick_action" value="$VAR[AlbumOnClickActionVar]"/>
+						</include>
+						<include content="WidgetListSquare" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_randomalbums_widget)">
+							<param name="content_path" value="special://skin/playlists/random_albums.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31012]"/>
+							<param name="widget_target" value="music"/>
+							<param name="browse_mode" value="never"/>
+							<param name="list_id" value="7300"/>
+							<param name="fallback_icon" value="DefaultMusicAlbums.png"/>
+							<param name="onclick_condition" value="true"/>
+							<param name="onclick_action" value="$VAR[AlbumOnClickActionVar]"/>
+						</include>
+						<include content="WidgetListSquare" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_randomartists_widget)">
+							<param name="content_path" value="special://skin/playlists/random_artists.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31013]"/>
+							<param name="widget_target" value="music"/>
+							<param name="browse_mode" value="never"/>
+							<param name="list_id" value="7400"/>
+							<param name="fallback_icon" value="DefaultMusicArtists.png"/>
+						</include>
+						<include content="WidgetListSquare" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_unplayedalbums_widget)">
+							<param name="content_path" value="special://skin/playlists/home_unplayed_albums.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31014]"/>
+							<param name="widget_target" value="music"/>
+							<param name="list_id" value="7500"/>
+							<param name="fallback_icon" value="DefaultMusicAlbums.png"/>
+							<param name="onclick_condition" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="$VAR[AlbumOnClickActionVar]"/>
+							<param name="onclick_condition_2" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_2" value="ActivateWindow(music,special://skin/playlists/all_unplayed_albums.xsp,return)"/>
+						</include>
+						<include content="WidgetListSquare" condition="Library.HasContent(music) + !Skin.HasSetting(home_no_music_mostplayedalbums_widget)">
+							<param name="content_path" value="special://skin/playlists/home_mostplayed_albums.xsp"/>
+							<param name="widget_header" value="$LOCALIZE[31011]"/>
+							<param name="widget_target" value="music"/>
+							<param name="list_id" value="7600"/>
+							<param name="fallback_icon" value="DefaultMusicAlbums.png"/>
+							<param name="sortby" value="playcount"/>
+							<param name="sortorder" value="descending"/>
+							<param name="onclick_condition" value="!String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action" value="$VAR[AlbumOnClickActionVar]"/>
+							<param name="onclick_condition_2" value="String.IsEqual(ListItem.Property(node.type),target_folder)"/>
+							<param name="onclick_action_2" value="ActivateWindow(music,special://skin/playlists/all_mostplayed_albums.xsp,return)"/>
+						</include>
+					</control>
+					<include content="ImageWidget" condition="!Library.HasContent(music)">
+						<param name="text_label" value="$LOCALIZE[31104]" />
+						<param name="button_label" value="$LOCALIZE[31110]" />
+						<param name="button_onclick" value="ActivateWindow(music,files)"/>
+						<param name="button_id" value="7600"/>
+					</include>
+				</control>
+				<control type="group" id="12000">
+					<visible>String.IsEqual(Window(home).Property(Home.Section),livetv)</visible>
+					<include>Visible_Fade</include>
+					<control type="grouplist" id="12001">
+						<include>WidgetGroupListCommon</include>
+						<pagecontrol>12010</pagecontrol>
+						<include content="WidgetListCategories" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_categories_widget)">
+							<param name="content_path" value="pvr://tv/"/>
+							<param name="widget_header" value="$LOCALIZE[31148]"/>
+							<param name="list_id" value="12900"/>
+						</include>
+						<include content="WidgetListPVR" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_recentlyplayed_widget)">
+							<param name="content_path" value="pvr://channels/tv/*?view=lastplayed"/>
+							<param name="sortby" value="lastplayed"/>
+							<param name="sortorder" value="descending"/>
+							<param name="widget_header" value="$LOCALIZE[31016]"/>
+							<param name="widget_target" value="tvchannels"/>
+							<param name="item_limit" value="20"/>
+							<param name="list_id" value="12200"/>
+							<param name="info_update" value="5000"/>
+						</include>
+						<include content="WidgetListPVR" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_recentrecordings_widget)">
+							<param name="content_path" value="pvr://recordings/tv/active?view=flat"/>
+							<param name="sortby" value="date"/>
+							<param name="sortorder" value="descending"/>
+							<param name="widget_header" value="$LOCALIZE[31015]"/>
+							<param name="widget_target" value="tvrecordings"/>
+							<param name="item_limit" value="20"/>
+							<param name="list_id" value="12300"/>
+							<param name="label" value="$INFO[ListItem.Title]$INFO[ListItem.Date, (,)]"/>
+							<param name="label2" value="$VAR[SeasonEpisodeAndNameLabel]"/>
+						</include>
+						<include content="WidgetListPVR" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_timers_widget)">
+							<param name="content_path" value="pvr://timers/tv/timers/?view=hidedisabled"/>
+							<param name="sortorder" value="ascending"/>
+							<param name="sortby" value="date"/>
+							<param name="widget_header" value="$LOCALIZE[19040]"/>
+							<param name="widget_target" value="tvtimers"/>
+							<param name="item_limit" value="20"/>
+							<param name="list_id" value="12400"/>
+							<param name="label" value="$INFO[ListItem.Title]$INFO[ListItem.Date, (,)]"/>
+							<param name="label2" value="$VAR[SeasonEpisodeAndNameLabel]"/>
+						</include>
+						<include content="WidgetListPVR" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_channelgroups_widget)">
+							<param name="content_path" value="pvr://channels/tv"/>
+							<param name="widget_header" value="$LOCALIZE[19173]"/>
+							<param name="widget_target" value="tvguide"/>
+							<param name="list_id" value="12500"/>
+							<param name="item_treshold" value="1"/>
+						</include>
+						<include content="WidgetListPVR" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_savedsearches_widget)">
+							<param name="content_path" value="pvr://search/tv/savedsearches"/>
+							<param name="sortorder" value="descending"/>
+							<param name="sortby" value="date"/>
+							<param name="widget_header" value="$LOCALIZE[19337]"/>
+							<param name="widget_target" value="tvsearch"/>
+							<param name="list_id" value="12600"/>
+						</include>
+						<include content="WidgetListPVR" condition="System.HasPVRAddon + !Skin.HasSetting(home_no_tv_recentlyaddedchannels_widget)">
+							<param name="content_path" value="pvr://channels/tv/*?view=dateadded"/>
+							<param name="sortby" value="dateadded"/>
+							<param name="sortorder" value="descending"/>
+							<param name="widget_header" value="$LOCALIZE[855]"/>
+							<param name="widget_target" value="tvchannels"/>
+							<param name="item_limit" value="20"/>
+							<param name="list_id" value="12700"/>
+							<param name="info_update" value="5000"/>
+							<param name="label2" value="$INFO[ListItem.DateAdded]"/>
+						</include>
+					</control>
+					<include content="ImageWidget" condition="!System.HasPVRAddon">
+						<param name="text_label" value="$LOCALIZE[31143]" />
+						<param name="button_label" value="$LOCALIZE[31144]" />
+						<param name="button_onclick" value="ActivateWindow(addonbrowser,addons://default_binary_addons_source/kodi.pvrclient,return)"/>
+						<param name="button_id" value="12400"/>
+					</include>
+				</control>
+				<control type="group" id="14000">
+					<visible>String.IsEqual(Window(home).Property(Home.Section),favorites)</visible>
+					<include>Visible_Fade</include>
+					<control type="panel" id="14100">
+						<left>65</left>
+						<top>22</top>
+						<right>0</right>
+						<bottom>0</bottom>
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onup>9000</onup>
+						<ondown>14100</ondown>
+						<onback condition="Container(14100).HasPrevious">SetFocus(14100,0,absolute)</onback>
+						<onback condition="!Container(14100).HasPrevious">9000</onback>
+						<preloaditems>2</preloaditems>
+						<scrolltime tween="cubic" easing="out">500</scrolltime>
+						<orientation>vertical</orientation>
+						<pagecontrol>14010</pagecontrol>
+						<visible>Integer.IsGreater(Container(14100).NumItems,0) | Container(14100).IsUpdating</visible>
+						<itemlayout width="260" height="430">
+							<control type="group">
+								<top>18</top>
+								<include content="InfoWallFavouriteLayout">
+									<param name="focused" value="false" />
+								</include>
+							</control>
+						</itemlayout>
+						<focusedlayout width="260" height="430">
+							<control type="group">
+								<depth>DepthContentPopout</depth>
+								<top>18</top>
+								<animation effect="zoom" start="100" end="106" time="200" tween="sine" easing="inout" center="130,224">Focus</animation>
+								<animation effect="zoom" start="106" end="100" time="200" tween="sine" easing="inout" center="130,224">UnFocus</animation>
+								<include content="InfoWallFavouriteLayout">
+									<param name="focused" value="true" />
+								</include>
+							</control>
+						</focusedlayout>
+						<content>favourites://</content>
+					</control>
+					<include content="ImageWidget">
+						<param name="text_label" value="$LOCALIZE[31025]" />
+						<param name="button_id" value="5500"/>
+						<param name="visible" value="!Integer.IsGreater(Container(14100).NumItems,0) + !Container(14100).IsUpdating"/>
+						<param name="visible_1" value="false"/>
+					</include>
+				</control>
+				<control type="group" id="15000">
+					<visible>String.IsEqual(Window(home).Property(Home.Section),files)</visible>
+					<include>Visible_Fade</include>
+					<control type="label">
+						<left>80</left>
+						<top>48</top>
+						<width>900</width>
+						<height>50</height>
+						<font>font27</font>
+						<label>$LOCALIZE[39031]</label>
+					</control>
+					<control type="panel" id="15010">
+						<left>0</left>
+						<top>110</top>
+						<!-- Six 265 px cards fit cleanly between the 90 px visual margins;
+						     the 295 px stride retains a 30 px breathing interval. -->
+						<right>80</right>
+						<height>281</height>
+						<orientation>horizontal</orientation>
+						<onfocus>SetProperty(Home.FileReturnControl,15010,home)</onfocus>
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onup>9000</onup>
+						<ondown condition="Integer.IsGreater(Container(15020).NumItems,0)">15020</ondown>
+						<ondown condition="!Integer.IsGreater(Container(15020).NumItems,0)">noop</ondown>
+						<onback>9000</onback>
+						<onclick>ActivateWindow(filemanager,$ESCINFO[ListItem.Property(homepath)],return)</onclick>
+						<scrolltime tween="cubic" easing="out">350</scrolltime>
+						<preloaditems>2</preloaditems>
+						<itemlayout width="295" height="281">
+							<control type="group">
+								<left>90</left>
+								<top>8</top>
+								<include content="HomeSourceCardLayout" />
+							</control>
+						</itemlayout>
+						<focusedlayout width="295" height="281">
+							<control type="group">
+								<depth>DepthContentPopout</depth>
+								<left>90</left>
+								<top>8</top>
+								<animation effect="zoom" start="100" end="104" time="200" tween="sine" easing="inout" center="132.5,132.5">Focus</animation>
+								<animation effect="zoom" start="104" end="100" time="80" tween="sine" easing="inout" center="132.5,132.5">UnFocus</animation>
+								<include content="HomeSourceCardLayout">
+									<param name="focused" value="true" />
+									<param name="glass_border" value="1.5" />
+									<param name="glass_border_color" value="A6FFFFFF" />
+									<param name="glass_highlight" value="0.45" />
+									<param name="glass_depth" value="0.65" />
+								</include>
+							</control>
+						</focusedlayout>
+						<content target="filemanager">sources://files/</content>
+					</control>
+					<control type="label">
+						<left>80</left>
+						<top>430</top>
+						<width>900</width>
+						<height>50</height>
+						<font>font27</font>
+						<label>$LOCALIZE[13398]</label>
+					</control>
+					<control type="panel" id="15020">
+						<left>0</left>
+						<top>500</top>
+						<right>0</right>
+						<height>320</height>
+						<orientation>vertical</orientation>
+						<onfocus>SetProperty(Home.FileReturnControl,15020,home)</onfocus>
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onup condition="Integer.IsGreater(Container(15010).NumItems,0)">15010</onup>
+						<onup condition="!Integer.IsGreater(Container(15010).NumItems,0)">9000</onup>
+						<ondown>noop</ondown>
+						<onback>9000</onback>
+						<scrolltime tween="cubic" easing="out">350</scrolltime>
+						<preloaditems>2</preloaditems>
+						<itemlayout width="410" height="160">
+							<control type="group">
+								<left>90</left>
+								<top>12</top>
+								<include content="HomeFolderCardLayout">
+									<param name="icon" value="DefaultFolder.png" />
+								</include>
+							</control>
+						</itemlayout>
+						<focusedlayout width="410" height="160">
+							<control type="group">
+								<depth>DepthContentPopout</depth>
+								<left>90</left>
+								<top>12</top>
+								<animation effect="zoom" start="100" end="104" time="200" tween="sine" easing="inout" center="190,65">Focus</animation>
+								<animation effect="zoom" start="104" end="100" time="80" tween="sine" easing="inout" center="190,65">UnFocus</animation>
+								<include content="HomeFolderCardLayout">
+									<param name="focused" value="true" />
+									<param name="icon" value="DefaultFolder.png" />
+									<param name="glass_border" value="1.5" />
+									<param name="glass_border_color" value="A6FFFFFF" />
+									<param name="glass_highlight" value="0.45" />
+									<param name="glass_depth" value="0.65" />
+								</include>
+							</control>
+						</focusedlayout>
+						<include>HomeFileShortcutItems</include>
+					</control>
+					<control type="group">
+						<left>90</left>
+						<bottom>15</bottom>
+						<width>1740</width>
+						<height>30</height>
+						<visible>Control.HasFocus(15010) | Control.HasFocus(15020)</visible>
+						<include>Visible_Fade</include>
+						<control type="label">
+							<width>1740</width>
+							<height>30</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>text_secondary</textcolor>
+							<label>$VAR[HomeFocusedFilePathVar]</label>
+							<scroll>true</scroll>
+							<scrollspeed>30</scrollspeed>
+						</control>
+					</control>
+				</control>
+			</control>
+			<control type="group">
+				<depth>DepthBars</depth>
+				<animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
+				<!-- Auto-width buttons use their rendered label widths, so optional
+				     sections collapse without any width or position bookkeeping. -->
+				<control type="grouplist" id="9000">
+					<left>0</left>
+					<top>23</top>
+					<width>1920</width>
+					<height>205</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<renderfocusedlast>true</renderfocusedlast>
+					<onfocus>ClearProperty(Search.NumbersVisible,home)</onfocus>
+					<onleft>804</onleft>
+					<onright>804</onright>
+					<control type="togglebutton" id="9011">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[137]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavSearchTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-left-focus.png</texturefocus>
+						<texturenofocus border="27">home/nav-left-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-left-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-left-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),search) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,search,home)</onfocus>
+						<onup>noop</onup>
+						<ondown condition="$EXP[NaraSearchKeyboardHidden] + $EXP[NaraSearchMoviesActive]">16101</ondown>
+						<ondown condition="$EXP[NaraSearchKeyboardHidden] + $EXP[NaraSearchTVShowsActive]">16102</ondown>
+						<ondown>16992</ondown>
+						<onclick>noop</onclick>
+					</control>
+					<control type="togglebutton" id="9012">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[342]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavMoviesTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-middle-focus.png</texturefocus>
+						<texturenofocus>home/nav-middle-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-middle-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-middle-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),movies) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,movies,home)</onfocus>
+						<onup>noop</onup>
+						<ondown>5000</ondown>
+						<onclick condition="Library.HasContent(movies) + Skin.HasSetting(home_no_movies_categories_widget) + !System.GetBool(myvideos.flatten)">ActivateWindow(Videos,videodb://movies/,return)</onclick>
+						<onclick condition="Library.HasContent(movies) + Skin.HasSetting(home_no_movies_categories_widget) + System.GetBool(myvideos.flatten)">ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
+						<onclick condition="Library.HasContent(movies) + !Skin.HasSetting(home_no_movies_categories_widget)">ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
+						<onclick condition="!Library.HasContent(movies)">ActivateWindow(Videos,sources://video/,return)</onclick>
+						<visible>!Skin.HasSetting(HomeMenuNoMovieButton)</visible>
+					</control>
+					<control type="togglebutton" id="9013">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[20343]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavTVShowsTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-middle-focus.png</texturefocus>
+						<texturenofocus>home/nav-middle-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-middle-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-middle-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),tvshows) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,tvshows,home)</onfocus>
+						<onup>noop</onup>
+						<ondown>6000</ondown>
+						<onclick condition="Library.HasContent(tvshows) + Skin.HasSetting(home_no_tvshows_categories_widget) + !System.GetBool(myvideos.flatten)">ActivateWindow(Videos,videodb://tvshows/,return)</onclick>
+						<onclick condition="Library.HasContent(tvshows) + Skin.HasSetting(home_no_tvshows_categories_widget) + System.GetBool(myvideos.flatten)">ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
+						<onclick condition="Library.HasContent(tvshows) + !Skin.HasSetting(home_no_tvshows_categories_widget)">ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
+						<onclick condition="!Library.HasContent(tvshows)">ActivateWindow(Videos,sources://video/,return)</onclick>
+						<visible>!Skin.HasSetting(HomeMenuNoTVShowButton)</visible>
+					</control>
+					<control type="togglebutton" id="9014">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[2]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavMusicTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-middle-focus.png</texturefocus>
+						<texturenofocus>home/nav-middle-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-middle-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-middle-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),music) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,music,home)</onfocus>
+						<onup>noop</onup>
+						<ondown>7000</ondown>
+						<onclick>ActivateWindow(Music,root,return)</onclick>
+						<visible>!Skin.HasSetting(HomeMenuNoMusicButton)</visible>
+					</control>
+					<control type="togglebutton" id="9015">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[19020]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavLiveTVTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-middle-focus.png</texturefocus>
+						<texturenofocus>home/nav-middle-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-middle-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-middle-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),livetv) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,livetv,home)</onfocus>
+						<onup>noop</onup>
+						<ondown>12000</ondown>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<visible>!Skin.HasSetting(HomeMenuNoTVButton)</visible>
+					</control>
+					<control type="togglebutton" id="9016">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[10134]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavFavoritesTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-middle-focus.png</texturefocus>
+						<texturenofocus>home/nav-middle-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-middle-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-middle-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),favorites) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,favorites,home)</onfocus>
+						<onup>noop</onup>
+						<ondown>14000</ondown>
+						<onclick>noop</onclick>
+					</control>
+					<control type="togglebutton" id="9017">
+						<width min="54" max="180">auto</width>
+						<height>54</height>
+						<label>$LOCALIZE[561]</label>
+						<font>font_home_nav</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx>26</textoffsetx>
+						<textcolor>$VAR[HomeNavFilesTextColorVar]</textcolor>
+						<focusedcolor>FF101010</focusedcolor>
+						<texturefocus border="27">home/nav-right-focus.png</texturefocus>
+						<texturenofocus border="27">home/nav-right-base.png</texturenofocus>
+						<alttexturefocus border="27">home/nav-right-focus.png</alttexturefocus>
+						<alttexturenofocus border="27">home/nav-right-selected.png</alttexturenofocus>
+						<usealttexture>String.IsEqual(Window(home).Property(Home.Section),files) + !Control.HasFocus(804) + !ControlGroup(8100).HasFocus</usealttexture>
+						<onfocus>SetProperty(Home.Section,files,home)</onfocus>
+						<onup>noop</onup>
+						<ondown condition="Integer.IsGreater(Container(15010).NumItems,0)">15010</ondown>
+						<ondown condition="!Integer.IsGreater(Container(15010).NumItems,0) + Integer.IsGreater(Container(15020).NumItems,0)">15020</ondown>
+						<ondown condition="!Integer.IsGreater(Container(15010).NumItems,0) + !Integer.IsGreater(Container(15020).NumItems,0)">noop</ondown>
+						<onclick>SetProperty(Home.FileReturnControl,9017,home)</onclick>
+						<onclick>ActivateWindow(filemanager,$ROOT,return)</onclick>
+					</control>
+				</control>
+				<!-- The independent menu icon is centred on the same y=50 axis as
+				     the navigation capsule and clock. Only focus states draw a circle. -->
+					<control type="group" id="700">
+						<left>40</left>
+						<top>23</top>
+						<width>54</width>
+						<height>337</height>
+						<control type="image">
+							<width>54</width>
+							<height>54</height>
+							<texture border="27" colordiffuse="A2FFFFFF">home/nav-capsule.png</texture>
+							<visible>ControlGroup(8100).HasFocus</visible>
+						</control>
+						<control type="image">
+							<width>54</width>
+							<height>54</height>
+							<texture border="27">home/nav-capsule.png</texture>
+							<visible>Control.HasFocus(804)</visible>
+						</control>
+						<control type="image">
+							<left>13</left>
+							<top>13</top>
+							<width>28</width>
+							<height>28</height>
+							<texture colordiffuse="focus_foreground">icons/menu.png</texture>
+							<visible>Control.HasFocus(804) | ControlGroup(8100).HasFocus</visible>
+						</control>
+						<control type="image">
+							<left>13</left>
+							<top>13</top>
+							<width>28</width>
+							<height>28</height>
+							<texture colordiffuse="text_secondary">icons/menu.png</texture>
+							<visible>!Control.HasFocus(804) + !ControlGroup(8100).HasFocus</visible>
+						</control>
+						<control type="button" id="804">
+							<width>54</width>
+							<height>54</height>
+							<label>$LOCALIZE[33061]</label>
+							<font></font>
+							<textcolor>00FFFFFF</textcolor>
+							<focusedcolor>00FFFFFF</focusedcolor>
+							<texturefocus />
+							<texturenofocus />
+							<onleft>9017</onleft>
+							<onright>9011</onright>
+							<onup>noop</onup>
+							<ondown>noop</ondown>
+							<onclick>SetFocus(8101)</onclick>
+						</control>
+						<!-- The popover opens directly below the independent menu button. -->
+						<control type="group" id="8100">
+							<depth>DepthDialog</depth>
+							<left>0</left>
+							<top>65</top>
+							<width>220</width>
+							<height>220</height>
+							<defaultcontrol always="true">8101</defaultcontrol>
+							<visible allowhiddenfocus="true">ControlGroup(8100).HasFocus</visible>
+							<animation effect="fade" start="0" end="100" time="140">VisibleChange</animation>
+							<animation effect="slide" start="0,-8" end="0,0" time="160" tween="sine" easing="out">VisibleChange</animation>
+							<control type="image">
+								<width>220</width>
+								<height>220</height>
+								<texture material="glass" blurradius="20" glasstint="66666666" glasssaturation="1.08" glasscontrast="1.02" glassgrain="0.005" glassborder="0.75" glassbordercolor="0CFFFFFF" glasshighlight="0.30" glassrefraction="2.5" glassrefractionwidth="14" glassdispersion="0.12" glassdepth="0.55" glassbackdropbrightness="0.92" cornerradius="27">colors/white.png</texture>
+							</control>
+							<control type="image">
+								<left>6</left>
+								<top>6</top>
+								<width>208</width>
+								<height>52</height>
+								<texture cornerradius="26" colordiffuse="focus_glass_surface">colors/white.png</texture>
+								<visible>Control.HasFocus(8101)</visible>
+							</control>
+							<control type="image">
+								<left>6</left>
+								<top>58</top>
+								<width>208</width>
+								<height>52</height>
+								<texture cornerradius="26" colordiffuse="focus_glass_surface">colors/white.png</texture>
+								<visible>Control.HasFocus(8102)</visible>
+							</control>
+							<control type="image">
+								<left>6</left>
+								<top>110</top>
+								<width>208</width>
+								<height>52</height>
+								<texture cornerradius="26" colordiffuse="focus_glass_surface">colors/white.png</texture>
+								<visible>Control.HasFocus(8106)</visible>
+							</control>
+							<control type="image">
+								<left>6</left>
+								<top>162</top>
+								<width>208</width>
+								<height>52</height>
+								<texture cornerradius="26" colordiffuse="focus_glass_surface">colors/white.png</texture>
+								<visible>Control.HasFocus(8105)</visible>
+							</control>
+							<!-- Match the original independent tick implementation, using a
+							     smaller square placed closer to the centred label. -->
+							<control type="image">
+								<left>168</left>
+								<top>132</top>
+								<width>8</width>
+								<height>8</height>
+								<texture cornerradius="2" colordiffuse="E6FFFFFF">colors/white.png</texture>
+								<visible>!String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath))</visible>
+							</control>
+							<control type="button" id="8101">
+								<left>6</left>
+								<top>6</top>
+								<width>208</width>
+								<height>52</height>
+								<label>$LOCALIZE[14209]</label>
+								<font>font_home_nav</font>
+								<align>center</align>
+								<aligny>center</aligny>
+								<textcolor>E6FFFFFF</textcolor>
+								<focusedcolor>text_primary</focusedcolor>
+								<texturefocus />
+								<texturenofocus />
+								<onup>804</onup>
+								<ondown>8102</ondown>
+								<onleft>804</onleft>
+								<onright>804</onright>
+								<onback>804</onback>
+								<onclick>SetFocus(804)</onclick>
+								<onclick>ActivateWindow(settings)</onclick>
+							</control>
+							<control type="button" id="8102">
+								<left>6</left>
+								<top>58</top>
+								<width>208</width>
+								<height>52</height>
+								<label>$LOCALIZE[31693]</label>
+								<font>font_home_nav</font>
+								<align>center</align>
+								<aligny>center</aligny>
+								<textcolor>E6FFFFFF</textcolor>
+								<focusedcolor>text_primary</focusedcolor>
+								<texturefocus />
+								<texturenofocus />
+								<onup>8101</onup>
+								<ondown>8106</ondown>
+								<onleft>804</onleft>
+								<onright>804</onright>
+								<onback>804</onback>
+								<onclick>SetFocus(804)</onclick>
+								<!-- Window properties survive a skin reload, so explicitly end an
+								     unlocked session hold before asking the provider for a new item. -->
+								<onclick>ClearProperty(Home.SharedRandomFanart.SessionPath,home)</onclick>
+								<onclick>ClearProperty(Home.SharedRandomFanart,home)</onclick>
+								<onclick>ReloadSkin()</onclick>
+							</control>
+							<control type="button" id="8106">
+								<left>6</left>
+								<top>110</top>
+								<width>208</width>
+								<height>52</height>
+								<label>$LOCALIZE[31695]</label>
+								<font>font_home_nav</font>
+								<align>center</align>
+								<aligny>center</aligny>
+								<textcolor>E6FFFFFF</textcolor>
+								<focusedcolor>text_primary</focusedcolor>
+								<disabledcolor>text_disabled</disabledcolor>
+								<texturefocus />
+								<texturenofocus />
+								<onup>8102</onup>
+								<ondown>8105</ondown>
+								<onleft>804</onleft>
+								<onright>804</onright>
+								<onback>804</onback>
+								<enable>!String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) | [!Skin.HasSetting(no_fanart) + [String.IsEqual(Window(home).Property(Home.Section),files) | String.IsEqual(Window(home).Property(Home.Section),favorites) | [String.IsEqual(Window(home).Property(Home.Section),search) + String.IsEmpty(Control.GetLabel(16999).index(1))]] + [!String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath)) | !String.IsEmpty(Container(16090).ListItem.Art(fanart))]]</enable>
+								<!-- Conditions are evaluated before the action list runs. The first
+								     three actions are the unlocked-to-locked path; the next two are
+								     the locked-to-session-hold path. -->
+								<onclick condition="String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + !String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath))">Skin.SetString(Nara.SharedRandomFanart.LockedPath,$ESCINFO[Window(home).Property(Home.SharedRandomFanart.SessionPath)])</onclick>
+								<onclick condition="String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath)) + String.IsEmpty(Window(home).Property(Home.SharedRandomFanart.SessionPath)) + !String.IsEmpty(Container(16090).ListItem.Art(fanart))">Skin.SetString(Nara.SharedRandomFanart.LockedPath,$ESCINFO[Container(16090).ListItem.Art(fanart)])</onclick>
+								<onclick condition="String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath))">ClearProperty(Home.SharedRandomFanart.SessionPath,home)</onclick>
+								<onclick condition="!String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath))">SetProperty(Home.SharedRandomFanart.SessionPath,$ESCINFO[Skin.String(Nara.SharedRandomFanart.LockedPath)],home)</onclick>
+								<onclick condition="!String.IsEmpty(Skin.String(Nara.SharedRandomFanart.LockedPath))">Skin.Reset(Nara.SharedRandomFanart.LockedPath)</onclick>
+								<onclick>SetFocus(804)</onclick>
+							</control>
+							<control type="button" id="8105">
+								<left>6</left>
+								<top>162</top>
+								<width>208</width>
+								<height>52</height>
+								<label>$LOCALIZE[13012]</label>
+								<font>font_home_nav</font>
+								<align>center</align>
+								<aligny>center</aligny>
+								<textcolor>E6FFFFFF</textcolor>
+								<focusedcolor>text_primary</focusedcolor>
+								<texturefocus />
+								<texturenofocus />
+								<onup>8106</onup>
+								<ondown>804</ondown>
+								<onleft>804</onleft>
+								<onright>804</onright>
+								<onback>804</onback>
+								<onclick>SetFocus(804)</onclick>
+								<onclick condition="System.CanPowerDown">Powerdown()</onclick>
+								<onclick condition="!System.CanPowerDown">Quit()</onclick>
+							</control>
+						</control>
+					</control>
+				<control type="label">
+					<right>40</right>
+					<top>0</top>
+					<width>240</width>
+					<height>100</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>font_home_clock</font>
+					<label>$INFO[System.Time]</label>
+				</control>
+			</control>
+			<include>BottomBar</include>
+			<control type="group">
+				<depth>DepthBars</depth>
+				<bottom>10</bottom>
+				<height>40</height>
+				<animation effect="fade" start="0" end="100" time="300" delay="300">WindowOpen</animation>
+				<control type="rss">
+					<animation effect="slide" end="0,90" time="300" tween="sine" easing="inout" condition="$EXP[infodialog_active]">conditional</animation>
+					<left>0</left>
+					<bottom>0</bottom>
+					<height>39</height>
+					<width>100%</width>
+					<font>font12</font>
+					<urlset>1</urlset>
+					<hitrect x="-100" y="0" w="1" h="1" />
+					<titlecolor>text_primary</titlecolor>
+					<textcolor>text_primary</textcolor>
+					<headlinecolor>text_secondary</headlinecolor>
+					<visible>Skin.HasSetting(hide_mediaflags) | !ControlGroup(2000).HasFocus</visible>
+					<animation effect="fade" time="300">VisibleChange</animation>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>

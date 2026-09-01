@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include name="DefaultDialogSelectLayout">
+		<control type="group">
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<height>750</height>
+			<width>1220</width>
+			<include content="DialogBackgroundCommons">
+				<param name="width" value="1220" />
+				<param name="height" value="750" />
+				<param name="header_label" value="" />
+				<param name="header_id" value="1" />
+			</include>
+			<control type="image">
+				<left>0</left>
+				<top>80</top>
+				<width>920</width>
+				<bottom>2</bottom>
+				<texture border="40">buttons/dialogbutton-nofo.png</texture>
+			</control>
+			<control type="list" id="3">
+				<left>20</left>
+				<top>100</top>
+				<width>880</width>
+				<bottom>20</bottom>
+				<onup>3</onup>
+				<ondown>3</ondown>
+				<onleft>9001</onleft>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<include content="DefaultSimpleListLayout">
+					<param name="width" value="880" />
+					<param name="list_id" value="3" />
+					<param name="selectedcolor" value="focus_indicator" />
+					<param name="focusedselectedcolor" value="focus_foreground" />
+					<param name="labelright" value="70" />
+					<param name="showselectedmark" value="true" />
+				</include>
+			</control>
+			<control type="list" id="6">
+				<left>20</left>
+				<top>100</top>
+				<width>880</width>
+				<bottom>20</bottom>
+				<onup>6</onup>
+				<ondown>6</ondown>
+				<onleft>9001</onleft>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<itemlayout height="125" width="880">
+					<control type="image">
+						<left>12</left>
+						<top>7</top>
+						<width>110</width>
+						<height>110</height>
+						<texture>$VAR[InfoWallThumbVar]</texture>
+						<aspectratio>keep</aspectratio>
+						<visible>!ListItem.Property(PVR.IsRecordingTimer) + !ListItem.Property(PVR.IsRemindingTimer)</visible>
+					</control>
+					<control type="image">
+						<left>27</left>
+						<top>22</top>
+						<width>80</width>
+						<height>80</height>
+						<aspectratio>keep</aspectratio>
+						<aligny>center</aligny>
+						<texture>icons/pvr/timers/recording.png</texture>
+						<visible>ListItem.Property(PVR.IsRecordingTimer)</visible>
+					</control>
+					<control type="image">
+						<left>27</left>
+						<top>22</top>
+						<width>80</width>
+						<height>80</height>
+						<aspectratio>keep</aspectratio>
+						<aligny>center</aligny>
+						<texture>icons/pvr/timers/bell.png</texture>
+						<visible>ListItem.Property(PVR.IsRemindingTimer)</visible>
+					</control>
+					<control type="label">
+						<left>135</left>
+						<top>0</top>
+						<right>20</right>
+						<height>60</height>
+						<font>font14</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="textbox">
+						<left>135</left>
+						<top>50</top>
+						<right>20</right>
+						<height>67</height>
+						<font>font12</font>
+						<textcolor>grey</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout height="125" width="880">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<right>0</right>
+						<bottom>0</bottom>
+						<texture colordiffuse="focus_surface">lists/focus.png</texture>
+						<animation effect="fade" start="100" end="50" time="0">UnFocus</animation>
+					</control>
+					<control type="image">
+						<left>12</left>
+						<top>7</top>
+						<width>110</width>
+						<height>110</height>
+						<texture>$VAR[InfoWallThumbVar]</texture>
+						<aspectratio>keep</aspectratio>
+						<visible>!ListItem.Property(PVR.IsRecordingTimer) + !ListItem.Property(PVR.IsRemindingTimer)</visible>
+					</control>
+					<control type="image">
+						<left>27</left>
+						<top>22</top>
+						<width>80</width>
+						<height>80</height>
+						<aspectratio>keep</aspectratio>
+						<aligny>center</aligny>
+						<texture>icons/pvr/timers/recording.png</texture>
+						<visible>ListItem.Property(PVR.IsRecordingTimer)</visible>
+					</control>
+					<control type="image">
+						<left>27</left>
+						<top>22</top>
+						<width>80</width>
+						<height>80</height>
+						<aspectratio>keep</aspectratio>
+						<aligny>center</aligny>
+						<texture>icons/pvr/timers/bell.png</texture>
+						<visible>ListItem.Property(PVR.IsRemindingTimer)</visible>
+					</control>
+					<control type="label">
+						<left>135</left>
+						<top>0</top>
+						<right>20</right>
+						<height>60</height>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<font>font14</font>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>$VAR[FocusLayoutTextColor6Var]</textcolor>
+						<selectedcolor>$VAR[FocusLayoutTextColor6Var]</selectedcolor>
+					</control>
+					<control type="textbox">
+						<left>135</left>
+						<top>50</top>
+						<right>20</right>
+						<height>67</height>
+						<font>font12</font>
+						<label>$INFO[ListItem.Label2]</label>
+						<textcolor>$VAR[FocusLayoutTextColor6Var]</textcolor>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="scrollbar" id="61">
+				<left>910</left>
+				<top>100</top>
+				<width>6</width>
+				<bottom>20</bottom>
+				<onleft condition="Control.IsVisible(3)">3</onleft>
+				<onleft condition="Control.IsVisible(6)">6</onleft>
+				<onright>9001</onright>
+				<orientation>vertical</orientation>
+			</control>
+			<control type="label">
+				<left>925</left>
+				<bottom>10</bottom>
+				<width>275</width>
+				<height>35</height>
+				<font>font12</font>
+				<align>right</align>
+				<textcolor>grey</textcolor>
+				<label>$VAR[SelectLabel]</label>
+			</control>
+			<control type="grouplist" id="9001">
+				<left>920</left>
+				<top>80</top>
+				<onleft>61</onleft>
+				<itemgap>dialogbuttons_itemgap</itemgap>
+				<onright>3</onright>
+				<include content="DefaultDialogButton">
+					<param name="id" value="5" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="8" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="7" />
+					<param name="label" value="$LOCALIZE[222]" />
+				</include>
+			</control>
+		</control>
+	</include>
+	<include name="NaraStreamDialogBackground">
+		<definition>
+			<control type="button">
+				<left>-2000</left>
+				<top>-2000</top>
+				<width>6000</width>
+				<height>6000</height>
+				<texturefocus />
+				<texturenofocus />
+				<onclick>Action(close)</onclick>
+			</control>
+			<control type="group">
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>252</top>
+					<height>166</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>!Integer.IsGreater(Container(6).NumItems,1)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>224</top>
+					<height>222</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,2)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>196</top>
+					<height>278</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,3)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>168</top>
+					<height>334</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,4)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>140</top>
+					<height>390</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,5)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>112</top>
+					<height>446</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,6)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>84</top>
+					<height>502</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,7)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>56</top>
+					<height>558</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,8)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>28</top>
+					<height>614</height>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsEqual(Container(6).NumItems,9)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<right>0</right>
+					<top>0</top>
+					<bottom>0</bottom>
+					<texture border="40" colordiffuse="4D000000">colors/black.png</texture>
+					<visible>Integer.IsGreater(Container(6).NumItems,9)</visible>
+				</control>
+				<control type="label" id="$PARAM[header_id]">
+					<left>40</left>
+					<top>0</top>
+					<right>100</right>
+					<height>70</height>
+					<font>font13</font>
+					<label>$PARAM[header_label]</label>
+					<aligny>center</aligny>
+					<include>NaraStreamDialogVerticalOffset</include>
+				</control>
+				<control type="button" id="22002">
+					<description>button overlay to avoid closing in dialog area</description>
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texturefocus />
+					<texturenofocus />
+					<onclick>noop</onclick>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraStreamDialogVerticalOffset">
+		<animation effect="slide" end="0,252" time="0" condition="!Integer.IsGreater(Container(6).NumItems,1)">Conditional</animation>
+		<animation effect="slide" end="0,224" time="0" condition="Integer.IsEqual(Container(6).NumItems,2)">Conditional</animation>
+		<animation effect="slide" end="0,196" time="0" condition="Integer.IsEqual(Container(6).NumItems,3)">Conditional</animation>
+		<animation effect="slide" end="0,168" time="0" condition="Integer.IsEqual(Container(6).NumItems,4)">Conditional</animation>
+		<animation effect="slide" end="0,140" time="0" condition="Integer.IsEqual(Container(6).NumItems,5)">Conditional</animation>
+		<animation effect="slide" end="0,112" time="0" condition="Integer.IsEqual(Container(6).NumItems,6)">Conditional</animation>
+		<animation effect="slide" end="0,84" time="0" condition="Integer.IsEqual(Container(6).NumItems,7)">Conditional</animation>
+		<animation effect="slide" end="0,56" time="0" condition="Integer.IsEqual(Container(6).NumItems,8)">Conditional</animation>
+		<animation effect="slide" end="0,28" time="0" condition="Integer.IsEqual(Container(6).NumItems,9)">Conditional</animation>
+	</include>
+	<include name="VideoDialogSelectVideoLayout">
+	<!--
+	Available ListItem video stream properties:
+	stream.description, stream.codec, stream.language, stream.resolution, stream.bitrate,
+	stream.fps, stream.is3d, stream.stereomode, stream.hdrtype, stream.isdefault, stream.isforced,
+	stream.ishearingimpaired, stream.isvisualimpaired
+	-->
+		<control type="group">
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<height>870</height>
+			<width>1270</width>
+			<include content="DialogBackgroundCommons">
+				<param name="width" value="1270" />
+				<param name="height" value="870" />
+				<param name="header_label" value="" />
+				<param name="header_id" value="1" />
+			</include>
+			<control type="image">
+				<left>0</left>
+				<top>80</top>
+				<width>970</width>
+				<bottom>2</bottom>
+				<texture border="40">buttons/dialogbutton-nofo.png</texture>
+			</control>
+			<control type="list" id="3">
+				<left>20</left>
+				<top>100</top>
+				<width>930</width>
+				<bottom>20</bottom>
+				<onup>3</onup>
+				<ondown>3</ondown>
+				<onleft>9001</onleft>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<include content="DefaultSimpleListLayout">
+					<param name="width" value="880" />
+					<param name="list_id" value="3" />
+				</include>
+			</control>
+			<control type="fixedlist" id="6">
+				<left>20</left>
+				<top>100</top>
+				<width>930</width>
+				<bottom>20</bottom>
+				<onup>6</onup>
+				<ondown>6</ondown>
+				<onleft>9001</onleft>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<focusposition>4</focusposition>
+				<startmovement>4</startmovement>
+				<endmovement>5</endmovement>
+				<aligny>top</aligny>
+				<scrolltime>200</scrolltime>
+				<itemlayout height="75" width="930">
+					<control type="image">
+						<left>10</left>
+						<top>5</top>
+						<width>30</width>
+						<height>30</height>
+						<aspectratio>keep</aspectratio>
+						<aligny>center</aligny>
+						<texture>icons/menumarks/tick.png</texture>
+						<visible>ListItem.IsSelected</visible>
+					</control>
+					<control type="label">
+						<left>50</left>
+						<top>5</top>
+						<right>50</right>
+						<height>30</height>
+						<aligny>center</aligny>
+						<label>$VAR[StreamCodecVar]$VAR[StreamHDRTypeVar, | ]$INFO[ListItem.Property(stream.resolution), | ]$VAR[StreamBitrateVar, | , kbps]$INFO[ListItem.Property(stream.fps), | , fps]$VAR[VideoStreamDialogItemLabelVar, - [LIGHT],[/LIGHT]]</label>
+					</control>
+					<control type="label">
+						<left>50</left>
+						<top>45</top>
+						<right>50</right>
+						<height>20</height>
+						<font>font10</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Property(stream.description),, ]$INFO[ListItem.Property(stream.language),(,)]</label>
+						<textcolor>grey</textcolor>
+					</control>
+					<control type="image">
+						<right>10</right>
+						<top>5</top>
+						<width>30</width>
+						<height>30</height>
+						<aspectratio>keep</aspectratio>
+						<align>right</align>
+						<texture>icons/menumarks/star.png</texture>
+						<visible>ListItem.Property(stream.isdefault)</visible>
+					</control>
+				</itemlayout>
+				<focusedlayout height="75" width="930">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<right>0</right>
+						<bottom>0</bottom>
+						<texture colordiffuse="focus_surface">lists/focus.png</texture>
+						<animation effect="fade" start="100" end="50" time="0">UnFocus</animation>
+					</control>
+					<control type="image">
+						<left>10</left>
+						<top>5</top>
+						<width>30</width>
+						<height>30</height>
+						<aspectratio>keep</aspectratio>
+						<aligny>center</aligny>
+						<texture>icons/menumarks/tick.png</texture>
+						<colordiffuse>$VAR[FocusLayoutTextColor6Var]</colordiffuse>
+						<visible>ListItem.IsSelected</visible>
+					</control>
+					<control type="label">
+						<left>50</left>
+						<top>5</top>
+						<right>50</right>
+						<height>30</height>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$VAR[StreamCodecVar]$VAR[StreamHDRTypeVar, | ]$INFO[ListItem.Property(stream.resolution), | ]$VAR[StreamBitrateVar, | , kbps]$INFO[ListItem.Property(stream.fps), | , fps]$VAR[VideoStreamDialogItemLabelVar, - [LIGHT],[/LIGHT]]</label>
+						<textcolor>$VAR[FocusLayoutTextColor6Var]</textcolor>
+						<selectedcolor>$VAR[FocusLayoutTextColor6Var]</selectedcolor>
+					</control>
+					<control type="label">
+						<left>50</left>
+						<top>45</top>
+						<right>50</right>
+						<height>20</height>
+						<font>font10</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Property(stream.description),, ]$INFO[ListItem.Property(stream.language),(,)]</label>
+						<textcolor>$VAR[FocusLayoutTextColor6Var]</textcolor>
+						<selectedcolor>$VAR[FocusLayoutTextColor6Var]</selectedcolor>
+					</control>
+					<control type="image">
+						<right>10</right>
+						<top>5</top>
+						<width>30</width>
+						<height>30</height>
+						<aspectratio>keep</aspectratio>
+						<align>right</align>
+						<aligny>center</aligny>
+						<texture>icons/menumarks/star.png</texture>
+						<colordiffuse>$VAR[FocusLayoutTextColor6Var]</colordiffuse>
+						<visible>ListItem.Property(stream.isdefault)</visible>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="scrollbar" id="61">
+				<left>950</left>
+				<top>100</top>
+				<width>6</width>
+				<bottom>20</bottom>
+				<onleft condition="Control.IsVisible(3)">3</onleft>
+				<onleft condition="Control.IsVisible(6)">6</onleft>
+				<onright>9001</onright>
+				<orientation>vertical</orientation>
+			</control>
+			<control type="label">
+				<left>975</left>
+				<bottom>10</bottom>
+				<width>275</width>
+				<height>35</height>
+				<font>font12</font>
+				<align>right</align>
+				<textcolor>grey</textcolor>
+				<label>$VAR[SelectLabel]</label>
+			</control>
+			<control type="grouplist" id="9001">
+				<left>970</left>
+				<top>80</top>
+				<onleft>61</onleft>
+				<itemgap>dialogbuttons_itemgap</itemgap>
+				<onright>3</onright>
+				<include content="DefaultDialogButton">
+					<param name="id" value="5" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="8" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="7" />
+					<param name="label" value="$LOCALIZE[222]" />
+				</include>
+			</control>
+		</control>
+	</include>
+	<include name="VideoDialogSelectAudioLayout">
+	<!--
+	Available ListItem audio stream properties:
+	stream.description, stream.codec, stream.codecdesc, stream.channels,
+	stream.isdefault, stream.isforced, stream.isoriginal, stream.ishearingimpaired, stream.isvisualimpaired
+	-->
+		<control type="group">
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<height>670</height>
+			<width>1040</width>
+			<include content="NaraStreamDialogBackground">
+				<param name="width" value="1040" />
+				<param name="height" value="670" />
+				<param name="header_label" value="" />
+				<param name="header_id" value="1" />
+			</include>
+			<control type="image">
+				<right>28</right>
+				<top>17</top>
+				<width>36</width>
+				<height>36</height>
+				<aspectratio>keep</aspectratio>
+				<texture colordiffuse="text_primary">osd/nara/audio.png</texture>
+				<include>NaraStreamDialogVerticalOffset</include>
+			</control>
+			<control type="list" id="3">
+				<left>20</left>
+				<top>90</top>
+				<width>1000</width>
+				<height>560</height>
+				<onup>3</onup>
+				<ondown>3</ondown>
+				<onleft>noop</onleft>
+				<onright condition="Integer.IsGreater(Container(6).NumItems,10)">61</onright>
+				<onright condition="!Integer.IsGreater(Container(6).NumItems,10)">noop</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<include>NaraStreamDialogVerticalOffset</include>
+				<include content="DefaultSimpleListLayout">
+					<param name="width" value="1000" />
+					<param name="list_id" value="3" />
+				</include>
+			</control>
+			<control type="fixedlist" id="6">
+				<left>20</left>
+				<top>90</top>
+				<width>1000</width>
+				<height>560</height>
+				<onup>6</onup>
+				<ondown>6</ondown>
+				<onleft>noop</onleft>
+				<onright condition="Integer.IsGreater(Container(6).NumItems,10)">61</onright>
+				<onright condition="!Integer.IsGreater(Container(6).NumItems,10)">noop</onright>
+				<pagecontrol>61</pagecontrol>
+				<focusposition>4</focusposition>
+				<startmovement>4</startmovement>
+				<endmovement>5</endmovement>
+				<aligny>top</aligny>
+				<scrolltime>200</scrolltime>
+				<include>NaraStreamDialogVerticalOffset</include>
+				<itemlayout height="56" width="1000">
+					<control type="image">
+						<left>0</left>
+						<top>4</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">osd/nara/progress-nib.png</texture>
+						<visible>ListItem.IsSelected</visible>
+					</control>
+					<control type="label">
+						<left>56</left>
+						<top>0</top>
+						<width>180</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>250</left>
+						<top>0</top>
+						<width>300</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$VAR[StreamCodecVar]$VAR[StreamChannelsVar, / ]</label>
+						<textcolor>text_secondary</textcolor>
+					</control>
+					<control type="label">
+						<left>570</left>
+						<top>0</top>
+						<width>320</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Property(stream.description)]$VAR[VideoStreamDialogItemLabelVar,  ]</label>
+						<textcolor>text_secondary</textcolor>
+					</control>
+					<control type="label">
+						<right>16</right>
+						<top>0</top>
+						<width>72</width>
+						<height>56</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$LOCALIZE[39105]</label>
+						<textcolor>text_secondary</textcolor>
+						<visible>ListItem.Property(stream.isdefault)</visible>
+					</control>
+				</itemlayout>
+				<focusedlayout height="56" width="1000">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<right>0</right>
+						<bottom>0</bottom>
+						<texture colordiffuse="focus_soft_surface">lists/focus.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>4</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">osd/nara/progress-nib.png</texture>
+						<visible>ListItem.IsSelected</visible>
+					</control>
+					<control type="label">
+						<left>56</left>
+						<top>0</top>
+						<width>180</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>text_primary</textcolor>
+						<selectedcolor>text_primary</selectedcolor>
+					</control>
+					<control type="label">
+						<left>250</left>
+						<top>0</top>
+						<width>300</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$VAR[StreamCodecVar]$VAR[StreamChannelsVar, / ]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+					</control>
+					<control type="label">
+						<left>570</left>
+						<top>0</top>
+						<width>320</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Property(stream.description)]$VAR[VideoStreamDialogItemLabelVar,  ]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+					</control>
+					<control type="label">
+						<right>16</right>
+						<top>0</top>
+						<width>72</width>
+						<height>56</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$LOCALIZE[39105]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+						<visible>ListItem.Property(stream.isdefault)</visible>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="scrollbar" id="61">
+				<right>10</right>
+				<top>90</top>
+				<width>6</width>
+				<height>560</height>
+				<onleft condition="Control.IsVisible(3)">3</onleft>
+				<onleft condition="Control.IsVisible(6)">6</onleft>
+				<onright condition="Control.IsVisible(3)">3</onright>
+				<onright condition="Control.IsVisible(6)">6</onright>
+				<orientation>vertical</orientation>
+				<visible>Integer.IsGreater(Container(6).NumItems,10)</visible>
+			</control>
+			<control type="grouplist" id="9001">
+				<left>-2000</left>
+				<top>80</top>
+				<visible>false</visible>
+				<onleft>61</onleft>
+				<itemgap>dialogbuttons_itemgap</itemgap>
+				<onright>3</onright>
+				<include content="DefaultDialogButton">
+					<param name="id" value="5" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="8" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="7" />
+					<param name="label" value="$LOCALIZE[222]" />
+				</include>
+			</control>
+		</control>
+	</include>
+	<include name="VideoDialogSelectSubtitleLayout">
+	<!--
+	Available ListItem subtitle stream properties:
+	stream.description, stream.codec, stream.isdefault, stream.isforced, stream.isoriginal,
+	stream.ishearingimpaired, stream.isvisualimpaired, stream.isexternal
+	-->
+		<control type="group">
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<height>670</height>
+			<width>1040</width>
+			<include content="NaraStreamDialogBackground">
+				<param name="width" value="1040" />
+				<param name="height" value="670" />
+				<param name="header_label" value="" />
+				<param name="header_id" value="1" />
+			</include>
+			<control type="image">
+				<right>28</right>
+				<top>17</top>
+				<width>36</width>
+				<height>36</height>
+				<aspectratio>keep</aspectratio>
+				<texture colordiffuse="text_primary">osd/nara/subtitles.png</texture>
+				<include>NaraStreamDialogVerticalOffset</include>
+			</control>
+			<control type="list" id="3">
+				<left>20</left>
+				<top>90</top>
+				<width>1000</width>
+				<height>560</height>
+				<onup>3</onup>
+				<ondown>3</ondown>
+				<onleft>noop</onleft>
+				<onright condition="Integer.IsGreater(Container(6).NumItems,10)">61</onright>
+				<onright condition="!Integer.IsGreater(Container(6).NumItems,10)">noop</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<include>NaraStreamDialogVerticalOffset</include>
+				<include content="DefaultSimpleListLayout">
+					<param name="width" value="1000" />
+					<param name="list_id" value="3" />
+				</include>
+			</control>
+			<control type="fixedlist" id="6">
+				<left>20</left>
+				<top>90</top>
+				<width>1000</width>
+				<height>560</height>
+				<onup>6</onup>
+				<ondown>6</ondown>
+				<onleft>noop</onleft>
+				<onright condition="Integer.IsGreater(Container(6).NumItems,10)">61</onright>
+				<onright condition="!Integer.IsGreater(Container(6).NumItems,10)">noop</onright>
+				<pagecontrol>61</pagecontrol>
+				<focusposition>4</focusposition>
+				<startmovement>4</startmovement>
+				<endmovement>5</endmovement>
+				<aligny>top</aligny>
+				<scrolltime>200</scrolltime>
+				<include>NaraStreamDialogVerticalOffset</include>
+				<itemlayout height="56" width="1000">
+					<control type="image">
+						<left>0</left>
+						<top>4</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">osd/nara/progress-nib.png</texture>
+						<visible>ListItem.IsSelected</visible>
+					</control>
+					<control type="label">
+						<left>56</left>
+						<top>0</top>
+						<width>180</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>250</left>
+						<top>0</top>
+						<width>300</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$VAR[NaraSubtitleStreamCodecVar]</label>
+						<textcolor>text_secondary</textcolor>
+					</control>
+					<control type="label">
+						<left>570</left>
+						<top>0</top>
+						<width>320</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Property(stream.description)]$VAR[VideoStreamDialogItemLabelVar,  ]</label>
+						<textcolor>text_secondary</textcolor>
+					</control>
+					<control type="label">
+						<right>16</right>
+						<top>0</top>
+						<width>72</width>
+						<height>56</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$LOCALIZE[39105]</label>
+						<textcolor>text_secondary</textcolor>
+						<visible>ListItem.Property(stream.isdefault)</visible>
+					</control>
+				</itemlayout>
+				<focusedlayout height="56" width="1000">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<right>0</right>
+						<bottom>0</bottom>
+						<texture colordiffuse="focus_soft_surface">lists/focus.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>4</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="text_primary">osd/nara/progress-nib.png</texture>
+						<visible>ListItem.IsSelected</visible>
+					</control>
+					<control type="label">
+						<left>56</left>
+						<top>0</top>
+						<width>180</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>text_primary</textcolor>
+						<selectedcolor>text_primary</selectedcolor>
+					</control>
+					<control type="label">
+						<left>250</left>
+						<top>0</top>
+						<width>300</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$VAR[NaraSubtitleStreamCodecVar]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+					</control>
+					<control type="label">
+						<left>570</left>
+						<top>0</top>
+						<width>320</width>
+						<height>56</height>
+						<font>font12</font>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Property(stream.description)]$VAR[VideoStreamDialogItemLabelVar,  ]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+					</control>
+					<control type="label">
+						<right>16</right>
+						<top>0</top>
+						<width>72</width>
+						<height>56</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$LOCALIZE[39105]</label>
+						<textcolor>text_secondary</textcolor>
+						<selectedcolor>text_secondary</selectedcolor>
+						<visible>ListItem.Property(stream.isdefault)</visible>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="scrollbar" id="61">
+				<right>10</right>
+				<top>90</top>
+				<width>6</width>
+				<height>560</height>
+				<onleft condition="Control.IsVisible(3)">3</onleft>
+				<onleft condition="Control.IsVisible(6)">6</onleft>
+				<onright condition="Control.IsVisible(3)">3</onright>
+				<onright condition="Control.IsVisible(6)">6</onright>
+				<orientation>vertical</orientation>
+				<visible>Integer.IsGreater(Container(6).NumItems,10)</visible>
+			</control>
+			<control type="grouplist" id="9001">
+				<left>-2000</left>
+				<top>80</top>
+				<visible>false</visible>
+				<onleft>61</onleft>
+				<itemgap>dialogbuttons_itemgap</itemgap>
+				<onright>3</onright>
+				<include content="DefaultDialogButton">
+					<param name="id" value="5" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="8" />
+					<param name="label" value="" />
+				</include>
+				<include content="DefaultDialogButton">
+					<param name="id" value="7" />
+					<param name="label" value="$LOCALIZE[222]" />
+				</include>
+			</control>
+		</control>
+	</include>
+</includes>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colors>
+	<!-- Base surfaces -->
+	<color name="background_base">FF000000</color>
+	<color name="surface_main">FF3A3542</color>
+	<color name="surface_panel">FF131218</color>
+	<color name="surface_dialog">FF18171E</color>
+	<color name="surface_dialog_header">FF201E27</color>
+	<color name="surface_subtle">12FFFFFF</color>
+	<color name="surface_raised">1FFFFFFF</color>
+	<!-- Foreground hierarchy -->
+	<color name="text_primary">FFEDEDED</color>
+	<color name="text_secondary">B3EDEDED</color>
+	<color name="text_muted">80EDEDED</color>
+	<color name="text_disabled">4DEDEDED</color>
+	<color name="text_subtle">1FEDEDED</color>
+
+	<!-- Focus hierarchy -->
+	<color name="focus_surface">FFEDEDED</color>
+	<color name="focus_action_surface">CCEDEDED</color>
+	<color name="focus_soft_surface">4DEDEDED</color>
+	<color name="focus_glass_surface">40FFFFFF</color>
+	<color name="focus_foreground">FF181818</color>
+	<color name="focus_foreground_muted">B3181818</color>
+	<color name="focus_media">FFFFFFFF</color>
+	<color name="focus_indicator">FFEDEDED</color>
+	<color name="focus_card_surface">66EDEDED</color>
+	<color name="focus_card_foreground">FFEDEDED</color>
+	<color name="focus_card_foreground_muted">B3EDEDED</color>
+
+	<!-- Persistent selection -->
+	<color name="selection_surface">33FFFFFF</color>
+	<color name="selection_foreground">E7EDEDED</color>
+	<color name="badge_surface">E7181818</color>
+	<color name="badge_foreground">FFEDEDED</color>
+
+	<!-- Borders and separators -->
+	<color name="border_subtle">12FFFFFF</color>
+	<color name="border_default">1FFFFFFF</color>
+
+	<!-- Artwork and dimming -->
+	<color name="artwork_background">66FFFFFF</color>
+	<color name="artwork_background_opaque">FF808080</color>
+	<color name="artwork_movieset_background">B3FFFFFF</color>
+	<color name="artwork_dim">44FFFFFF</color>
+	<color name="artwork_placeholder">FF555555</color>
+	<color name="opacity_soft">80FFFFFF</color>
+	<color name="opacity_medium">A0FFFFFF</color>
+	<color name="opacity_high">CCFFFFFF</color>
+	<color name="opacity_strong">E6FFFFFF</color>
+	<color name="overlay_subtle">66000000</color>
+	<color name="overlay_soft">80000000</color>
+	<color name="overlay_medium">B3000000</color>
+	<color name="overlay_strong">E7000000</color>
+	<color name="card_caption_surface">D916151C</color>
+
+	<!-- Depth shadows; text does not use shadows -->
+	<color name="shadow_soft">1A000000</color>
+	<color name="shadow_hard">80000000</color>
+	<color name="shadow_opaque">FF000000</color>
+	<color name="shadow_none">00000000</color>
+
+	<!-- Progress and semantic status -->
+	<color name="progress_track">60FFFFFF</color>
+	<color name="progress_playback">FFFFFFFF</color>
+	<color name="progress_watched">FF03B585</color>
+	<color name="status_recording">FFCE4421</color>
+	<color name="status_warning">D7FFCD3C</color>
+	<color name="status_error">FFFF453A</color>
+
+	<!-- Control states -->
+	<color name="control_unfocused">71FFFFFF</color>
+	<color name="separator">AAFFFFFF</color>
+
+	<!-- Existing names retained as compatibility aliases -->
+	<color name="primary_background">FF3A3542</color>
+	<color name="secondary_background">1FFFFFFF</color>
+	<color name="dialog_tint">FF18171E</color>
+	<color name="dialog_header_tint">FF201E27</color>
+	<color name="background">FF000000</color>
+	<color name="bg_image">B3FFFFFF</color>
+	<color name="bg_overlay">60FFFFFF</color>
+	<color name="black">FF000000</color>
+	<color name="white">FFEDEDED</color>
+	<color name="grey">B3EDEDED</color>
+	<color name="poster_year">E7EDEDED</color>
+	<color name="blue">FFEDEDED</color>
+	<color name="red">FFCE4421</color>
+	<color name="button_focus">FFEDEDED</color>
+	<color name="button_alt_focus">B3EDEDED</color>
+	<color name="text_shadow">00000000</color>
+	<color name="border_alpha">1FFFFFFF</color>
+	<color name="disabled">4DEDEDED</color>
+	<color name="selected">E7EDEDED</color>
+	<color name="invalid">FFFF453A</color>
+</colors>

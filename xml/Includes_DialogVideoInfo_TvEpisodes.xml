@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+	<!-- List labels ignore auto-width inside item layouts. Ordinary buttons in
+	     the sibling grouplist measure every visible label, while the underlying
+	     list remains responsible only for focus, selection and scrolling. -->
+	<include name="VideoInfoTvTabVisualItem">
+		<definition>
+			<control type="button">
+				<width max="220">auto</width>
+				<height>52</height>
+				<font>font13</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>0</textoffsetx>
+				<textcolor>text_secondary</textcolor>
+				<focusedcolor>text_secondary</focusedcolor>
+				<label>$INFO[Container(5100).ListItemPosition($PARAM[position]).Label]</label>
+				<texturefocus />
+				<texturenofocus />
+				<hitrect x="0" y="0" w="0" h="0" />
+				<visible>!String.IsEmpty(Container(5100).ListItemPosition($PARAM[position]).Label) + !Container(5100).Position($PARAM[position])</visible>
+			</control>
+			<control type="button">
+				<width max="220">auto</width>
+				<height>52</height>
+				<font>font13</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>0</textoffsetx>
+				<textcolor>text_primary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<label>$INFO[Container(5100).ListItemPosition($PARAM[position]).Label]</label>
+				<texturefocus border="0,0,0,3" infill="false" colordiffuse="80FFFFFF">colors/white.png</texturefocus>
+				<texturenofocus border="0,0,0,3" infill="false" colordiffuse="80FFFFFF">colors/white.png</texturenofocus>
+				<hitrect x="0" y="0" w="0" h="0" />
+				<visible>Container(5100).Position($PARAM[position]) + !Control.HasFocus(5100)</visible>
+			</control>
+			<control type="button">
+				<width max="220">auto</width>
+				<height>52</height>
+				<font>font13</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>0</textoffsetx>
+				<textcolor>text_primary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<label>$INFO[Container(5100).ListItemPosition($PARAM[position]).Label]</label>
+				<texturefocus border="0,0,0,3" infill="false" colordiffuse="focus_media">colors/white.png</texturefocus>
+				<texturenofocus border="0,0,0,3" infill="false" colordiffuse="focus_media">colors/white.png</texturenofocus>
+				<hitrect x="0" y="0" w="0" h="0" />
+				<visible>Container(5100).Position($PARAM[position]) + Control.HasFocus(5100)</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Television detail content. Seasons, episodes and cast share one shelf so
+	     remote navigation never has to cross into a second viewport. -->
+	<include name="VideoInfoTvContent">
+		<definition>
+			<control type="group">
+				<visible>String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)</visible>
+			<!-- Read-only preview of the same explicit episode target used by the
+			     primary action. The extended directory-provider mode is gated by
+			     SkinExtended.xml in core and stops after this single item. -->
+			<control type="list" id="59">
+				<left>-2</left>
+				<top>-2</top>
+				<width>1</width>
+				<height>1</height>
+				<visible>String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)</visible>
+				<itemlayout width="1" height="1" />
+				<focusedlayout width="1" height="1" />
+				<content playbacktarget="true" browse="never">videodb://tvshows/titles/$INFO[ListItem.DBID]/</content>
+			</control>
+
+			<!-- The card is deliberately informational: activating it would only
+			     duplicate the primary button's standard Kodi folder action. -->
+			<control type="group">
+				<left>1220</left>
+				<top>566</top>
+				<width>620</width>
+				<height>180</height>
+				<visible>[Integer.IsGreater(Container(59).NumItems,0) | Container(59).IsUpdating] + !Skin.HasSetting(no_fanart) + !String.IsEmpty(ListItem.Art(fanart))</visible>
+				<animation effect="fade" start="0" end="100" time="220">Visible</animation>
+				<!-- Keep a neutral surface visible while the new playback target is
+				     resolving so artwork from the previous TV show can never flash. -->
+				<control type="image">
+					<width>620</width>
+					<height>180</height>
+					<texture cornerradius="4" colordiffuse="selection_surface">colors/white.png</texture>
+				</control>
+				<!-- The provider intentionally retains its previous item during an
+				     asynchronous refresh. Reveal only the newly completed snapshot. -->
+				<control type="group">
+					<width>620</width>
+					<height>180</height>
+					<visible>Integer.IsGreater(Container(59).NumItems,0) + !Container(59).IsUpdating</visible>
+					<!-- Copy retains the original soft arrival; artwork starts rendering
+					     immediately so first-time remote thumbnails do not feel delayed. -->
+					<control type="group">
+						<width>350</width>
+						<height>180</height>
+						<animation effect="fade" start="0" end="100" time="220">Visible</animation>
+						<control type="label">
+							<left>20</left>
+							<top>14</top>
+							<width>310</width>
+							<height>30</height>
+							<font>font12</font>
+							<textcolor>text_primary</textcolor>
+							<label>$LOCALIZE[31619]  ·  $INFO[Container(59).ListItem.Season,S]$INFO[Container(59).ListItem.Episode,E]</label>
+						</control>
+						<control type="label">
+							<left>20</left>
+							<top>44</top>
+							<width>310</width>
+							<height>32</height>
+							<font>font13</font>
+							<scroll>true</scroll>
+							<label>$INFO[Container(59).ListItem.Title]</label>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>78</top>
+							<width>310</width>
+							<height>48</height>
+							<font>font10</font>
+							<textcolor>text_secondary</textcolor>
+							<label>$INFO[Container(59).ListItem.Plot]</label>
+						</control>
+						<control type="progress">
+							<left>20</left>
+							<top>150</top>
+							<width>224</width>
+							<height>3</height>
+							<texturebg colordiffuse="progress_track">colors/white.png</texturebg>
+							<midtexture colordiffuse="progress_playback">colors/white.png</midtexture>
+							<info>Container(59).ListItem.PercentPlayed</info>
+							<visible>Integer.IsGreater(Container(59).ListItem.PercentPlayed,0)</visible>
+						</control>
+						<control type="label">
+							<left>252</left>
+							<top>136</top>
+							<width>78</width>
+							<height>30</height>
+							<font>font10</font>
+							<align>right</align>
+							<textcolor>text_secondary</textcolor>
+							<label>$INFO[Container(59).ListItem.Duration]</label>
+						</control>
+					</control>
+					<control type="image">
+						<left>350</left>
+						<width>270</width>
+						<height>180</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" cornerradius="4">$INFO[Container(59).ListItem.Art(thumb)]</texture>
+						<visible>!String.IsEmpty(Container(59).ListItem.Art(thumb))</visible>
+					</control>
+				</control>
+			</control>
+
+			<!-- Seasons are directory-backed; the final static item switches the
+			     same lower shelf to the dialog's existing cast list. -->
+			<control type="list" id="5100">
+				<left>80</left>
+				<top>788</top>
+				<width>1760</width>
+				<height>58</height>
+				<orientation>horizontal</orientation>
+				<scrolltime>180</scrolltime>
+				<preloaditems>2</preloaditems>
+				<onleft>5100</onleft>
+				<onright>5100</onright>
+				<onup>5000</onup>
+				<ondown condition="String.IsEqual(Container(5100).ListItem.Property(VideoInfoTab),cast)">50</ondown>
+				<ondown>5101</ondown>
+				<itemlayout width="250" height="58">
+					<control type="label">
+						<width>250</width>
+						<height>52</height>
+						<font>font13</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textcolor>00FFFFFF</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout width="250" height="58">
+					<control type="label">
+						<width>250</width>
+						<height>52</height>
+						<font>font13</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textcolor>00FFFFFF</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+				<content sortby="season" sortorder="ascending" target="videos" browse="never" loaditemdetails="false">videodb://tvshows/titles/$INFO[ListItem.DBID]/</content>
+				<content>
+					<item>
+						<label>$LOCALIZE[206]</label>
+						<property name="VideoInfoTab">cast</property>
+						<visible>Integer.IsGreater(Container(50).NumItems,0)</visible>
+					</item>
+				</content>
+			</control>
+			<!-- Auto-width visible tabs. Seven measured labels plus their six
+			     36 px gaps fit the row even when every label reaches its cap. -->
+			<control type="grouplist">
+				<left>80</left>
+				<top>788</top>
+				<width>1760</width>
+				<height>52</height>
+				<orientation>horizontal</orientation>
+				<itemgap>36</itemgap>
+				<hitrect x="0" y="0" w="0" h="0" />
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">0</param>
+				</include>
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">1</param>
+				</include>
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">2</param>
+				</include>
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">3</param>
+				</include>
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">4</param>
+				</include>
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">5</param>
+				</include>
+				<include content="VideoInfoTvTabVisualItem">
+					<param name="position">6</param>
+				</include>
+			</control>
+
+			<!-- A single horizontal row keeps every episode one directional step
+			     away. Texture loading stays asynchronous and only the next item in
+			     the active scroll direction is preloaded. -->
+			<control type="panel" id="5101">
+				<left>70</left>
+				<top>850</top>
+				<width>1780</width>
+				<height>228</height>
+				<orientation>horizontal</orientation>
+				<scrolltime>220</scrolltime>
+				<preloaditems>1</preloaditems>
+				<visible>!String.IsEqual(Container(5100).ListItem.Property(VideoInfoTab),cast)</visible>
+				<onleft>5101</onleft>
+				<onright>5101</onright>
+				<onup>5100</onup>
+				<ondown>5101</ondown>
+				<onclick>Action(Play)</onclick>
+				<itemlayout width="356" height="224">
+					<control type="group">
+						<left>10</left>
+						<top>6</top>
+						<width>336</width>
+						<height>212</height>
+						<control type="image">
+							<width>336</width>
+							<height>189</height>
+							<aspectratio>scale</aspectratio>
+							<texture fallback="DefaultVideo.png" background="true" cornerradius="4">$INFO[ListItem.Art(thumb)]</texture>
+						</control>
+						<control type="image">
+							<top>123</top>
+							<width>336</width>
+							<height>66</height>
+							<aspectratio>stretch</aspectratio>
+							<texture cornerradius="4" colordiffuse="80FFFFFF">overlays/overlayfade.png</texture>
+						</control>
+						<control type="label">
+							<left>12</left>
+							<top>148</top>
+							<width>252</width>
+							<height>34</height>
+							<font>font12</font>
+							<label>$INFO[ListItem.Episode,,  ]$INFO[ListItem.Title]</label>
+						</control>
+						<control type="label">
+							<right>12</right>
+							<top>150</top>
+							<width>68</width>
+							<height>30</height>
+							<font>font10</font>
+							<align>right</align>
+							<textcolor>text_secondary</textcolor>
+							<label>$INFO[ListItem.Duration]</label>
+						</control>
+						<control type="progress">
+							<top>186</top>
+							<width>336</width>
+							<height>3</height>
+							<reveal>true</reveal>
+							<texturebg border="4,0,4,0" colordiffuse="progress_track">progress/card_progress_r4.png</texturebg>
+							<midtexture border="4,0,4,0" colordiffuse="progress_playback">progress/card_progress_r4.png</midtexture>
+							<info>ListItem.PercentPlayed</info>
+							<visible>Integer.IsGreater(ListItem.PercentPlayed,0)</visible>
+						</control>
+						<control type="image">
+							<left>296</left>
+							<top>12</top>
+							<width>28</width>
+							<height>28</height>
+							<texture colordiffuse="text_primary">icons/infodialogs/enabled.png</texture>
+							<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+						</control>
+					</control>
+				</itemlayout>
+				<focusedlayout width="356" height="224">
+					<control type="group">
+						<left>10</left>
+						<top>6</top>
+						<width>336</width>
+						<height>212</height>
+						<animation center="168,95" effect="zoom" start="100" end="102" time="130" tween="sine">Focus</animation>
+						<control type="image">
+							<width>336</width>
+							<height>189</height>
+							<aspectratio>scale</aspectratio>
+							<texture fallback="DefaultVideo.png" background="true" cornerradius="4">$INFO[ListItem.Art(thumb)]</texture>
+						</control>
+						<control type="image">
+							<left>-14</left>
+							<top>-14</top>
+							<width>364</width>
+							<height>217</height>
+							<texture cornerradius="6" cornerborder="2" cornerglow="12" colordiffuse="focus_media">colors/white.png</texture>
+						</control>
+						<control type="image">
+							<top>123</top>
+							<width>336</width>
+							<height>66</height>
+							<aspectratio>stretch</aspectratio>
+							<texture cornerradius="4" colordiffuse="80FFFFFF">overlays/overlayfade.png</texture>
+						</control>
+						<control type="label">
+							<left>12</left>
+							<top>148</top>
+							<width>252</width>
+							<height>34</height>
+							<font>font12</font>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Episode,,  ]$INFO[ListItem.Title]</label>
+						</control>
+						<control type="label">
+							<right>12</right>
+							<top>150</top>
+							<width>68</width>
+							<height>30</height>
+							<font>font10</font>
+							<align>right</align>
+							<textcolor>text_secondary</textcolor>
+							<label>$INFO[ListItem.Duration]</label>
+						</control>
+						<control type="progress">
+							<top>186</top>
+							<width>336</width>
+							<height>3</height>
+							<reveal>true</reveal>
+							<texturebg border="4,0,4,0" colordiffuse="progress_track">progress/card_progress_r4.png</texturebg>
+							<midtexture border="4,0,4,0" colordiffuse="progress_playback">progress/card_progress_r4.png</midtexture>
+							<info>ListItem.PercentPlayed</info>
+							<visible>Integer.IsGreater(ListItem.PercentPlayed,0)</visible>
+						</control>
+						<control type="image">
+							<left>296</left>
+							<top>12</top>
+							<width>28</width>
+							<height>28</height>
+							<texture colordiffuse="text_primary">icons/infodialogs/enabled.png</texture>
+							<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+						</control>
+					</control>
+				</focusedlayout>
+				<!-- Let Action(Play) honor Settings > Player > Videos > Play next video
+				     automatically for episodes instead of forcing single-item playback. -->
+				<content sortby="episode" sortorder="ascending" target="videos" browse="never" checkautoplaynextitem="true">$INFO[Container(5100).ListItem.FolderPath]</content>
+			</control>
+			</control>
+		</definition>
+	</include>
+</includes>

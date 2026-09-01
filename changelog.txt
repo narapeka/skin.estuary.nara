@@ -1,0 +1,18 @@
+Unreleased
+- Reworked the home screen around a horizontal top bar, contextual full-screen fanart, media-library rows, and capped widgets with dedicated browse-all playlists
+- Added recently updated TV-show shelves, movie and TV library fanart fallbacks, and ten-image library fanart rotation without preloading image data
+- Redesigned video information and movie-set browsing with nested movie details, favourite controls, cast and media layouts, and focused artwork, rating, and refresh actions
+- Refined focus frames, overlays, typography, dialogs, PVR layouts, and list, poster, banner, wall, and info-wall views
+- Added skin-opted-in core handling for hybrid video-version folders and favourite artwork while preserving the native behavior of other skins
+- Added query-aware Android HTTP video-database matching behind the existing Enhanced HTTP setting
+
+4.1.0 (Estuary N initial release)
+- Packaged Estuary N as an independent skin while retaining the original Estuary as a safe fallback
+- Added consistent poster titles and years and tuned the 1080p poster wall for seven columns
+- Added a lightweight high-transparency fallback card for missing poster artwork
+- Replaced the playback OSD information and stream buttons with direct subtitle and audio-track selectors
+- Increased media backdrop visibility consistently across the skin
+- Standardised the skin on the Arial typeface and limited maintained localisations to English and Simplified Chinese
+- Removed skin navigation and presentation for weather, radio and games while retaining compatibility placeholders for external window calls
+- Retained Kodi's system-level game settings entry
+- Removed alternate themes and colours, custom background selection, slideshow and touch options, unused artwork, and inherited screenshots

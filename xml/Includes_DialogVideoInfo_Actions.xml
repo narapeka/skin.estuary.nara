@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+	<!-- Action bar: the primary extension point for movie and television variants. -->
+	<include name="VideoInfoActionBar">
+		<control type="grouplist">
+			<top>553</top>
+			<width>1760</width>
+			<height>78</height>
+			<orientation>horizontal</orientation>
+			<itemgap>21</itemgap>
+			<!-- Match the movie page's 52 px action-to-shelf breathing room. -->
+			<animation effect="slide" start="0,-52" end="0,-52" condition="String.IsEqual(ListItem.DBType,tvshow)">Conditional</animation>
+			<!-- Compact primary action: text only, translucent and deliberately
+					     rectangular rather than another oversized pill button. -->
+			<control type="group">
+				<width>220</width>
+				<height>70</height>
+				<control type="button" id="5000">
+					<width>220</width>
+					<height>70</height>
+					<font>font13</font>
+					<align>center</align>
+					<aligny>center</aligny>
+					<label>$VAR[VideoInfoPlayButtonLabelVar]</label>
+					<textcolor>text_primary</textcolor>
+					<focusedcolor>focus_foreground</focusedcolor>
+					<texturefocus cornerradius="35" colordiffuse="focus_action_surface">colors/white.png</texturefocus>
+					<texturenofocus cornerradius="35" colordiffuse="selection_surface">colors/white.png</texturenofocus>
+					<onup>138</onup>
+					<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)">5100</ondown>
+					<ondown>50</ondown>
+					<onleft>5003</onleft>
+					<onright>5001</onright>
+					<onclick condition="String.IsEqual(ListItem.DBType,tvshow)">PlayMedia(videodb://tvshows/titles/$INFO[ListItem.DBID]/,resume,tvshowtarget)</onclick>
+					<onclick condition="!String.IsEqual(ListItem.DBType,tvshow)">SendClick(8)</onclick>
+				</control>
+			</control>
+			<!-- Favourite -->
+			<control type="group">
+				<width>70</width>
+				<height>70</height>
+				<visible>Control.IsEnabled(16)</visible>
+				<control type="button" id="5001">
+					<description>Favourite</description>
+					<width>70</width>
+					<height>70</height>
+					<label />
+					<texturefocus colordiffuse="focus_action_surface">masks/circle.png</texturefocus>
+					<texturenofocus colordiffuse="surface_raised">masks/circle.png</texturenofocus>
+					<onup>138</onup>
+					<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)">5100</ondown>
+					<ondown>50</ondown>
+					<onleft>5000</onleft>
+					<onright condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,movie)] + Integer.IsGreater(ListItem.DBID,0)">5006</onright>
+					<onright condition="ListItem.HasVideoVersions">5004</onright>
+					<onright condition="!ListItem.HasVideoVersions + !String.IsEmpty(ListItem.SetID)">5005</onright>
+					<onright>5003</onright>
+					<onclick>SendClick(16)</onclick>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="text_primary">icons/infodialogs/favourite.png</texture>
+					<visible>!String.IsEqual(ListItem.Property(isfavourite),true) + !Control.HasFocus(5001)</visible>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="text_primary">icons/infodialogs/favourite-filled.png</texture>
+					<visible>String.IsEqual(ListItem.Property(isfavourite),true) + !Control.HasFocus(5001)</visible>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="focus_foreground">icons/infodialogs/favourite.png</texture>
+					<visible>!String.IsEqual(ListItem.Property(isfavourite),true) + Control.HasFocus(5001)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="focus_foreground">icons/infodialogs/favourite-filled.png</texture>
+					<visible>String.IsEqual(ListItem.Property(isfavourite),true) + Control.HasFocus(5001)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+			</control>
+			<!-- Standard Kodi watched-state toggle for library movies and entire TV shows. -->
+			<control type="group">
+				<width>70</width>
+				<height>70</height>
+				<visible>[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,movie)] + Integer.IsGreater(ListItem.DBID,0)</visible>
+				<control type="button" id="5006">
+					<description>Toggle watched</description>
+					<width>70</width>
+					<height>70</height>
+					<label />
+					<texturefocus colordiffuse="focus_action_surface">masks/circle.png</texturefocus>
+					<texturenofocus colordiffuse="surface_raised">masks/circle.png</texturenofocus>
+					<onup>138</onup>
+					<ondown condition="String.IsEqual(ListItem.DBType,tvshow)">5100</ondown>
+					<ondown>50</ondown>
+					<onleft>5001</onleft>
+					<onright condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">5004</onright>
+					<onright condition="String.IsEqual(ListItem.DBType,movie) + !ListItem.HasVideoVersions + !String.IsEmpty(ListItem.SetID)">5005</onright>
+					<onright>5003</onright>
+					<onclick>SendClick(17)</onclick>
+				</control>
+				<control type="image">
+					<left>11</left>
+					<top>11</top>
+					<width>48</width>
+					<height>48</height>
+					<texture colordiffuse="text_primary">icons/infodialogs/unwatched-outline.png</texture>
+					<visible>!Integer.IsGreater(ListItem.PlayCount,0) + !Control.HasFocus(5006)</visible>
+				</control>
+				<control type="image">
+					<left>11</left>
+					<top>11</top>
+					<width>48</width>
+					<height>48</height>
+					<texture colordiffuse="text_primary">icons/infodialogs/watched-filled.png</texture>
+					<visible>Integer.IsGreater(ListItem.PlayCount,0) + !Control.HasFocus(5006)</visible>
+				</control>
+				<control type="image">
+					<left>11</left>
+					<top>11</top>
+					<width>48</width>
+					<height>48</height>
+					<texture colordiffuse="focus_foreground">icons/infodialogs/unwatched-outline.png</texture>
+					<visible>!Integer.IsGreater(ListItem.PlayCount,0) + Control.HasFocus(5006)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+				<control type="image">
+					<left>11</left>
+					<top>11</top>
+					<width>48</width>
+					<height>48</height>
+					<texture colordiffuse="focus_foreground">icons/infodialogs/watched-filled.png</texture>
+					<visible>Integer.IsGreater(ListItem.PlayCount,0) + Control.HasFocus(5006)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+			</control>
+			<!-- Versions -->
+			<control type="group">
+				<width>70</width>
+				<height>70</height>
+				<visible>ListItem.HasVideoVersions</visible>
+				<control type="button" id="5004">
+					<description>Versions</description>
+					<width>70</width>
+					<height>70</height>
+					<label />
+					<texturefocus colordiffuse="focus_action_surface">masks/circle.png</texturefocus>
+					<texturenofocus colordiffuse="surface_raised">masks/circle.png</texturenofocus>
+					<onup>138</onup>
+					<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)">5100</ondown>
+					<ondown>50</ondown>
+					<onleft condition="String.IsEqual(ListItem.DBType,movie) + Integer.IsGreater(ListItem.DBID,0)">5006</onleft>
+					<onleft>5001</onleft>
+					<onright condition="!String.IsEmpty(ListItem.SetID)">5005</onright>
+					<onright condition="String.IsEmpty(ListItem.SetID)">5003</onright>
+					<onclick>SendClick(14)</onclick>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="text_primary">icons/infodialogs/versions.png</texture>
+					<visible>!Control.HasFocus(5004)</visible>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="focus_foreground">icons/infodialogs/versions.png</texture>
+					<visible>Control.HasFocus(5004)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+			</control>
+			<!-- Movie set -->
+			<control type="group">
+				<width>70</width>
+				<height>70</height>
+				<visible>!String.IsEmpty(ListItem.SetID)</visible>
+				<control type="button" id="5005">
+					<description>Movie set</description>
+					<width>70</width>
+					<height>70</height>
+					<label />
+					<texturefocus colordiffuse="focus_action_surface">masks/circle.png</texturefocus>
+					<texturenofocus colordiffuse="surface_raised">masks/circle.png</texturenofocus>
+					<onup>138</onup>
+					<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)">5100</ondown>
+					<ondown>50</ondown>
+					<onleft condition="ListItem.HasVideoVersions">5004</onleft>
+					<onleft condition="String.IsEqual(ListItem.DBType,movie) + Integer.IsGreater(ListItem.DBID,0)">5006</onleft>
+					<onleft>5001</onleft>
+					<onright>5003</onright>
+					<onclick condition="Window.IsActive(1111)">Action(Close)</onclick>
+					<onclick condition="!Window.IsActive(1111)">SetProperty(MovieSetDialog.SetId,$INFO[ListItem.SetId],home)</onclick>
+					<onclick condition="!Window.IsActive(1111)">SetProperty(MovieSetDialog.SetName,$ESCINFO[ListItem.Set],home)</onclick>
+					<onclick condition="!Window.IsActive(1111)">SetProperty(MovieSetDialog.SourceFanart,$ESCINFO[ListItem.Art(fanart)],home)</onclick>
+					<onclick condition="!Window.IsActive(1111)">ActivateWindow(1111)</onclick>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="text_primary">icons/infodialogs/set.png</texture>
+					<visible>!Control.HasFocus(5005)</visible>
+				</control>
+				<control type="image">
+					<left>12</left>
+					<top>12</top>
+					<width>46</width>
+					<height>46</height>
+					<texture colordiffuse="focus_foreground">icons/infodialogs/set.png</texture>
+					<visible>Control.HasFocus(5005)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+			</control>
+			<!-- More -->
+			<control type="group">
+				<width>70</width>
+				<height>70</height>
+				<control type="button" id="5003">
+					<description>More</description>
+					<width>70</width>
+					<height>70</height>
+					<label />
+					<texturefocus colordiffuse="focus_action_surface">masks/circle.png</texturefocus>
+					<texturenofocus colordiffuse="surface_raised">masks/circle.png</texturenofocus>
+					<onup>138</onup>
+					<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.DBID,0)">5100</ondown>
+					<ondown>50</ondown>
+					<onleft condition="!String.IsEmpty(ListItem.SetID)">5005</onleft>
+					<onleft condition="String.IsEmpty(ListItem.SetID) + ListItem.HasVideoVersions">5004</onleft>
+					<onleft condition="String.IsEmpty(ListItem.SetID) + !ListItem.HasVideoVersions + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,movie)] + Integer.IsGreater(ListItem.DBID,0)">5006</onleft>
+					<onleft>5001</onleft>
+					<onright>5000</onright>
+					<onclick>SetProperty(VideoInfo.More,True,home)</onclick>
+					<onclick>AlarmClock(VideoInfoMoreFocus,SetFocus(5199,0,absolute),00:00,silent)</onclick>
+				</control>
+				<control type="image">
+					<left>15</left>
+					<top>15</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="text_primary">icons/menu.png</texture>
+					<visible>!Control.HasFocus(5003)</visible>
+				</control>
+				<control type="image">
+					<left>15</left>
+					<top>15</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="focus_foreground">icons/menu.png</texture>
+					<visible>Control.HasFocus(5003)</visible>
+					<include>Animation_ActionFocusFade</include>
+				</control>
+			</control>
+		</control>
+	</include>
+</includes>

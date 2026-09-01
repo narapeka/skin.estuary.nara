@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+	<include name="MediaMenuItemsCommon">
+		<width>470</width>
+		<textoffsetx>20</textoffsetx>
+		<top>0</top>
+		<height>80</height>
+		<radioposx>370</radioposx>
+		<aligny>center</aligny>
+		<invalidcolor>invalid</invalidcolor>
+		<texturefocus colordiffuse="focus_surface">lists/focus.png</texturefocus>
+		<texturenofocus />
+		<alttexturefocus colordiffuse="focus_surface">lists/focus.png</alttexturefocus>
+		<alttexturenofocus></alttexturenofocus>
+	</include>
+	<include name="NaraMediaMenuViewPill">
+		<param name="width">81</param>
+		<definition>
+			<control type="button" id="$PARAM[control_id]">
+				<width>$PARAM[width]</width>
+				<height>40</height>
+				<font>font_nara_media_menu_view</font>
+				<label>$PARAM[label]</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textcolor>text_primary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<!-- A quiet translucent fill remains legible over changing artwork without
+				     turning the four view choices into heavy black tiles. -->
+				<texturefocus cornerradius="4" colordiffuse="focus_glass_surface">colors/white.png</texturefocus>
+				<texturenofocus cornerradius="4" colordiffuse="surface_subtle">colors/white.png</texturenofocus>
+				<onclick>$PARAM[onclick]</onclick>
+				<onback>50</onback>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraMediaMenuNavItem">
+		<param name="visible">true</param>
+		<param name="close_menu">true</param>
+		<param name="label2"></param>
+		<param name="selected">false</param>
+		<definition>
+			<control type="radiobutton" id="$PARAM[control_id]">
+				<width>384</width>
+				<height>52</height>
+				<font>font12</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textoffsetx>54</textoffsetx>
+				<radioposx>18</radioposx>
+				<radioposy>14</radioposy>
+				<radiowidth>24</radiowidth>
+				<radioheight>24</radioheight>
+				<textcolor>text_primary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<texturefocus colordiffuse="focus_glass_surface">lists/focus.png</texturefocus>
+				<texturenofocus />
+				<textureradioonfocus colordiffuse="selection_foreground">$PARAM[icon]</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="text_primary">$PARAM[icon]</textureradioonnofocus>
+				<textureradioofffocus colordiffuse="text_secondary">$PARAM[icon]</textureradioofffocus>
+				<textureradiooffnofocus colordiffuse="text_secondary">$PARAM[icon]</textureradiooffnofocus>
+				<label>$PARAM[label]</label>
+				<label2>$PARAM[label2]</label2>
+				<selected>$PARAM[selected]</selected>
+				<onclick>$PARAM[onclick]</onclick>
+				<onclick condition="$PARAM[close_menu]">SetFocus(50)</onclick>
+				<onright>50</onright>
+				<onback>50</onback>
+				<visible>$PARAM[visible]</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraMediaMenuChoiceItem">
+		<param name="visible">true</param>
+		<param name="onclick_condition">true</param>
+		<definition>
+			<control type="radiobutton" id="$PARAM[control_id]">
+				<width>384</width>
+				<height>48</height>
+				<font>font12</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textoffsetx>54</textoffsetx>
+				<radioposx>20</radioposx>
+				<radioposy>17</radioposy>
+				<radiowidth>14</radiowidth>
+				<radioheight>14</radioheight>
+				<textcolor>text_primary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<texturefocus colordiffuse="focus_glass_surface">lists/focus.png</texturefocus>
+				<texturenofocus />
+				<textureradioonfocus cornerradius="7" colordiffuse="selection_foreground">colors/white.png</textureradioonfocus>
+				<textureradioonnofocus cornerradius="7" colordiffuse="selection_foreground">colors/white.png</textureradioonnofocus>
+				<textureradioofffocus cornerradius="7" colordiffuse="55FFFFFF">colors/white.png</textureradioofffocus>
+				<textureradiooffnofocus cornerradius="7" colordiffuse="28FFFFFF">colors/white.png</textureradiooffnofocus>
+				<label>$PARAM[label]</label>
+				<selected>$PARAM[selected]</selected>
+				<onclick condition="$PARAM[onclick_condition]">$PARAM[onclick]</onclick>
+				<onright>50</onright>
+				<onback>50</onback>
+				<visible>$PARAM[visible]</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraMediaMenuSectionLabel">
+		<param name="visible">true</param>
+		<definition>
+			<control type="label" id="$PARAM[control_id]">
+				<width>384</width>
+				<height>34</height>
+				<textoffsetx>18</textoffsetx>
+				<textoffsety>9</textoffsety>
+				<font>font_nara_media_menu_section</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>$PARAM[visible]</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraMediaMenuDivider">
+		<param name="visible">true</param>
+		<definition>
+			<control type="group" id="$PARAM[control_id]">
+				<width>384</width>
+				<height>12</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="image">
+					<left>10</left>
+					<top>5</top>
+					<width>364</width>
+					<height>1</height>
+					<texture colordiffuse="33FFFFFF">colors/white.png</texture>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraMediaMenuBrowseList">
+		<definition>
+			<control type="group">
+				<control type="list" id="$PARAM[list_id]">
+					<left>0</left>
+					<top>144</top>
+					<width>384</width>
+					<height>896</height>
+					<scrolltime>180</scrolltime>
+					<onup>$PARAM[list_id]</onup>
+					<onright>50</onright>
+					<onback>$PARAM[list_id]</onback>
+					<itemlayout width="384" height="48">
+						<control type="image">
+							<left>20</left><top>17</top><width>14</width><height>14</height>
+							<texture cornerradius="7" colordiffuse="selection_foreground">colors/white.png</texture>
+							<visible>ListItem.IsSelected</visible>
+						</control>
+						<control type="label">
+							<left>54</left><width>308</width><height>48</height>
+							<font>font12</font><aligny>center</aligny><textcolor>text_secondary</textcolor>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</itemlayout>
+					<focusedlayout width="384" height="48">
+						<control type="image">
+							<width>384</width><height>48</height>
+							<texture colordiffuse="focus_glass_surface">lists/focus.png</texture>
+							<include>Animation_FocusTextureFade</include>
+						</control>
+						<control type="image">
+							<left>20</left><top>17</top><width>14</width><height>14</height>
+							<texture cornerradius="7" colordiffuse="selection_foreground">colors/white.png</texture>
+							<visible>ListItem.IsSelected</visible>
+						</control>
+						<control type="label">
+							<left>54</left><width>308</width><height>48</height>
+							<font>font12</font><aligny>center</aligny>
+							<textcolor>text_primary</textcolor><selectedcolor>text_primary</selectedcolor>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</focusedlayout>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraMediaMenuWatchedChoice">
+		<definition>
+			<control type="radiobutton" id="$PARAM[control_id]">
+				<width>384</width>
+				<height>48</height>
+				<font>font12</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textoffsetx>54</textoffsetx>
+				<radioposx>20</radioposx>
+				<radioposy>17</radioposy>
+				<radiowidth>14</radiowidth>
+				<radioheight>14</radioheight>
+				<textcolor>text_primary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<texturefocus colordiffuse="focus_glass_surface">lists/focus.png</texturefocus>
+				<texturenofocus />
+				<textureradioonfocus cornerradius="7" colordiffuse="selection_foreground">colors/white.png</textureradioonfocus>
+				<textureradioonnofocus cornerradius="7" colordiffuse="selection_foreground">colors/white.png</textureradioonnofocus>
+				<textureradioofffocus cornerradius="7" colordiffuse="55FFFFFF">colors/white.png</textureradioofffocus>
+				<textureradiooffnofocus cornerradius="7" colordiffuse="28FFFFFF">colors/white.png</textureradiooffnofocus>
+				<label>$PARAM[label]</label>
+				<selected>String.IsEqual(Control.GetLabel(10),$PARAM[label])</selected>
+				<onclick condition="$PARAM[one_click_from]">SendClick(10)</onclick>
+				<onclick condition="$PARAM[two_clicks_from]">SendClick(10)</onclick>
+				<onclick condition="$PARAM[two_clicks_from]">SendClick(10)</onclick>
+				<onright>50</onright>
+				<onback>50</onback>
+			</control>
+			<!-- The negative top offset overlays the count on the preceding choice without
+			     changing the scrolling layout. Its unique ID keeps grouplist navigation intact. -->
+			<control type="group" id="$PARAM[count_control_id]">
+				<left>310</left>
+				<top>-48</top>
+				<width>54</width>
+				<height>48</height>
+				<control type="label">
+					<width>54</width><height>48</height>
+					<font>font10</font><align>right</align><aligny>center</aligny>
+					<textcolor>text_secondary</textcolor><label>$PARAM[count_label]</label>
+					<visible>!Control.HasFocus($PARAM[control_id])</visible>
+				</control>
+				<control type="label">
+					<width>54</width><height>48</height>
+					<font>font10</font><align>right</align><aligny>center</aligny>
+					<textcolor>text_primary</textcolor><label>$PARAM[count_label]</label>
+					<visible>Control.HasFocus($PARAM[control_id])</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="NaraVideoLibraryMediaMenuList">
+		<definition>
+			<left>24</left>
+			<top>20</top>
+			<width>384</width>
+			<height>1040</height>
+			<!-- Control 10 is the real Kodi watched-mode controller. It stays
+			     off-screen, while the visible three-state group drives it. -->
+			<control type="button" id="10">
+				<include>HiddenObject</include>
+				<visible>true</visible>
+			</control>
+			<!-- The window uses this hidden message target to restore the root of the blade whenever
+			     menucontrol re-enters it after focus previously left from a nested filter list. -->
+			<control type="button" id="9160">
+				<include>HiddenObject</include>
+				<visible>true</visible>
+			</control>
+			<control type="label">
+				<left>18</left><top>8</top><width>300</width><height>44</height>
+				<font>font_nara_media_menu_title</font><textcolor>text_primary</textcolor>
+				<label>$VAR[BreadcrumbsVideoVar]</label>
+			</control>
+			<!-- Draw the compact focus disc at its final size with Kodi's rounded-corner
+			     shader. This avoids minifying the padded 120 px round-button bitmap. -->
+			<control type="image">
+				<left>337</left><top>15</top><width>28</width><height>28</height>
+				<texture cornerradius="14" colordiffuse="focus_glass_surface">colors/white.png</texture>
+				<visible>Control.HasFocus(9151)</visible>
+			</control>
+			<control type="radiobutton" id="9151">
+				<left>330</left><top>8</top><width>42</width><height>42</height>
+				<font></font>
+				<label>$LOCALIZE[31691]</label>
+				<align>center</align><aligny>center</aligny>
+				<!-- The dedicated 64 px texture is optically centered and rendered in a
+				     centered 28 px box; its visible arrow is approximately 19 x 19 px. -->
+				<radioposx>7</radioposx><radioposy>7</radioposy>
+				<radiowidth>28</radiowidth><radioheight>28</radioheight>
+				<texturefocus />
+				<texturenofocus />
+				<textureradioonfocus colordiffuse="selection_foreground">icons/mediamenu/clear-filters.png</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="selection_foreground">icons/mediamenu/clear-filters.png</textureradioonnofocus>
+				<textureradioofffocus colordiffuse="selection_foreground">icons/mediamenu/clear-filters.png</textureradioofffocus>
+				<textureradiooffnofocus colordiffuse="text_secondary">icons/mediamenu/clear-filters.png</textureradiooffnofocus>
+				<selected>[$EXP[nara_video_library_advanced_filters] + [!String.IsEmpty(Window.Property(NaraMediaMenu.Genre)) | !String.IsEmpty(Window.Property(NaraMediaMenu.Decade)) | !String.IsEmpty(Window.Property(NaraMediaMenu.Rating))]] | !String.IsEqual(Control.GetLabel(10),$LOCALIZE[16100]) | !$EXP[nara_video_library_title_sort] | !Container.SortDirection(ascending)</selected>
+				<onclick>noop</onclick>
+				<onleft>9151</onleft><onright>50</onright><onup>9151</onup><ondown>9120</ondown><onback>50</onback>
+			</control>
+			<control type="grouplist" id="9120">
+				<left>18</left><top>78</top><width>348</width><height>40</height>
+				<orientation>horizontal</orientation>
+				<align>left</align>
+				<itemgap>8</itemgap>
+				<onleft>9120</onleft><onright>50</onright><onup>9151</onup>
+				<ondown condition="String.IsEqual(Window.Property(NaraMediaMenu.Browse),genres)">9171</ondown>
+				<ondown condition="String.IsEqual(Window.Property(NaraMediaMenu.Browse),years)">9181</ondown>
+				<ondown condition="String.IsEqual(Window.Property(NaraMediaMenu.Browse),ratings)">9191</ondown>
+				<ondown>9111</ondown>
+				<include content="NaraMediaMenuViewPill"><param name="control_id" value="9121" /><param name="label" value="$LOCALIZE[31683]" /><param name="onclick" value="Container.SetViewMode(50)" /></include>
+				<include content="NaraMediaMenuViewPill"><param name="control_id" value="9122" /><param name="label" value="$LOCALIZE[31685]" /><param name="onclick" value="Container.SetViewMode(51)" /></include>
+				<include content="NaraMediaMenuViewPill"><param name="control_id" value="9123" /><param name="label" value="$LOCALIZE[31686]" /><param name="onclick" value="Container.SetViewMode(501)" /></include>
+				<include content="NaraMediaMenuViewPill"><param name="control_id" value="9124" /><param name="label" value="$LOCALIZE[31692]" /><param name="onclick" value="Container.SetViewMode(500)" /></include>
+			</control>
+			<!-- Only this single column scrolls. The header and view switcher remain fixed and
+			     are linked into the same focus chain. -->
+			<control type="grouplist" id="9110">
+				<left>0</left><top>144</top><width>384</width><height>896</height>
+				<scrolltime>180</scrolltime>
+				<usecontrolcoords>true</usecontrolcoords>
+				<!-- Kodi rewrites vertical child navigation when controls are inserted into a
+				     grouplist. Every direct child, including non-focusable labels and dividers,
+				     therefore needs a unique ID so OnMove can traverse the generated chain.
+				     Define only the list exits here on the scrolling parent. -->
+				<onup>9120</onup><ondown>9120</ondown>
+				<onleft>9110</onleft><onright>50</onright><onback>50</onback>
+				<include content="NaraMediaMenuSectionLabel"><param name="control_id" value="9201" /><param name="label" value="$LOCALIZE[31684]" /></include>
+				<include content="NaraMediaMenuWatchedChoice"><param name="control_id" value="9111" /><param name="count_control_id" value="9211" /><param name="label" value="$LOCALIZE[16100]" /><param name="count_label" value="$INFO[Window.Property(NaraMediaMenu.AllCount)]" /><param name="one_click_from" value="String.IsEqual(Control.GetLabel(10),$LOCALIZE[16102])" /><param name="two_clicks_from" value="String.IsEqual(Control.GetLabel(10),$LOCALIZE[16101])" /></include>
+				<include content="NaraMediaMenuWatchedChoice"><param name="control_id" value="9112" /><param name="count_control_id" value="9212" /><param name="label" value="$LOCALIZE[16101]" /><param name="count_label" value="$INFO[Window.Property(NaraMediaMenu.UnwatchedCount)]" /><param name="one_click_from" value="String.IsEqual(Control.GetLabel(10),$LOCALIZE[16100])" /><param name="two_clicks_from" value="String.IsEqual(Control.GetLabel(10),$LOCALIZE[16102])" /></include>
+				<include content="NaraMediaMenuWatchedChoice"><param name="control_id" value="9113" /><param name="count_control_id" value="9213" /><param name="label" value="$LOCALIZE[16102]" /><param name="count_label" value="$INFO[Window.Property(NaraMediaMenu.WatchedCount)]" /><param name="one_click_from" value="String.IsEqual(Control.GetLabel(10),$LOCALIZE[16101])" /><param name="two_clicks_from" value="String.IsEqual(Control.GetLabel(10),$LOCALIZE[16100])" /></include>
+				<include content="NaraMediaMenuDivider"><param name="control_id" value="9202" /><param name="visible" value="$EXP[nara_video_library_advanced_filters]" /></include>
+				<include content="NaraMediaMenuSectionLabel"><param name="control_id" value="9203" /><param name="label" value="$LOCALIZE[31687]" /><param name="visible" value="$EXP[nara_video_library_advanced_filters]" /></include>
+				<include content="NaraMediaMenuNavItem"><param name="control_id" value="9116" /><param name="label" value="$LOCALIZE[135]" /><param name="label2" value="$INFO[Window.Property(NaraMediaMenu.Genre)]" /><param name="icon" value="icons/mediamenu/genres.png" /><param name="selected" value="!String.IsEmpty(Window.Property(NaraMediaMenu.Genre))" /><param name="onclick" value="noop" /><param name="close_menu" value="false" /><param name="visible" value="$EXP[nara_video_library_advanced_filters]" /></include>
+				<include content="NaraMediaMenuNavItem"><param name="control_id" value="9117" /><param name="label" value="$LOCALIZE[31690]" /><param name="label2" value="$INFO[Window.Property(NaraMediaMenu.Decade)]" /><param name="icon" value="icons/mediamenu/years.png" /><param name="selected" value="!String.IsEmpty(Window.Property(NaraMediaMenu.Decade))" /><param name="onclick" value="noop" /><param name="close_menu" value="false" /><param name="visible" value="$EXP[nara_video_library_advanced_filters]" /></include>
+				<include content="NaraMediaMenuNavItem"><param name="control_id" value="9118" /><param name="label" value="$LOCALIZE[563]" /><param name="label2" value="$INFO[Window.Property(NaraMediaMenu.Rating)]" /><param name="icon" value="icons/menumarks/star.png" /><param name="selected" value="!String.IsEmpty(Window.Property(NaraMediaMenu.Rating))" /><param name="onclick" value="noop" /><param name="close_menu" value="false" /><param name="visible" value="$EXP[nara_video_library_advanced_filters]" /></include>
+				<include content="NaraMediaMenuDivider"><param name="control_id" value="9204" /><param name="visible" value="Control.IsEnabled(3)" /></include>
+				<include content="NaraMediaMenuSectionLabel"><param name="control_id" value="9205" /><param name="label" value="$LOCALIZE[31688]" /><param name="visible" value="Control.IsEnabled(3)" /></include>
+				<include content="NaraMediaMenuChoiceItem"><param name="control_id" value="9131" /><param name="label" value="$LOCALIZE[556]" /><param name="selected" value="$EXP[nara_video_library_title_sort]" /><param name="onclick" value="noop" /><param name="visible" value="Control.IsEnabled(3)" /></include>
+				<include content="NaraMediaMenuChoiceItem"><param name="control_id" value="9132" /><param name="label" value="$LOCALIZE[562]" /><param name="selected" value="Container.SortMethod(16)" /><param name="onclick" value="noop" /><param name="visible" value="Control.IsEnabled(3)" /></include>
+				<include content="NaraMediaMenuChoiceItem"><param name="control_id" value="9133" /><param name="label" value="$LOCALIZE[563]" /><param name="selected" value="Container.SortMethod(17)" /><param name="onclick" value="noop" /><param name="visible" value="Control.IsEnabled(3)" /></include>
+				<include content="NaraMediaMenuChoiceItem"><param name="control_id" value="9134" /><param name="label" value="$LOCALIZE[31689]" /><param name="selected" value="Container.SortMethod(40)" /><param name="onclick" value="noop" /><param name="visible" value="Control.IsEnabled(3)" /></include>
+				<include content="NaraMediaMenuDivider"><param name="control_id" value="9206" /><param name="visible" value="Control.IsEnabled(4)" /></include>
+				<include content="NaraMediaMenuSectionLabel"><param name="control_id" value="9207" /><param name="label" value="$LOCALIZE[31032]" /><param name="visible" value="Control.IsEnabled(4)" /></include>
+				<include content="NaraMediaMenuChoiceItem"><param name="control_id" value="9141" /><param name="label" value="$LOCALIZE[584]" /><param name="selected" value="Container.SortDirection(ascending)" /><param name="onclick_condition" value="!Container.SortDirection(ascending)" /><param name="onclick" value="Container.SetSortDirection" /><param name="visible" value="Control.IsEnabled(4)" /></include>
+				<include content="NaraMediaMenuChoiceItem"><param name="control_id" value="9142" /><param name="label" value="$LOCALIZE[585]" /><param name="selected" value="Container.SortDirection(descending)" /><param name="onclick_condition" value="!Container.SortDirection(descending)" /><param name="onclick" value="Container.SetSortDirection" /><param name="visible" value="Control.IsEnabled(4)" /></include>
+			</control>
+			<control type="group" id="9173">
+				<include content="NaraMediaMenuBrowseList"><param name="list_id" value="9171" /></include>
+			</control>
+			<control type="group" id="9183">
+				<include content="NaraMediaMenuBrowseList"><param name="list_id" value="9181" /></include>
+			</control>
+			<control type="group" id="9193">
+				<include content="NaraMediaMenuBrowseList"><param name="list_id" value="9191" /></include>
+			</control>
+		</definition>
+	</include>
+	<include name="PVRQuickNavItemsCommon">
+		<param name="height">110</param>
+		<definition>
+			<control type="radiobutton" id="$PARAM[control_id]">
+				<width>92</width>
+				<height>92</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font></font>
+				<texturefocus colordiffuse="focus_surface">buttons/roundbutton-fo.png</texturefocus>
+				<texturenofocus />
+				<radioposx>26</radioposx>
+				<radioposy>0</radioposy>
+				<radiowidth>40</radiowidth>
+				<radioheight>40</radioheight>
+				<textureradioonfocus colordiffuse="focus_foreground">$PARAM[icon]</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="text_secondary">$PARAM[icon]</textureradioonnofocus>
+				<textureradioofffocus colordiffuse="focus_foreground">$PARAM[icon]</textureradioofffocus>
+				<textureradiooffnofocus colordiffuse="text_secondary">$PARAM[icon]</textureradiooffnofocus>
+				<textureradiooffdisabled colordiffuse="text_disabled">$PARAM[icon]</textureradiooffdisabled>
+				<onclick>ActivateWindow(TV$PARAM[area])</onclick>
+				<enable>!Window.IsActive(TV$PARAM[area])</enable>
+			</control>
+		</definition>
+	</include>
+	<include name="PVRSideBar">
+		<param name="group_label2">$INFO[Control.GetLabel(29)]</param>
+		<definition>
+			<control type="button" id="28">
+				<label></label>
+				<include>HiddenObject</include>
+			</control>
+			<control type="grouplist" id="9000">
+				<top>50</top>
+				<left>0</left>
+				<width>470</width>
+				<height>100%</height>
+				<onleft>9000</onleft>
+				<onup>9000</onup>
+				<onright>50</onright>
+				<ondown>14100</ondown>
+				<onback>50</onback>
+				<control type="group" id="60520">
+					<height>50</height>
+					<control type="label">
+						<include>MediaMenuLabelCommon</include>
+						<label>$LOCALIZE[31148]</label>
+					</control>
+					<control type="label">
+						<width>470</width>
+						<textoffsetx>20</textoffsetx>
+						<textoffsety>15</textoffsety>
+						<height>50</height>
+						<font>font12</font>
+						<align>right</align>
+						<aligny>top</aligny>
+						<textcolor>grey</textcolor>
+						<label>$VAR[PVRAreaVar]</label>
+					</control>
+				</control>
+				<control type="group" id="60560">
+					<height>95</height>
+					<control type="grouplist" id="6056">
+						<orientation>horizontal</orientation>
+						<itemgap>-18</itemgap>
+						<left>0</left>
+						<height>120</height>
+						<onleft>6056</onleft>
+						<onright>50</onright>
+						<onup>14100</onup>
+						<ondown>6051</ondown>
+						<width>1000</width>
+						<include content="PVRQuickNavItemsCommon">
+							<param name="control_id" value="100" />
+							<param name="area" value="Channels" />
+							<param name="icon" value="icons/submenu/channels.png" />
+						</include>
+						<include content="PVRQuickNavItemsCommon">
+							<param name="control_id" value="101" />
+							<param name="area" value="Guide" />
+							<param name="icon" value="icons/submenu/guide.png" />
+						</include>
+						<include content="PVRQuickNavItemsCommon">
+							<param name="control_id" value="102" />
+							<param name="area" value="Recordings" />
+							<param name="icon" value="icons/submenu/recordings.png" />
+						</include>
+						<include content="PVRQuickNavItemsCommon">
+							<param name="control_id" value="103" />
+							<param name="area" value="Timers" />
+							<param name="icon" value="icons/submenu/timers.png" />
+						</include>
+						<include content="PVRQuickNavItemsCommon">
+							<param name="control_id" value="104" />
+							<param name="area" value="TimerRules" />
+							<param name="icon" value="icons/submenu/timer-rules.png" />
+						</include>
+						<include content="PVRQuickNavItemsCommon">
+							<param name="control_id" value="105" />
+							<param name="area" value="Search" />
+							<param name="icon" value="icons/submenu/tv-search.png" />
+						</include>
+					</control>
+				</control>
+				<control type="label" id="200">
+					<include>MediaMenuLabelCommon</include>
+					<label>$LOCALIZE[14018]</label>
+				</control>
+				<control type="button" id="6051">
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[31023]</label>
+					<label2>$INFO[Container.Viewmode]</label2>
+					<onclick>Container.NextViewMode</onclick>
+					<visible>Window.IsActive(MyPVRGuide.xml)</visible>
+				</control>
+				<control type="button" id="6054">
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[19141]</label>
+					<label2>$PARAM[group_label2]</label2>
+					<onclick>SendClick(28)</onclick>
+					<visible>Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml)</visible>
+				</control>
+				<control type="radiobutton" id="6060">
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[31127]</label>
+					<selected>Control.IsVisible(50)</selected>
+					<onclick>Container.NextViewMode</onclick>
+					<visible>Window.IsActive(MyPVRChannels.xml)</visible>
+				</control>
+				<control type="button" id="6053">
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[31022]</label>
+					<label2>$INFO[Container.SortMethod]</label2>
+					<onclick>SendClick(3)</onclick>
+				</control>
+				<control type="button" id="6055">
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[31032]</label>
+					<label2>$INFO[Container.SortOrder]</label2>
+					<onclick>Container.SetSortDirection</onclick>
+				</control>
+				<control type="button" id="10">
+					<description>Watched Toggle</description>
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[20367]</label>
+					<label2>$INFO[Container.NumNonFolderItems]</label2>
+					<visible>Window.IsActive(MyPVRRecordings.xml)</visible>
+				</control>
+				<control type="label" id="300">
+					<label>$LOCALIZE[31021]</label>
+					<include>MediaMenuLabelCommon</include>
+					<visible>Control.IsVisible(31) | Control.IsVisible(5) | Control.IsVisible(6) | Control.IsVisible(7) | Control.IsVisible(8)</visible>
+				</control>
+				<control type="radiobutton" id="31">
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[587]</label>
+					<selected>Container.Filtered</selected>
+					<onclick>right</onclick>
+					<visible>Window.IsActive(MyPVRChannels.xml)</visible>
+				</control>
+				<control type="radiobutton" id="5">
+					<description>Group recording items by folder structure</description>
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[19270]</label>
+					<visible>Window.IsActive(MyPVRRecordings.xml)</visible>
+				</control>
+				<control type="radiobutton" id="6">
+					<description>Show hidden channels</description>
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[19051]</label>
+					<visible>Window.IsActive(MyPVRChannels.xml)</visible>
+				</control>
+				<control type="radiobutton" id="7">
+					<description>Show deleted recordings</description>
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[19184]</label>
+					<visible>Window.IsActive(MyPVRRecordings.xml)</visible>
+				</control>
+				<control type="radiobutton" id="8">
+					<description>Hide disabled timers</description>
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[19077]</label>
+					<visible>Window.IsActive(MyPVRTimers.xml)</visible>
+				</control>
+				<control type="label" id="301">
+					<include>MediaMenuLabelCommon</include>
+					<label>$LOCALIZE[31020]</label>
+					<visible>Control.IsVisible(302)</visible>
+				</control>
+				<control type="button" id="302">
+					<description>Go to playlist</description>
+					<include>MediaMenuItemsCommon</include>
+					<label>$LOCALIZE[31056]</label>
+					<onclick>ActivateWindow(videoplaylist)</onclick>
+					<visible>Window.IsActive(MyPVRRecordings.xml) + Integer.IsGreater(Playlist.Length(video),0)</visible>
+				</control>
+				<control type="group" id="141000">
+					<control type="grouplist" id="14100">
+						<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
+						<animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
+						<animation effect="fade" time="300">VisibleChange</animation>
+						<orientation>horizontal</orientation>
+						<itemgap>-17</itemgap>
+						<left>5</left>
+						<onleft>14100</onleft>
+						<onup>302</onup>
+						<ondown>6056</ondown>
+						<visible>Player.HasMedia + [$EXP[sidebar_visible]]</visible>
+						<visible>!System.HasActiveModalDialog</visible>
+						<include content="BottomMainMenuToggleItem">
+							<param name="control_id" value="14101" />
+							<param name="onclick" value="PlayerControl(Play)" />
+							<param name="icon_on" value="icons/now-playing/play.png" />
+							<param name="icon_off" value="icons/now-playing/pause.png" />
+							<param name="selected" value="Player.Paused" />
+						</include>
+						<include content="IconButton">
+							<param name="control_id" value="14102" />
+							<param name="onclick" value="Stop" />
+							<param name="icon" value="icons/now-playing/stop.png" />
+						</include>
+						<include content="IconButton">
+							<param name="control_id" value="14104" />
+							<param name="onclick" value="Next" />
+							<param name="icon" value="icons/now-playing/next.png" />
+							<param name="visible" value="Integer.IsLess(Playlist.Position(video), Playlist.Length(video)) | MusicPlayer.HasNext" />
+						</include>
+						<include content="IconButton">
+							<param name="control_id" value="14105" />
+							<param name="onclick" value="Fullscreen" />
+							<param name="icon" value="icons/now-playing/fullscreen.png" />
+							<param name="visible" value="Player.HasMedia + [ !Player.IsRemote | Player.HasAudio ]" />
+						</include>
+						<include content="IconButton">
+							<param name="control_id" value="14106" />
+							<param name="onclick" value="ActivateWindow(playercontrols)" />
+							<param name="icon" value="icons/now-playing/fullscreen.png" />
+							<param name="label" value="$LOCALIZE[31000]" />
+							<param name="visible" value="Player.HasMedia + Player.IsRemote" />
+						</include>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="MediaMenuLabelCommon">
+		<width>470</width>
+		<textoffsetx>20</textoffsetx>
+		<textoffsety>15</textoffsety>
+		<height>50</height>
+		<radioposx>300</radioposx>
+		<font>font25_title</font>
+		<aligny>top</aligny>
+		<textcolor>text_primary</textcolor>
+	</include>
+	<include name="MediaMenuCommon">
+		<include>OpenClose_Left</include>
+		<depth>DepthSideBlade</depth>
+		<left>-520</left>
+		<animation type="Conditional" condition="$EXP[sidebar_visible]" reversible="true">
+			<effect type="slide" start="0" end="520" time="400" tween="cubic" easing="out" />
+		</animation>
+		<control type="image">
+			<!-- Keep the Nara glass blade out of the dimmed backdrop. -->
+			<left>432</left>
+			<width>4000</width>
+			<height>100%</height>
+			<aspectratio>scale</aspectratio>
+			<texture colordiffuse="66000000">colors/black.png</texture>
+			<visible>$EXP[sidebar_visible] + !System.HasActiveModalDialog + $EXP[nara_video_library_menu]</visible>
+			<animation effect="fade" time="200">VisibleChange</animation>
+		</control>
+		<control type="image">
+			<width>4000</width>
+			<height>100%</height>
+			<aspectratio>scale</aspectratio>
+			<texture colordiffuse="overlay_soft">colors/black.png</texture>
+			<visible>$EXP[sidebar_visible] + !System.HasActiveModalDialog + !$EXP[nara_video_library_menu]</visible>
+			<animation effect="fade" time="200">VisibleChange</animation>
+		</control>
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>432</width>
+			<height>100%</height>
+			<texture material="glass" blurradius="20" glasstint="66666666" glasssaturation="1.08" glasscontrast="1.02" glassgrain="0.005" glassborder="0.75" glassbordercolor="0CFFFFFF" glasshighlight="0.30" glassrefraction="2.5" glassrefractionwidth="14" glassdispersion="0.12" glassdepth="0.55" glassbackdropbrightness="0.92">colors/white.png</texture>
+			<visible>$EXP[nara_video_library_menu]</visible>
+		</control>
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>520</width>
+			<height>100%</height>
+			<texture border="0,0,52,0">lists/panel-mediamenu.png</texture>
+			<visible>!$EXP[nara_video_library_menu]</visible>
+		</control>
+		<control type="button" id="6131">
+			<left>0</left>
+			<top>0</top>
+			<width>500</width>
+			<height>100%</height>
+			<label></label>
+			<texturefocus />
+			<texturenofocus />
+		</control>
+		<control type="button" id="3">
+			<description>Viewtype Toggle</description>
+			<include>HiddenObject</include>
+		</control>
+		<control type="button" id="4">
+			<description>Order Toggle</description>
+			<include>HiddenObject</include>
+		</control>
+	</include>
+	<include name="MediaMenuNowPlaying">
+        <param name="left">5</param>
+		<definition>
+			<control type="grouplist" id="14100">
+				<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
+				<animation effect="fade" time="300">VisibleChange</animation>
+				<animation effect="slide" end="-10,0" time="0" condition ="Window.IsActive(MyPlaylist.xml)">Conditional</animation>
+				<orientation>horizontal</orientation>
+				<itemgap>-17</itemgap>
+				<left>$PARAM[left]</left>
+				<onleft>14100</onleft>
+				<width>450</width>
+				<visible>Player.HasMedia + [$EXP[sidebar_visible]]</visible>
+				<visible>!System.HasActiveModalDialog</visible>
+				<include content="BottomMainMenuToggleItem">
+					<param name="control_id" value="14101" />
+					<param name="onclick" value="PlayerControl(Play)" />
+					<param name="icon_on" value="icons/now-playing/play.png" />
+					<param name="icon_off" value="icons/now-playing/pause.png" />
+					<param name="selected" value="Player.Paused" />
+				</include>
+				<include content="IconButton">
+					<param name="control_id" value="14102" />
+					<param name="onclick" value="Stop" />
+					<param name="onclick_2" value="SetFocus(50)" />
+					<param name="icon" value="icons/now-playing/stop.png" />
+				</include>
+				<include content="IconButton">
+					<param name="control_id" value="14104" />
+					<param name="onclick" value="PlayerControl(Next)" />
+					<param name="icon" value="icons/now-playing/next.png" />
+					<param name="visible" value="Integer.IsLess(Playlist.Position(video), Playlist.Length(video)) | MusicPlayer.HasNext" />
+				</include>
+				<include content="IconButton">
+					<param name="control_id" value="14105" />
+					<param name="onclick" value="Fullscreen" />
+					<param name="icon" value="icons/now-playing/fullscreen.png" />
+					<param name="visible" value="Player.HasMedia + [ !Player.IsRemote | Player.HasAudio ]" />
+				</include>
+				<include content="IconButton">
+					<param name="control_id" value="14106" />
+					<param name="onclick" value="ActivateWindow(playercontrols)" />
+					<param name="icon" value="icons/now-playing/fullscreen.png" />
+					<param name="visible" value="Player.HasMedia + Player.IsRemote + !Player.HasAudio" />
+				</include>
+			</control>
+		</definition>
+	</include>
+	<include name="MediaMenuListCommon">
+		<definition>
+			<left>0</left>
+			<top>100</top>
+			<width>470</width>
+			<height>100%</height>
+			<onleft>9000</onleft>
+			<onup>9000</onup>
+			<onright condition="![Window.IsVisible(musicplaylist) | Window.IsVisible(videoplaylist)]">50</onright>
+			<onright condition="Window.IsVisible(musicplaylist) | Window.IsVisible(videoplaylist)">55</onright>
+			<ondown>9000</ondown>
+			<onback>50</onback>
+			<control type="label" id="200">
+				<include>MediaMenuLabelCommon</include>
+				<label>$LOCALIZE[14018]</label>
+			</control>
+			<control type="button" id="6051">
+				<include>MediaMenuItemsCommon</include>
+				<label>$LOCALIZE[31023]</label>
+				<label2>$INFO[Container.Viewmode]</label2>
+				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
+				<onclick>Container.NextViewMode</onclick>
+			</control>
+			<control type="button" id="6053">
+				<include>MediaMenuItemsCommon</include>
+				<label>$LOCALIZE[31022]</label>
+				<label2>$INFO[Container.SortMethod]</label2>
+				<visible>Control.IsEnabled(3)</visible>
+				<onclick>SendClick(3)</onclick>
+			</control>
+			<control type="button" id="6052">
+				<include>MediaMenuItemsCommon</include>
+				<label>$LOCALIZE[31032]</label>
+				<label2>$INFO[Container.SortOrder]</label2>
+				<visible>Control.IsEnabled(4)</visible>
+				<onclick>SendClick(4)</onclick>
+			</control>
+			<include condition="Window.IsVisible(Videos) | Window.IsVisible(Music)">MediaMenuSearchButton</include>
+			<control type="button" id="19">
+				<visible>Container.CanFilter + !Container.CanFilterAdvanced</visible>
+				<include>MediaMenuItemsCommon</include>
+				<onclick>right</onclick>
+				<label>$LOCALIZE[587]</label>
+			</control>
+			<control type="button" id="199">
+				<visible>Container.CanFilterAdvanced</visible>
+				<include>MediaMenuItemsCommon</include>
+				<label>$LOCALIZE[587]</label>
+				<onclick>right</onclick>
+				<onclick>Filter</onclick>
+			</control>
+		</definition>
+	</include>
+	<include name="MediaMenuSearchButton">
+		<control type="button" id="8">
+			<include>MediaMenuItemsCommon</include>
+			<label>$LOCALIZE[137]</label>
+		</control>
+	</include>
+	<include name="MediaMenuMouseOverlay">
+		<control type="button" id="6130">
+			<label></label>
+			<left>-50</left>
+			<top>200</top>
+			<bottom>0</bottom>
+			<width>50</width>
+			<texturefocus />
+			<texturenofocus />
+			<visible>!$EXP[nara_tv_hierarchy_sidebar_locked]</visible>
+		</control>
+	</include>
+</includes>

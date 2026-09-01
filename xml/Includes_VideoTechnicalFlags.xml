@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- The shared row owns all display-name normalization. Unknown non-empty values fall back
+	     to Kodi's raw value and the pill applies uppercase styling to the complete label. -->
+	<map name="NaraTechnicalResolutionTextMap">
+		<entry key="480">480 SD</entry>
+		<entry key="540">540 SD</entry>
+		<entry key="576">576 SD</entry>
+		<entry key="720">720 HD</entry>
+		<entry key="1080">1080 HD</entry>
+		<entry key="4K">4K UHD</entry>
+		<entry key="8K">8K UHD</entry>
+	</map>
+
+	<map name="NaraTechnicalHdrTextMap">
+		<entry key="dolbyvision">DOLBY VISION</entry>
+		<entry key="hdr10plus">HDR10+</entry>
+		<entry key="hdr10">HDR10</entry>
+		<entry key="hdrvivid">HDR VIVID</entry>
+		<entry key="hdr_vivid">HDR VIVID</entry>
+		<entry key="hlg">HLG</entry>
+	</map>
+
+	<map name="NaraTechnicalDolbyVisionProfileTextMap">
+		<entry key="4">P4</entry>
+		<entry key="5">P5</entry>
+		<entry key="6">P6</entry>
+		<entry key="7">P7</entry>
+		<entry key="7fel">P7 FEL</entry>
+		<entry key="7FEL">P7 FEL</entry>
+		<entry key="7mel">P7 MEL</entry>
+		<entry key="7MEL">P7 MEL</entry>
+		<entry key="8">P8</entry>
+		<entry key="8.1">P8.1</entry>
+		<entry key="8.2">P8.2</entry>
+		<entry key="8.4">P8.4</entry>
+		<entry key="9">P9</entry>
+		<entry key="10">P10</entry>
+	</map>
+
+	<map name="NaraTechnicalVideoCodecTextMap">
+		<entry key="av1">AV1</entry>
+		<entry key="avc1">H.264</entry>
+		<entry key="bluray">BLU-RAY</entry>
+		<entry key="div3">DIVX</entry>
+		<entry key="divx">DIVX</entry>
+		<entry key="dvd">DVD</entry>
+		<entry key="dx50">DIVX</entry>
+		<entry key="flv">FLV</entry>
+		<entry key="h264">H.264</entry>
+		<entry key="h265">H.265</entry>
+		<entry key="hddvd">HD DVD</entry>
+		<entry key="hdmv">HDMV</entry>
+		<entry key="hev1">H.265</entry>
+		<entry key="hevc">H.265</entry>
+		<entry key="hvc1">H.265</entry>
+		<entry key="mp4v">MPEG-4</entry>
+		<entry key="mpeg1">MPEG-1</entry>
+		<entry key="mpeg1video">MPEG-1</entry>
+		<entry key="mpeg2">MPEG-2</entry>
+		<entry key="mpeg2video">MPEG-2</entry>
+		<entry key="mpeg4">MPEG-4</entry>
+		<entry key="prores">PRORES</entry>
+		<entry key="theora">THEORA</entry>
+		<entry key="tv">TV</entry>
+		<entry key="vc-1">VC-1</entry>
+		<entry key="vc1">VC-1</entry>
+		<entry key="vhs">VHS</entry>
+		<entry key="vp8">VP8</entry>
+		<entry key="vp9">VP9</entry>
+		<entry key="wmv">WMV</entry>
+		<entry key="wmv3">WMV</entry>
+		<entry key="wvc1">VC-1</entry>
+		<entry key="xvid">XVID</entry>
+	</map>
+
+	<map name="NaraTechnicalAudioCodecTextMap">
+		<entry key="aac">AAC</entry>
+		<entry key="aac_latm">AAC LATM</entry>
+		<entry key="aac_lc">AAC</entry>
+		<entry key="aac_ltp">AAC LTP</entry>
+		<entry key="aac_ssr">AAC SSR</entry>
+		<entry key="ac3">DOLBY DIGITAL</entry>
+		<entry key="aif">AIFF</entry>
+		<entry key="aifc">AIFF</entry>
+		<entry key="aiff">AIFF</entry>
+		<entry key="alac">ALAC</entry>
+		<entry key="ape">APE</entry>
+		<entry key="av3a">AV3A</entry>
+		<entry key="avc">AVC</entry>
+		<entry key="cdda">CDDA</entry>
+		<entry key="dca">DTS</entry>
+		<entry key="dolbydigital">DOLBY DIGITAL</entry>
+		<entry key="dts">DTS</entry>
+		<entry key="dts_96_24">DTS 96/24</entry>
+		<entry key="dts_es">DTS-ES</entry>
+		<entry key="dts_express">DTS EXPRESS</entry>
+		<entry key="dtshd_hra">DTS-HD HRA</entry>
+		<entry key="dtshd_ma">DTS-HD MA</entry>
+		<entry key="dtshd_ma_x">DTS-HD MA &#8226; DTS:X</entry>
+		<entry key="dtshd_ma_x_imax">DTS-HD MA &#8226; DTS:X IMAX</entry>
+		<entry key="dtsma">DTS-HD MA</entry>
+		<entry key="eac3">DOLBY DIGITAL+</entry>
+		<entry key="eac3_ddp_atmos">DOLBY DIGITAL+ &#8226; ATMOS</entry>
+		<entry key="flac">FLAC</entry>
+		<entry key="he_aac">HE-AAC</entry>
+		<entry key="he_aac_v2">HE-AAC V2</entry>
+		<entry key="mp1">MP1</entry>
+		<entry key="mp2">MP2</entry>
+		<entry key="mp3">MP3</entry>
+		<entry key="mp3float">MP3</entry>
+		<entry key="ogg">OGG</entry>
+		<entry key="opus">OPUS</entry>
+		<entry key="pcm">PCM</entry>
+		<entry key="pcm_bluray">PCM</entry>
+		<entry key="pcm_s16le">PCM</entry>
+		<entry key="pcm_s24le">PCM</entry>
+		<entry key="pcm_s32le">PCM</entry>
+		<entry key="truehd">TRUEHD</entry>
+		<entry key="truehd_atmos">TRUEHD &#8226; ATMOS</entry>
+		<entry key="vorbis">VORBIS</entry>
+		<entry key="wav">WAV</entry>
+		<entry key="wavpack">WAVPACK</entry>
+		<entry key="wma">WMA</entry>
+		<entry key="wmapro">WMA PRO</entry>
+		<entry key="wmav2">WMA</entry>
+	</map>
+
+	<!-- A 36px-high rounded surface reproduces the reference capsule without a dedicated asset. -->
+	<include name="NaraTechnicalTextPill">
+		<param name="flag_visible">true</param>
+		<definition>
+			<control type="button">
+				<width>auto</width>
+				<height>36</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>18</textoffsetx>
+				<font>font_flag</font>
+				<textcolor>white</textcolor>
+				<focusedcolor>white</focusedcolor>
+				<disabledcolor>white</disabledcolor>
+				<label>[B][UPPERCASE]$PARAM[flag_label][/UPPERCASE][/B]</label>
+				<texturefocus cornerradius="4" colordiffuse="33FFFFFF">colors/white.png</texturefocus>
+				<texturenofocus cornerradius="4" colordiffuse="33FFFFFF">colors/white.png</texturenofocus>
+				<visible>$PARAM[flag_visible]</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Dolby Vision detail stays attached to its HDR type in the same capsule. -->
+	<include name="NaraTechnicalHdrPill">
+		<param name="visible">true</param>
+		<definition>
+			<include content="NaraTechnicalTextPill">
+				<param name="flag_visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[hdr_type]) + String.IsEqual($PARAM[hdr_type],dolbyvision) + !String.IsEmpty($PARAM[hdr_detail])" />
+				<param name="flag_label" value="$MAP[NaraTechnicalHdrTextMap,$PARAM[hdr_type]]$MAP[NaraTechnicalDolbyVisionProfileTextMap,$PARAM[hdr_detail], ]" />
+			</include>
+			<include content="NaraTechnicalTextPill">
+				<param name="flag_visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[hdr_type]) + [!String.IsEqual($PARAM[hdr_type],dolbyvision) | String.IsEmpty($PARAM[hdr_detail])]" />
+				<param name="flag_label" value="$MAP[NaraTechnicalHdrTextMap,$PARAM[hdr_type]]" />
+			</include>
+		</definition>
+	</include>
+
+	<!-- Value-source-independent content. The public row selects either the item's real stream
+	     labels or the TV show's transient S01E01 properties inside the shared component. -->
+	<include name="VideoTechnicalFlagsContent">
+		<param name="visible">true</param>
+		<definition>
+			<include content="NaraTechnicalTextPill">
+				<param name="flag_visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[resolution])" />
+				<param name="flag_label" value="$MAP[NaraTechnicalResolutionTextMap,$PARAM[resolution]]" />
+			</include>
+
+			<!-- Primary HDR: prefer stream 1, then the base value, then stream 2. -->
+			<include content="NaraTechnicalHdrPill">
+				<param name="visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[hdr_type_1])" />
+				<param name="hdr_type" value="$PARAM[hdr_type_1]" />
+				<param name="hdr_detail" value="$PARAM[hdr_detail_1]" />
+			</include>
+			<include content="NaraTechnicalHdrPill">
+				<param name="visible" value="$PARAM[visible] + String.IsEmpty($PARAM[hdr_type_1]) + !String.IsEmpty($PARAM[hdr_type])" />
+				<param name="hdr_type" value="$PARAM[hdr_type]" />
+				<param name="hdr_detail" value="$PARAM[hdr_detail]" />
+			</include>
+			<include content="NaraTechnicalHdrPill">
+				<param name="visible" value="$PARAM[visible] + String.IsEmpty($PARAM[hdr_type_1]) + String.IsEmpty($PARAM[hdr_type]) + !String.IsEmpty($PARAM[hdr_type_2])" />
+				<param name="hdr_type" value="$PARAM[hdr_type_2]" />
+				<param name="hdr_detail" value="$PARAM[hdr_detail_2]" />
+			</include>
+
+			<!-- A distinct second HDR type remains an independent capsule. -->
+			<include content="NaraTechnicalHdrPill">
+				<param name="visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[hdr_type_1]) + !String.IsEmpty($PARAM[hdr_type_2]) + !String.IsEqual($PARAM[hdr_type_1],$PARAM[hdr_type_2])" />
+				<param name="hdr_type" value="$PARAM[hdr_type_2]" />
+				<param name="hdr_detail" value="$PARAM[hdr_detail_2]" />
+			</include>
+			<include content="NaraTechnicalHdrPill">
+				<param name="visible" value="$PARAM[visible] + String.IsEmpty($PARAM[hdr_type_1]) + !String.IsEmpty($PARAM[hdr_type]) + !String.IsEmpty($PARAM[hdr_type_2]) + !String.IsEqual($PARAM[hdr_type],$PARAM[hdr_type_2])" />
+				<param name="hdr_type" value="$PARAM[hdr_type_2]" />
+				<param name="hdr_detail" value="$PARAM[hdr_detail_2]" />
+			</include>
+
+			<include content="NaraTechnicalTextPill">
+				<param name="flag_visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[video_codec])" />
+				<param name="flag_label" value="$MAP[NaraTechnicalVideoCodecTextMap,$PARAM[video_codec]]" />
+			</include>
+			<include content="NaraTechnicalTextPill">
+				<param name="flag_visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[audio_codec])" />
+				<param name="flag_label" value="$MAP[NaraTechnicalAudioCodecTextMap,$PARAM[audio_codec]]" />
+			</include>
+			<!-- Language is intentionally omitted. -->
+			<include content="NaraTechnicalTextPill">
+				<param name="flag_visible" value="$PARAM[visible] + !String.IsEmpty($PARAM[audio_channels])" />
+				<param name="flag_label" value="$INFO[$PARAM[audio_channels]]" />
+			</include>
+		</definition>
+	</include>
+
+	<!-- Public shared component. Callers only identify the item source and placement; source
+	     selection, aliases, dual HDR, Dolby Vision detail and missing-value compaction stay here. -->
+	<include name="VideoTechnicalFlagsRow">
+		<param name="top">0</param>
+		<param name="width">1060</param>
+		<param name="visible">true</param>
+		<param name="item_prefix">ListItem</param>
+		<definition>
+			<control type="grouplist">
+				<top>$PARAM[top]</top>
+				<width>$PARAM[width]</width>
+				<height>36</height>
+				<orientation>horizontal</orientation>
+				<itemgap>8</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+				<visible>$PARAM[visible]</visible>
+
+				<include content="VideoTechnicalFlagsContent">
+					<param name="visible" value="!String.IsEqual($PARAM[item_prefix].DBType,tvshow)" />
+					<param name="resolution" value="$PARAM[item_prefix].VideoResolution" />
+					<param name="hdr_type" value="$PARAM[item_prefix].HdrType" />
+					<param name="hdr_detail" value="$PARAM[item_prefix].HdrDetail" />
+					<param name="hdr_type_1" value="$PARAM[item_prefix].Property(HdrType.1)" />
+					<param name="hdr_detail_1" value="$PARAM[item_prefix].Property(HdrDetail.1)" />
+					<param name="hdr_type_2" value="$PARAM[item_prefix].Property(HdrType.2)" />
+					<param name="hdr_detail_2" value="$PARAM[item_prefix].Property(HdrDetail.2)" />
+					<param name="video_codec" value="$PARAM[item_prefix].VideoCodec" />
+					<param name="audio_codec" value="$PARAM[item_prefix].AudioCodec" />
+					<param name="audio_channels" value="$PARAM[item_prefix].AudioChannels(DefaultLayout)" />
+				</include>
+
+				<include content="VideoTechnicalFlagsContent">
+					<param name="visible" value="String.IsEqual($PARAM[item_prefix].DBType,tvshow)" />
+					<param name="resolution" value="$PARAM[item_prefix].Property(TvShowRepresentative.VideoResolution)" />
+					<param name="hdr_type" value="$PARAM[item_prefix].Property(TvShowRepresentative.HdrType)" />
+					<param name="hdr_detail" value="$PARAM[item_prefix].Property(TvShowRepresentative.HdrDetail)" />
+					<param name="hdr_type_1" value="$PARAM[item_prefix].Property(TvShowRepresentative.HdrType.1)" />
+					<param name="hdr_detail_1" value="$PARAM[item_prefix].Property(TvShowRepresentative.HdrDetail.1)" />
+					<param name="hdr_type_2" value="$PARAM[item_prefix].Property(TvShowRepresentative.HdrType.2)" />
+					<param name="hdr_detail_2" value="$PARAM[item_prefix].Property(TvShowRepresentative.HdrDetail.2)" />
+					<param name="video_codec" value="$PARAM[item_prefix].Property(TvShowRepresentative.VideoCodec)" />
+					<param name="audio_codec" value="$PARAM[item_prefix].Property(TvShowRepresentative.AudioCodec)" />
+					<param name="audio_channels" value="$PARAM[item_prefix].Property(TvShowRepresentative.AudioChannels)" />
+				</include>
+			</control>
+		</definition>
+	</include>
+</includes>
